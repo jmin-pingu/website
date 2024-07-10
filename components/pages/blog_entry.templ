@@ -1,0 +1,25 @@
+package pages
+
+import (
+	"mywebsite/components/shared"
+	"mywebsite/components/partials"
+	"mywebsite/ds"
+
+	"context"
+	"io"
+)
+
+func Unsafe(html string) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		_, err = io.WriteString(w, html)
+		return
+	})
+}
+
+templ BlogEntryPage(title, html string, pages_metadata *ds.Pages, posts_metadata *ds.Posts) {
+	@shared.Page(title) {
+		@partials.Menu(*pages_metadata)
+		// Render md to HTML	
+		@Unsafe(html)
+	}
+}

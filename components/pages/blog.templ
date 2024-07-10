@@ -1,0 +1,47 @@
+package pages
+
+import (
+	"mywebsite/components/shared"
+	"mywebsite/components/partials"
+	"mywebsite/ds"
+	"strings"
+)
+
+templ BlogPage(pages_metadata *ds.Pages, posts_metadata *ds.Posts, tags *ds.OrderedList[string], filter_tags ds.Set[string]) {
+	@shared.Page("Blog") {
+		@partials.Menu(*pages_metadata)
+		@partials.Search("/blog/search", "#blog-posts")
+		@DisplayTags(tags)
+		<h1>Blog Posts</h1>
+		@BlogPosts(posts_metadata, filter_tags, "")
+	}
+}
+
+templ DisplayTags(tags *ds.OrderedList[string]) {
+	<h2>Tags</h2>
+	<ul>
+		for _, v := range *tags {
+			<li> <label> { v } </label> 
+				<input name={ v } 
+					type="checkbox" 
+					value="1" 
+					hx-post="/blog/" 
+					hx-target="#blog-posts"
+					hx-swap="outerHTML"
+					hx-include="next input"/> 
+				<input type="hidden" name={ v } value="0"/> 
+			</li>
+		}
+	</ul>
+}
+
+templ BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search string) {
+	<ul id="blog-posts">
+		for _, post := range *posts_metadata {
+			
+			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.Intersection(post.Tags)).IsEmpty() {
+				<li> <a id={ post.ID.String() } href={ post.Link }> { post.Title } </a> </li>
+			}
+		}
+	</ul>
+}

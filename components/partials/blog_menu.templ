@@ -1,0 +1,19 @@
+package partials
+
+import (
+	"mywebsite/ds"
+)
+
+templ BlogMenu(posts ds.Posts) {
+	<ul class="menu">
+		for _, post := range posts{ 
+			@MenuItems(post.Title, post.Link)
+		}
+	</ul>
+}
+
+templ BlogMenuItems(title string, link templ.SafeURL) {
+	<li> 
+		<a href={ link }> { title } </a>
+	</li>
+}

@@ -1,0 +1,13 @@
+package pages
+
+import (
+	"mywebsite/components/shared"
+	"mywebsite/components/partials"
+	"mywebsite/ds"
+)
+
+templ HomePage(pages_metadata *ds.Pages) {
+	@shared.Page("Home") {
+		@partials.Menu(*pages_metadata)
+	}
+}

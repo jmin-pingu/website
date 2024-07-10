@@ -1,0 +1,19 @@
+package partials
+
+import (
+	"mywebsite/ds"
+)
+
+templ Menu(pageLinks ds.Pages) {
+	<ul class="menu">
+		for _, page:= range pageLinks{ 
+			@MenuItems(page.Name, page.Link)
+		}
+	</ul>
+}
+
+templ MenuItems(page string, link templ.SafeURL) {
+	<li> 
+		<a href={ link }> { page } </a>
+	</li>
+}
