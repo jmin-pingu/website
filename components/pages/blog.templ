@@ -38,8 +38,7 @@ templ DisplayTags(tags *ds.OrderedList[string]) {
 templ BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search string) {
 	<ul id="blog-posts">
 		for _, post := range *posts_metadata {
-			
-			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.Intersection(post.Tags)).IsEmpty() {
+			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.IsEmpty() || !(tags_filter.Intersection(post.Tags)).IsEmpty()) {
 				<li> <a id={ post.ID.String() } href={ post.Link }> { post.Title } </a> </li>
 			}
 		}

@@ -181,7 +181,7 @@ func BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search stri
 			return templ_7745c5c3_Err
 		}
 		for _, post := range *posts_metadata {
-			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.Intersection(post.Tags)).IsEmpty() {
+			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.IsEmpty() || !(tags_filter.Intersection(post.Tags)).IsEmpty()) {
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li><a id=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -189,7 +189,7 @@ func BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search stri
 				var templ_7745c5c3_Var8 string
 				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(post.ID.String())
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 43, Col: 33}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 42, Col: 33}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 				if templ_7745c5c3_Err != nil {
@@ -211,7 +211,7 @@ func BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search stri
 				var templ_7745c5c3_Var10 string
 				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(post.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 43, Col: 68}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 42, Col: 68}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 				if templ_7745c5c3_Err != nil {

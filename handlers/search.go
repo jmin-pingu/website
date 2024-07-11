@@ -15,6 +15,6 @@ func getSearchInputs(c echo.Context) error {
 	log.Printf("getSearchInputs %v", vals["search"])
 
 	var buf bytes.Buffer
-	pages.BlogPosts(&POSTS_METADATA, DISPLAY_TAGS).Render(context.Background(), &buf, vals["search"])
+	pages.BlogPosts(&POSTS_METADATA, DISPLAY_TAGS, vals["search"][0]).Render(context.Background(), &buf)
 	return c.HTML(http.StatusOK, buf.String())
 }
