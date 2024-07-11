@@ -1,3 +1,6 @@
-# Ignore posts
+# Ignore posts and hidden files
+.*
 *.md
-
+# Do not ignore README and .gitignore
+!README.md
+!/.gitignore
