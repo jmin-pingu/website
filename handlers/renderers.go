@@ -16,11 +16,11 @@ import (
 	"github.com/a-h/templ"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	mathjax "github.com/litao91/goldmark-mathjax"
 	"github.com/yuin/goldmark"
 	meta "github.com/yuin/goldmark-meta"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer/html"
 )
 
 func SetupRenders(e *echo.Echo) {
@@ -76,6 +76,7 @@ func RenderBlogPosts(e *echo.Echo) {
 		// Convert markdown to HTML
 		html := mdToHTML(md)
 		e.GET(url, blogPageRenderer(metadata["title"].(string), html, &PAGES_METADATA, &POSTS_METADATA))
+
 	}
 }
 
@@ -126,7 +127,9 @@ func mdToHTML(md []byte) string {
 			meta.Meta,
 			extension.Strikethrough,
 			extension.Table,
-			mathjax.MathJax,
+		),
+		goldmark.WithRendererOptions(
+			html.WithUnsafe(),
 		),
 	)
 	if err := custom_parser.Convert([]byte(md), &buf); err != nil {

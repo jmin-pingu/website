@@ -5,11 +5,13 @@ import (
 )
 
 templ Menu(pageLinks ds.Pages) {
-	<ul class="menu">
-		for _, page:= range pageLinks{ 
-			@MenuItems(page.Name, page.Link)
-		}
-	</ul>
+	<nav class="menu">
+		<ul>
+			for _, page:= range pageLinks{ 
+				@MenuItems(page.Name, page.Link)
+			}
+		</ul>
+	</nav>
 }
 
 templ MenuItems(page string, link templ.SafeURL) {
