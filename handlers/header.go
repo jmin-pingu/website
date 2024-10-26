@@ -11,6 +11,7 @@ var PAGES_METADATA ds.Pages = []ds.Page{
 	ds.Page{Name: "Blog", Link: templ.URL("/blog/")},
 	ds.Page{Name: "Resources", Link: templ.URL("/resources/")},
 	ds.Page{Name: "Projects", Link: templ.URL("/projects/")},
+	ds.Page{Name: "Creative", Link: templ.URL("/creative/")},
 }
 
 var POSTS_METADATA ds.Posts = []*ds.Post{}

@@ -29,10 +29,12 @@ func SetupRenders(e *echo.Echo) {
 	e.GET("/blog/", blogRenderer(&PAGES_METADATA, &POSTS_METADATA, &POSTS_TAGS, DISPLAY_TAGS))
 	e.GET("/resources/", resourcesRenderer(&PAGES_METADATA))
 	e.GET("/projects/", projectsRenderer(&PAGES_METADATA))
+	e.GET("/creative/", projectsRenderer(&PAGES_METADATA))
 	// Render blog posts
 	RenderBlogPosts(e)
 }
 
+// NOTE: need to rethink how this will work with a db.
 func RenderBlogPosts(e *echo.Echo) {
 	dir, _ := os.Getwd()
 	post_fnames, _ := os.ReadDir(dir + "/posts")
