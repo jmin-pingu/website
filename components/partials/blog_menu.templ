@@ -7,7 +7,7 @@ import (
 templ BlogMenu(posts ds.Posts) {
 	<ul class="menu">
 		for _, post := range posts{ 
-			@MenuItems(post.Title, post.Link)
+			@BlogMenuItems(post.Title, post.Link)
 		}
 	</ul>
 }

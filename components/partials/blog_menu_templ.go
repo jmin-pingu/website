@@ -35,7 +35,7 @@ func BlogMenu(posts ds.Posts) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		for _, post := range posts {
-			templ_7745c5c3_Err = MenuItems(post.Title, post.Link).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = BlogMenuItems(post.Title, post.Link).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

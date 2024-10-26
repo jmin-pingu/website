@@ -8,7 +8,9 @@ import (
 
 templ ProjectsPage(pages_metadata *ds.Pages) {
 	@shared.Page("Projects") {
-		@partials.Menu(*pages_metadata)
+		@partials.Nav(*pages_metadata)
+		// TODO: add a list of projects. Also, maybe make projects runnable with wasm runtimes
 	}
 }
+
 

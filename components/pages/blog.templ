@@ -9,15 +9,25 @@ import (
 
 templ BlogPage(pages_metadata *ds.Pages, posts_metadata *ds.Posts, tags *ds.OrderedList[string], filter_tags ds.Set[string]) {
 	@shared.Page("Blog") {
-		@partials.Menu(*pages_metadata)
+		@partials.Nav(*pages_metadata)
 		@partials.Search("/blog/search", "#blog-posts")
-		@DisplayTags(tags)
+		@TagsNavigation(tags) // Filter for blog post tags 
+		<body>
 		<h1>Blog Posts</h1>
+		@BlogPageContent()
 		@BlogPosts(posts_metadata, filter_tags, "")
+		</body>
 	}
 }
 
-templ DisplayTags(tags *ds.OrderedList[string]) {
+
+templ BlogPageContent() {
+	<p>
+	On my free time, I enjoy writing about the things that I am learning, find interesting, or am working on. Here are these posts!
+	</p>
+}
+
+templ TagsNavigation(tags *ds.OrderedList[string]) {
 	<h2>Tags</h2>
 	<ul>
 		for _, v := range *tags {
@@ -36,11 +46,12 @@ templ DisplayTags(tags *ds.OrderedList[string]) {
 }
 
 templ BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search string) {
-	<ul id="blog-posts">
+	<dl id="blog-posts">
 		for _, post := range *posts_metadata {
+			// TODO: add documentation
 			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.IsEmpty() || !(tags_filter.Intersection(post.Tags)).IsEmpty()) {
-				<li> <a id={ post.ID.String() } href={ post.Link }> { post.Title } </a> </li>
+				<dt> <a id={ post.ID.String() } href={ post.Link }> { post.Title } </a> </dt>
 			}
 		}
-	</ul>
+	</dl>
 }

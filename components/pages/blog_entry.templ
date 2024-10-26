@@ -18,7 +18,7 @@ func Unsafe(html string) templ.Component {
 
 templ BlogEntryPage(title, html string, pages_metadata *ds.Pages, posts_metadata *ds.Posts) {
 	@shared.Page(title) {
-		@partials.Menu(*pages_metadata)
+		@partials.Nav(*pages_metadata)
 		// Render md to HTML	
 		@Unsafe(html)
 	}

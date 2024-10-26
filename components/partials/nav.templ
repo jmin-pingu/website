@@ -4,15 +4,15 @@ import (
 	"mywebsite/ds"
 )
 
-templ Menu(pageLinks ds.Pages) {
+templ Nav(pageLinks ds.Pages) {
 	<ul class="menu">
 		for _, page:= range pageLinks{ 
-			@MenuItems(page.Name, page.Link)
+			@NavItems(page.Name, page.Link)
 		}
 	</ul>
 }
 
-templ MenuItems(page string, link templ.SafeURL) {
+templ NavItems(page string, link templ.SafeURL) {
 	<li> 
 		<a href={ link }> { page } </a>
 	</li>
