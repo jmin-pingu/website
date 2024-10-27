@@ -1,7 +1,1 @@
-# Ignore posts and hidden files
-.*
-*.md
-# Do not ignore README and .gitignore
-!README.md
-!TODO.md
-!/.gitignore
+.DS_Store
