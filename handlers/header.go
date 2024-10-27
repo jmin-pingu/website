@@ -2,19 +2,17 @@ package handlers
 
 import (
 	"mywebsite/ds"
-
-	"github.com/a-h/templ"
 )
 
-var PAGES_METADATA ds.Pages = []ds.Page{
-	ds.Page{Name: "Home", Link: templ.URL("/")},
-	ds.Page{Name: "Blog", Link: templ.URL("/blog/")},
-	ds.Page{Name: "Resources", Link: templ.URL("/resources/")},
-	ds.Page{Name: "Projects", Link: templ.URL("/projects/")},
-	ds.Page{Name: "Creative", Link: templ.URL("/creative/")},
+var PAGES_METADATA ds.PagesMetadata = []ds.PageMetadata{
+	ds.NewPageMetadata("Home", "/"),
+	ds.NewPageMetadata("Blog", "/blog/"),
+	ds.NewPageMetadata("Resources", "/resources/"),
+	ds.NewPageMetadata("Projects", "/projects/"),
+	ds.NewPageMetadata("Creative", "/creative/"),
 }
 
-var POSTS_METADATA ds.Posts = []*ds.Post{}
+var POSTS_METADATA ds.PostsMetadata = []*ds.PostMetadata{}
 
 var POSTS_TAGS ds.OrderedList[string] = make(ds.OrderedList[string], 0)
 

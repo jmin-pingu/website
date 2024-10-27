@@ -3,7 +3,6 @@ package handlers
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -38,10 +37,20 @@ func SetupRenders(e *echo.Echo) {
 func RenderBlogPosts(e *echo.Echo) {
 	dir, _ := os.Getwd()
 	post_fnames, _ := os.ReadDir(dir + "/posts")
-	for _, fname := range post_fnames {
-		fmt.Printf("%v\n", fname.Name())
+	// dbpool, err := db.GetConnection("websitedb")
+	// defer dbpool.Close()
+
+	// response := db.GetAll(dbpool, "posts")
+	// for i := 0; response.Next() && i < n; i++ {
+	// 	values, _ := response.Values()
+	// 	fmt.Printf("%v\n", values)
+	// }
+
+	for i, fname := range post_fnames {
 		path := "posts/" + fname.Name()
+		// NOTE: this is where I need to access DB
 		md, err := os.ReadFile(path)
+		// content
 		if err != nil {
 			log.Printf("failed to read markdown file: %v", err)
 			continue
@@ -73,7 +82,7 @@ func RenderBlogPosts(e *echo.Echo) {
 		} else {
 			url = "/blog/" + link.(string)
 		}
-		POSTS_METADATA.AddPost(metadata["title"].(string), date, url, tags)
+		POSTS_METADATA.AddPostMetadata(metadata["title"].(string), date, i, url, tags)
 
 		// Convert markdown to HTML
 		html := mdToHTML(md)
@@ -82,31 +91,31 @@ func RenderBlogPosts(e *echo.Echo) {
 }
 
 // ----- Renderers -----
-func homeRenderer(pages_metadata *ds.Pages) echo.HandlerFunc {
+func homeRenderer(pages_metadata *ds.PagesMetadata) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return pages.HomePage(pages_metadata).Render(context.Background(), c.Response().Writer)
 	}
 }
 
-func blogRenderer(pages_metadata *ds.Pages, posts_metadata *ds.Posts, tags *ds.OrderedList[string], filter_tags ds.Set[string]) echo.HandlerFunc {
+func blogRenderer(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata, tags *ds.OrderedList[string], filter_tags ds.Set[string]) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return pages.BlogPage(pages_metadata, posts_metadata, tags, filter_tags).Render(context.Background(), c.Response().Writer)
 	}
 }
 
-func resourcesRenderer(pages_metadata *ds.Pages) echo.HandlerFunc {
+func resourcesRenderer(pages_metadata *ds.PagesMetadata) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return pages.ResourcesPage(pages_metadata).Render(context.Background(), c.Response().Writer)
 	}
 }
 
-func projectsRenderer(pages_metadata *ds.Pages) echo.HandlerFunc {
+func projectsRenderer(pages_metadata *ds.PagesMetadata) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return pages.ProjectsPage(pages_metadata).Render(context.Background(), c.Response().Writer)
 	}
 }
 
-func blogPageRenderer(fname, url string, pages_metadata *ds.Pages, posts_metadata *ds.Posts) echo.HandlerFunc {
+func blogPageRenderer(fname, url string, pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return pages.BlogEntryPage(fname, url, pages_metadata, posts_metadata).Render(context.Background(), c.Response().Writer)
 	}
