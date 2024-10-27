@@ -12,7 +12,7 @@ import (
 	"mywebsite/ds"
 )
 
-func Nav(pageLinks ds.Pages) templ.Component {
+func Nav(pages_metadata ds.PagesMetadata) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -34,8 +34,8 @@ func Nav(pageLinks ds.Pages) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		for _, page := range pageLinks {
-			templ_7745c5c3_Err = NavItems(page.Name, page.Link).Render(ctx, templ_7745c5c3_Buffer)
+		for _, pm := range pages_metadata {
+			templ_7745c5c3_Err = NavItems(pm.Name, pm.Path).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

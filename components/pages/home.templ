@@ -6,7 +6,7 @@ import (
 	"mywebsite/ds"
 )
 
-templ HomePage(pages_metadata *ds.Pages) {
+templ HomePage(pages_metadata *ds.PagesMetadata) {
 	@shared.Page("Home") {
 		@partials.Nav(*pages_metadata)
 		<body>

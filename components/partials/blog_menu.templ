@@ -4,10 +4,10 @@ import (
 	"mywebsite/ds"
 )
 
-templ BlogMenu(posts ds.Posts) {
+templ BlogMenu(posts_metadata ds.PostsMetadata) {
 	<ul class="menu">
-		for _, post := range posts{ 
-			@BlogMenuItems(post.Title, post.Link)
+		for _, pm := range posts_metadata{ 
+			@BlogMenuItems(pm.Title, pm.Path)
 		}
 	</ul>
 }

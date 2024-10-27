@@ -6,7 +6,7 @@ import (
 	"mywebsite/ds"
 )
 
-templ ResourcesPage(pages_metadata *ds.Pages) {
+templ ResourcesPage(pages_metadata *ds.PagesMetadata) {
 	@shared.Page("Resources") {
 		@partials.Nav(*pages_metadata)
 		<body>

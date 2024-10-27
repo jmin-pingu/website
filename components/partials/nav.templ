@@ -4,10 +4,10 @@ import (
 	"mywebsite/ds"
 )
 
-templ Nav(pageLinks ds.Pages) {
+templ Nav(pages_metadata ds.PagesMetadata) {
 	<ul class="menu">
-		for _, page:= range pageLinks{ 
-			@NavItems(page.Name, page.Link)
+		for _, pm := range pages_metadata { 
+			@NavItems(pm.Name, pm.Path)
 		}
 	</ul>
 }

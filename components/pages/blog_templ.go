@@ -12,10 +12,11 @@ import (
 	"mywebsite/components/partials"
 	"mywebsite/components/shared"
 	"mywebsite/ds"
+	"strconv"
 	"strings"
 )
 
-func BlogPage(pages_metadata *ds.Pages, posts_metadata *ds.Posts, tags *ds.OrderedList[string], filter_tags ds.Set[string]) templ.Component {
+func BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata, tags *ds.OrderedList[string], filter_tags ds.Set[string]) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -147,7 +148,7 @@ func TagsNavigation(tags *ds.OrderedList[string]) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(v)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 34, Col: 19}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 35, Col: 19}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -160,7 +161,7 @@ func TagsNavigation(tags *ds.OrderedList[string]) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(v)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 35, Col: 19}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 36, Col: 19}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -173,7 +174,7 @@ func TagsNavigation(tags *ds.OrderedList[string]) templ.Component {
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(v)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 42, Col: 33}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 43, Col: 33}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
@@ -192,7 +193,7 @@ func TagsNavigation(tags *ds.OrderedList[string]) templ.Component {
 	})
 }
 
-func BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search string) templ.Component {
+func BlogPosts(posts_metadata *ds.PostsMetadata, tags_filter ds.Set[string], search string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -225,9 +226,9 @@ func BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search stri
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var9 string
-				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(post.ID.String())
+				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(post.PostID))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 53, Col: 33}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 54, Col: 42}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -237,7 +238,7 @@ func BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search stri
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var10 templ.SafeURL = post.Link
+				var templ_7745c5c3_Var10 templ.SafeURL = post.Path
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var10)))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -249,7 +250,7 @@ func BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search stri
 				var templ_7745c5c3_Var11 string
 				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(post.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 53, Col: 68}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/blog.templ`, Line: 54, Col: 77}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {

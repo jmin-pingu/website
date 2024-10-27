@@ -26,7 +26,7 @@ func Footer() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer><div>© 2024 Jonathan Min.</div><div><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"mailto:jonathanheromin@gmail.com\"><span>mail</span></a> <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/jmin_pingu\"><span>github</span></a> <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.linkedin.com/in/jonathan-min\"><span>linkedin</span></a></div></footer>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer><div>© 2024 Jonathan Min.</div><div><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"mailto:jonathanheromin@gmail.com\"><span>mail</span></a> <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/jmin-pingu\"><span>github</span></a> <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.linkedin.com/in/jonathan-min\"><span>linkedin</span></a></div></footer>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

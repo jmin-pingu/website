@@ -6,7 +6,7 @@ import (
 	"mywebsite/ds"
 )
 
-templ CreativePage(pages_metadata *ds.Pages) {
+templ CreativePage(pages_metadata *ds.PagesMetadata) {
 	@shared.Page("Creative") {
 		@partials.Nav(*pages_metadata)
 		<body>

@@ -5,9 +5,10 @@ import (
 	"mywebsite/components/partials"
 	"mywebsite/ds"
 	"strings"
+	"strconv"
 )
 
-templ BlogPage(pages_metadata *ds.Pages, posts_metadata *ds.Posts, tags *ds.OrderedList[string], filter_tags ds.Set[string]) {
+templ BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata, tags *ds.OrderedList[string], filter_tags ds.Set[string]) {
 	@shared.Page("Blog") {
 		@partials.Nav(*pages_metadata)
 		@partials.Search("/blog/search", "#blog-posts")
@@ -45,12 +46,12 @@ templ TagsNavigation(tags *ds.OrderedList[string]) {
 	</ul>
 }
 
-templ BlogPosts(posts_metadata *ds.Posts, tags_filter ds.Set[string], search string) {
+templ BlogPosts(posts_metadata *ds.PostsMetadata, tags_filter ds.Set[string], search string) {
 	<dl id="blog-posts">
 		for _, post := range *posts_metadata {
 			// TODO: add documentation
 			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.IsEmpty() || !(tags_filter.Intersection(post.Tags)).IsEmpty()) {
-				<dt> <a id={ post.ID.String() } href={ post.Link }> { post.Title } </a> </dt>
+				<dt> <a id={ strconv.Itoa(post.PostID) } href={ post.Path }> { post.Title } </a> </dt>
 			}
 		}
 	</dl>
