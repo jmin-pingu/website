@@ -7,8 +7,11 @@ import (
 	"io"
 	"log"
 	"mywebsite/db"
+	"mywebsite/ds"
 	"os"
 	"regexp"
+	"strings"
+	"time"
 
 	"github.com/a-h/templ"
 	mathjax "github.com/litao91/goldmark-mathjax"
@@ -20,7 +23,10 @@ import (
 
 func main() {
 	paths := os.Args[1:]
-	// TODO: add functionality with glob and paths
+	// Sanity check
+	if len(paths) == 0 {
+		panic("Did not provide paths to upload (.md files)")
+	}
 
 	// Initialize db
 	dbpool, err := db.GetConnection("websitedb")
@@ -31,12 +37,13 @@ func main() {
 		os.Exit(1)
 	}
 
+	fmt.Println("--------- Uploading Paths to `posts` table ---------")
+	fmt.Println("Paths: %v", paths)
 	// Parse through paths
-	fmt.Println("Input paths: %s", paths)
 	for _, path := range paths {
 		// NOTE: a bunch of checks to make sure the file is valid
 		if _, err := os.Stat(path); err == nil {
-			fmt.Println("Path is valid:", path)
+			fmt.Println("valid path:", path)
 		} else if match, _ := regexp.MatchString(".md$", path); !match {
 			fmt.Fprintf(os.Stderr, "`upload.go` failed to read arguments : file should be .md\n")
 			os.Exit(1)
@@ -48,23 +55,46 @@ func main() {
 			os.Exit(1)
 		}
 
-		// Read md file
+		// Read md file and extract content and metadata
 		md, err := os.ReadFile(path)
 		if err != nil {
 			log.Fatalf("failed to read markdown file: %v", err)
 		}
-		// html := mdToHTML(md)
-		metadata := getMetadata(md)
-		fmt.Println("Path %s Metadata %s", path, metadata)
+		content := mdToHTML(md)
+		tags, title, link, date := parse_md_metadata(md)
 
 		// Based on contents of md file, upload or insert
-		// if db.Exists(dbpool, "posts", "link", ...) {
-		// 	// TODO: call INSERT
-		// } else {
-		// 	// TODO: call UPDATE
-		// }
-
+		if db.Exists(dbpool, "posts", "link", link) {
+			db.UploadPost(dbpool, "update", tags, title, link, date, content)
+		} else {
+			db.UploadPost(dbpool, "insert", tags, title, link, date, content)
+		}
 	}
+	fmt.Println("success 🎉")
+}
+
+func parse_md_metadata(md []byte) ([]string, string, string, time.Time) {
+	// Get metadata from markdown
+	metadata := getMetadata(md) // Consider what additional metadata I would want to consider
+
+	// Parse date
+	date, err := time.Parse("2006-01-02", metadata["date"].(string))
+	if err != nil {
+		log.Fatalf("failed to parse date from metadata: %v", err)
+	}
+
+	// Parse tags
+	tags_set := make(ds.Set[string], 0)
+	parsed_tags := strings.Split(metadata["tags"].(string), ",")
+	for _, tag := range parsed_tags {
+		t := strings.ToLower(strings.TrimSpace(tag))
+		tags_set.Add(t) // Per post tag set: ds.Set
+	}
+	tags := make([]string, 0)
+	for k, _ := range tags_set {
+		tags = append(tags, k)
+	}
+	return tags, metadata["title"].(string), metadata["link"].(string), date
 }
 
 // ----- Markdown-to-HTML Functions  -----
