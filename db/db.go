@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -71,25 +70,14 @@ func InitUsers(dbpool *pgxpool.Pool) {
 	}
 }
 
-func GetAll(dbpool *pgxpool.Pool, table string) pgx.Rows {
-	stmt := fmt.Sprintf(`SELECT * FROM %s;`, table)
-
-	rows, err := dbpool.Query(context.Background(), stmt)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "`GetAll` failed: %v\n", err)
-		os.Exit(1)
-	}
-	return rows
-}
-
 func Exists(dbpool *pgxpool.Pool, table string, column string, value string) bool {
 	template := `
 		SELECT 1 FROM %s
 		WHERE %s='%s';
 	`
 	query := fmt.Sprintf(template, table, column, value)
-	fmt.Println(query)
 	rows, err := dbpool.Query(context.Background(), query)
+	defer rows.Close()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "`Exists` failed: %v\n", err)
 		os.Exit(1)
