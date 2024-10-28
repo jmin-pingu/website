@@ -1,10 +1,21 @@
 package main
 
 import (
+	"bytes"
+	"context"
 	"fmt"
+	"io"
+	"log"
 	"mywebsite/db"
 	"os"
 	"regexp"
+
+	"github.com/a-h/templ"
+	mathjax "github.com/litao91/goldmark-mathjax"
+	"github.com/yuin/goldmark"
+	meta "github.com/yuin/goldmark-meta"
+	"github.com/yuin/goldmark/extension"
+	"github.com/yuin/goldmark/parser"
 )
 
 func main() {
@@ -38,6 +49,13 @@ func main() {
 		}
 
 		// Read md file
+		md, err := os.ReadFile(path)
+		if err != nil {
+			log.Fatalf("failed to read markdown file: %v", err)
+		}
+		// html := mdToHTML(md)
+		metadata := getMetadata(md)
+		fmt.Println("Path %s Metadata %s", path, metadata)
 
 		// Based on contents of md file, upload or insert
 		// if db.Exists(dbpool, "posts", "link", ...) {
@@ -47,4 +65,45 @@ func main() {
 		// }
 
 	}
+}
+
+// ----- Markdown-to-HTML Functions  -----
+func Unsafe(html string) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		_, err = io.WriteString(w, html)
+		return
+	})
+}
+
+func mdToHTML(md []byte) string {
+	var buf bytes.Buffer
+	custom_parser := goldmark.New(
+		goldmark.WithExtensions(
+			extension.Footnote,
+			meta.Meta,
+			extension.Strikethrough,
+			extension.Table,
+			mathjax.MathJax,
+		),
+	)
+	if err := custom_parser.Convert([]byte(md), &buf); err != nil {
+		log.Fatalf("failed to convert markdown to HTML: %v", err)
+	}
+	return buf.String()
+}
+
+func getMetadata(md []byte) map[string]interface{} {
+	var buf bytes.Buffer
+	markdown := goldmark.New(
+		goldmark.WithExtensions(
+			meta.Meta,
+		),
+	)
+
+	context := parser.NewContext()
+	if err := markdown.Convert([]byte(md), &buf, parser.WithContext(context)); err != nil {
+		log.Fatalf("failed to extract metadata: %v", err)
+	}
+	metadata := meta.Get(context)
+	return metadata
 }
