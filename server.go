@@ -21,7 +21,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	db.InitPosts(dbpool)
+	db.InitPosts(dbpool, false)
 
 	dbpool.Close() // Make sure to finish the transaction
 
