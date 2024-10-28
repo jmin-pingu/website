@@ -36,6 +36,7 @@ func RenderBlogPosts(e *echo.Echo) {
 	posts := db.GetPosts(dbpool)
 
 	for _, post := range posts {
+		// TODO: fix functionality
 		tags := make(ds.Set[string], 0)
 		for _, tag := range post.Tags {
 			t := strings.ToLower(strings.TrimSpace(tag))
@@ -46,7 +47,6 @@ func RenderBlogPosts(e *echo.Echo) {
 		// If there is a link argument take it, if not use a random uuid
 		url := "/blog/" + post.Link
 		POSTS_METADATA.AddPostMetadata(post.Title, post.Date, post.PostID, url, tags)
-
 		// Convert markdown to HTML
 		e.GET(url, blogPageRenderer(post.Title, post.Content, &PAGES_METADATA, &POSTS_METADATA))
 	}
