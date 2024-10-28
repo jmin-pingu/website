@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/georgysavva/scany/v2/pgxscan"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -32,7 +31,6 @@ import (
 // 		os.Exit(1)
 // 	}
 //
-// 	init_posts(dbpool)
 // 	view(dbpool, "posts", 4)
 //
 // 	fmt.Printf("We are all done!")
@@ -48,8 +46,6 @@ func GetConnection(dbName string) (*pgxpool.Pool, error) {
 		return db, nil
 	}
 	// Init connection to PostgreSQL db
-	fmt.Println("`GetConnection`: %s, %s", os.Getenv("POSTGRES_URL"), dbName)
-	fmt.Println("`GetConnection`: %s", fmt.Sprintf("%s/%s", os.Getenv("POSTGRES_URL"), dbName))
 	dbpool, err := pgxpool.New(context.Background(), fmt.Sprintf("%s/%s", os.Getenv("POSTGRES_URL"), dbName))
 	if err != nil {
 		return nil, fmt.Errorf("🔥 failed to connect to the database: %s", err)
@@ -59,28 +55,7 @@ func GetConnection(dbName string) (*pgxpool.Pool, error) {
 	return dbpool, nil
 }
 
-func init_posts(dbpool *pgxpool.Pool) {
-	var (
-		stmt string
-		err  error
-	)
-	stmt = `CREATE TABLE IF NOT EXISTS posts (
-		post_id 		SERIAL PRIMARY KEY,
-		tags 			VARCHAR(255)[] NOT NULL,
-		title 			VARCHAR(255) NOT NULL,
-		link 			VARCHAR(255) NOT NULL,
-		date 			DATE NOT NULL,
-		content 		TEXT NOT NULL
-	);`
-
-	_, err = dbpool.Exec(context.Background(), stmt)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "`init_posts` failed: %v\n", err)
-		os.Exit(1)
-	}
-}
-
-func init_users(dbpool *pgxpool.Pool) {
+func InitUsers(dbpool *pgxpool.Pool) {
 	var stmt string
 	var err error
 	stmt = `CREATE TABLE IF NOT EXISTS posts (
@@ -107,14 +82,21 @@ func GetAll(dbpool *pgxpool.Pool, table string) pgx.Rows {
 	return rows
 }
 
-func GetPosts(dbpool *pgxpool.Pool) []*Post {
-	query := `SELECT * FROM posts;`
-
-	var posts []*Post
-	err := pgxscan.Select(context.Background(), dbpool, &posts, query)
+func Exists(dbpool *pgxpool.Pool, table string, column string, value string) bool {
+	template := `
+		SELECT 1 FROM %s
+		WHERE %s='%s';
+	`
+	query := fmt.Sprintf(template, table, column, value)
+	fmt.Println(query)
+	rows, err := dbpool.Query(context.Background(), query)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "`GetPosts` failed: %v\n", err)
+		fmt.Fprintf(os.Stderr, "`Exists` failed: %v\n", err)
 		os.Exit(1)
 	}
-	return posts
+
+	for rows.Next() {
+		return true
+	}
+	return false
 }
