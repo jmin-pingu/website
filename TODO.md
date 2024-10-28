@@ -1,4 +1,7 @@
 # TODO
-- [ ] Implement database for my backend
+- [X] Implement database for my backend
+    - [ ] Think about the design for my db
 - [ ] Implement container orchestration + wasm runtimes to evaluate code. Just some additional security.
-- [ ] Basic CSS via Tailwind or some other Go framework
+- [ ] Add CSS via Tailwind 
+- [ ] Add logging
+- [ ] Add Spark functionality
