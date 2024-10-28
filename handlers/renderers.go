@@ -7,13 +7,12 @@ import (
 	"log"
 	"os"
 	"strings"
-	"time"
 
 	"mywebsite/components/pages"
+	"mywebsite/db"
 	"mywebsite/ds"
 
 	"github.com/a-h/templ"
-	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	mathjax "github.com/litao91/goldmark-mathjax"
 	"github.com/yuin/goldmark"
@@ -35,58 +34,30 @@ func SetupRenders(e *echo.Echo) {
 
 // NOTE: need to rethink how this will work with a db.
 func RenderBlogPosts(e *echo.Echo) {
-	dir, _ := os.Getwd()
-	post_fnames, _ := os.ReadDir(dir + "/posts")
-	// dbpool, err := db.GetConnection("websitedb")
-	// defer dbpool.Close()
+	dbpool, err := db.GetConnection("websitedb")
+	if err != nil {
+		log.Printf("failed to connect to db: %v", err)
+		os.Exit(1)
+	}
+	defer dbpool.Close()
 
-	// response := db.GetAll(dbpool, "posts")
-	// for i := 0; response.Next() && i < n; i++ {
-	// 	values, _ := response.Values()
-	// 	fmt.Printf("%v\n", values)
-	// }
+	posts := db.GetPosts(dbpool)
 
-	for i, fname := range post_fnames {
-		path := "posts/" + fname.Name()
-		// NOTE: this is where I need to access DB
-		md, err := os.ReadFile(path)
-		// content
-		if err != nil {
-			log.Printf("failed to read markdown file: %v", err)
-			continue
-		}
-		if strings.HasPrefix(fname.Name(), ".") {
-			continue
-		}
-		// Get metadata from markdown
-		metadata := getMetadata(md) // Consider what additional metadata I would want to consider
-
-		date, err := time.Parse("2006-01-02", metadata["date"].(string))
-		if err != nil {
-			log.Fatalf("failed to parse date from metadata: %v", err)
-		}
-
+	for _, post := range posts {
 		tags := make(ds.Set[string], 0)
-		parsed_tags := strings.Split(metadata["tags"].(string), ",")
-		for _, tag := range parsed_tags {
+		for _, tag := range post.Tags {
 			t := strings.ToLower(strings.TrimSpace(tag))
 			POSTS_TAGS.Add(t) // Universal tag set: ds.OrderedList
 			tags.Add(t)       // Per post tag set: ds.Set
 		}
 
 		// If there is a link argument take it, if not use a random uuid
-		link := metadata["link"]
-		var url string
-		if link == nil {
-			url = "/blog/" + uuid.NewString()
-		} else {
-			url = "/blog/" + link.(string)
-		}
-		POSTS_METADATA.AddPostMetadata(metadata["title"].(string), date, i, url, tags)
+		url := "/blog/" + post.Link
+		POSTS_METADATA.AddPostMetadata(post.Title, post.Date, post.PostID, url, tags)
 
 		// Convert markdown to HTML
-		html := mdToHTML(md)
-		e.GET(url, blogPageRenderer(metadata["title"].(string), html, &PAGES_METADATA, &POSTS_METADATA))
+		html := mdToHTML([]byte(post.Content))
+		e.GET(url, blogPageRenderer(post.Title, html, &PAGES_METADATA, &POSTS_METADATA))
 	}
 }
 
