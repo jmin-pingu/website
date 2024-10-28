@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/georgysavva/scany/v2/pgxscan"
@@ -16,10 +17,10 @@ type Post struct {
 	Title   string
 	Link    string
 	Date    time.Time
-	Content string // Should be .md formated content
+	Content string // Format: HTML
 }
 
-func InitPosts(dbpool *pgxpool.Pool) {
+func InitPosts(dbpool *pgxpool.Pool, clean bool) {
 	var (
 		stmt string
 		err  error
@@ -36,7 +37,9 @@ func InitPosts(dbpool *pgxpool.Pool) {
 	}
 	stmt = string(dat)
 
-	_, err = dbpool.Exec(context.Background(), `DROP TABLE posts;`)
+	if clean {
+		_, err = dbpool.Exec(context.Background(), `DROP TABLE posts;`)
+	}
 	// Execute script
 	_, err = dbpool.Exec(context.Background(), stmt)
 	if err != nil {
@@ -44,6 +47,15 @@ func InitPosts(dbpool *pgxpool.Pool) {
 		os.Exit(1)
 	}
 }
+
+// type Post struct {
+// 	PostID  int
+// 	Tags    []string
+// 	Title   string
+// 	Link    string
+// 	Date    time.Time
+// 	Content string // Format: HTML
+// }
 
 func GetPosts(dbpool *pgxpool.Pool) []*Post {
 	query := `SELECT * FROM posts;`
@@ -57,19 +69,51 @@ func GetPosts(dbpool *pgxpool.Pool) []*Post {
 	return posts
 }
 
-const UPLOAD_TEMPLATE = `
-	INSERT INTO posts (tags, title, link, date, content)
-	VALUES (
-		%s,
-		%s,
-		%s,
-		%s,
-		%s,
-	);
-`
+func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, link string, date time.Time, content string) {
+	var (
+		script string
+		err    error
+	)
+	UPDATE_TEMPLATE := `
+		UPDATE posts 
+		SET tags=%s, title='%s', link='%s', date='%s', content=$html$%s$html$
+		WHERE link = '%s';
+	`
 
-const UPDATE_TEMPLATE = `
-	UPDATE posts 
-	SET tags=%s, title=%s, link=%s, date=%s, content=%s
-	WHERE link == %s;
-`
+	INSERT_TEMPLATE := `
+		INSERT INTO posts (tags, title, link, date, content)
+		VALUES (
+			%s,
+			'%s',
+			'%s',
+			'%s',
+			$html$%s$html$
+		);
+	`
+
+	// Parse date and tags to make sure inputs work with SQL
+	parsed_date := strings.Split(date.String(), " ")[0] // Change date to proper formatting for SQL
+
+	parsed_tags := "ARRAY["
+	for _, v := range tags {
+		parsed_tags = parsed_tags + "'" + v + "',"
+	}
+	parsed_tags = parsed_tags[:len(parsed_tags)-1] + "]"
+
+	switch cmd {
+	case "update":
+		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, title, link, parsed_date, content, link)
+		fmt.Printf("\tupdated link: %v\n", link)
+	case "insert":
+		script = fmt.Sprintf(INSERT_TEMPLATE, parsed_tags, title, link, parsed_date, content)
+		fmt.Printf("\tupdated link: %v\n", link)
+	default:
+		panic("`UploadPost`: `cmd` should either be `update` or `insert`")
+	}
+	// Execute script
+	_, err = dbpool.Exec(context.Background(), script)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "`UploadPost` failed: %v\n", err)
+		os.Exit(1)
+	}
+}
