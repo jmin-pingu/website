@@ -20,6 +20,7 @@ func SetupRenders(e *echo.Echo) {
 	e.GET("/resources/", resourcesRenderer(&PAGES_METADATA))
 	e.GET("/projects/", projectsRenderer(&PAGES_METADATA))
 	e.GET("/creative/", projectsRenderer(&PAGES_METADATA))
+	e.GET("/reading_list/", projectsRenderer(&PAGES_METADATA))
 	// Render blog posts
 	RenderBlogPosts(e)
 }

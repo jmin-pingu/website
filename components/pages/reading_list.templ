@@ -1,0 +1,20 @@
+package pages
+
+import (
+	"mywebsite/components/shared"
+	"mywebsite/components/partials"
+	"mywebsite/ds"
+)
+
+templ ReadingListPage(pages_metadata *ds.PagesMetadata) {
+	@shared.Page("Reading List") {
+		@partials.Nav(*pages_metadata)
+		<body>
+		@ReadingListContents()
+		</body>
+	}
+}
+
+templ ReadingListContents() {
+	<h1>Whats up fuckers. Its time to be creative.</h1>
+}

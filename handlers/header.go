@@ -10,6 +10,7 @@ var PAGES_METADATA ds.PagesMetadata = []ds.PageMetadata{
 	ds.NewPageMetadata("Resources", "/resources/"),
 	ds.NewPageMetadata("Projects", "/projects/"),
 	ds.NewPageMetadata("Creative", "/creative/"),
+	ds.NewPageMetadata("Reading List", "/reading_list/"),
 }
 
 var POSTS_METADATA ds.PostsMetadata = []*ds.PostMetadata{}
