@@ -21,6 +21,7 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Realistically, we really do not want the option to delete the DB.
 	db.InitPosts(dbpool, false)
 
 	dbpool.Close() // Make sure to finish the transaction
