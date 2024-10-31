@@ -96,7 +96,7 @@ func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, l
 
 	parsed_tags := "ARRAY["
 	for _, v := range tags {
-		parsed_tags = parsed_tags + "'" + v + "',"
+		parsed_tags = parsed_tags + "'" + strings.ToLower(v) + "',"
 	}
 	parsed_tags = parsed_tags[:len(parsed_tags)-1] + "]"
 
