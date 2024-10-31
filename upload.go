@@ -60,7 +60,7 @@ func main() {
 
 	switch target {
 	case "books":
-		UploadToBooks(paths)
+		UploadToBooks(dbpool, paths)
 	case "posts":
 		UploadToPosts(dbpool, paths)
 	}
@@ -83,7 +83,7 @@ type Book struct {
 	DateCompleted string   `json:"date_completed"`
 }
 
-func UploadToBooks(paths []string) {
+func UploadToBooks(dbpool *pgxpool.Pool, paths []string) {
 	// NOTE: check for appropriate thing to upload
 	fmt.Println("--------- Uploading Paths to `books` table ---------")
 	fmt.Println("Paths: %v", paths)
@@ -108,13 +108,7 @@ func UploadToBooks(paths []string) {
 	books := ParseBooksJson(path)
 	for _, book := range books {
 		ParseBook(book)
-
-		// Based on contents of md file, upload or insert
-		if db.Exists(dbpool, "posts", "link", link) {
-			db.UploadBook(dbpool, "update", tags, title, link, date, content)
-		} else {
-			db.UploadBook(dbpool, "insert", tags, title, link, date, content)
-		}
+		// TODO: need to implement uploading scheme for books
 	}
 }
 
