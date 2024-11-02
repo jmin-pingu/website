@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -62,46 +63,36 @@ func GetBooks(dbpool *pgxpool.Pool) []*Book {
 	return books
 }
 
-func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, title string, link string, date time.Time, content string) {
+func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time) {
 	var (
 		script string
 		err    error
 	)
 
-	// book_id 			SERIAL PRIMARY KEY,
-	// tags   				VARCHAR(255)[] NOT NULL,
-	// author 				VARCHAR(255)[] NOT NULL,
-	// title 				VARCHAR(255) NOT NULL,
-	// url 				VARCHAR(1023) NOT NULL UNIQUE,
-	// in_progress 		BOOLEAN NOT NULL,
-	// completed 			BOOLEAN NOT NULL,
-	// rating 				NUMERIC CHECK (rating >= 0 AND rating <= 10),
-	// date_published 		DATE NOT NULL,
-	// date_completed 		DATE,
-
 	UPDATE_TEMPLATE := `
 		UPDATE books 
-		SET tags=%s, author=%s, title='%s', url='%s', in_progress='%s', completed='%s', rating='%s', date_published='%s', date_completed='%s'
-		WHERE link = '%s';
+		SET tags=%v, author=%v, title='%v', url='%v', in_progress='%v', completed='%v', rating=%v, date_published='%v', date_completed=%v
+		WHERE title = '%v';
 	`
 
 	INSERT_TEMPLATE := `
 		INSERT INTO books (tags, author, title, url, in_progress, completed, rating, date_published, date_completed)
 		VALUES (
-			%s,
-			%s,
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
+			%v,
+			%v,
+			'%v',
+			'%v',
+			'%v',
+			'%v',
+			%v,
+			'%v',
+			%v
 		);
 	`
 
 	// Parse date and tags to make sure inputs work with SQL
-	parsed_date := strings.Split(date.String(), " ")[0] // Change date to proper formatting for SQL
+	parsed_date_published := strings.Split(date_published.String(), " ")[0]             // Change date to proper formatting for SQL
+	parsed_date_completed := "'" + strings.Split(date_completed.String(), " ")[0] + "'" // Change date to proper formatting for SQL
 
 	parsed_tags := "ARRAY["
 	for _, v := range tags {
@@ -109,16 +100,37 @@ func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, title string, l
 	}
 	parsed_tags = parsed_tags[:len(parsed_tags)-1] + "]"
 
+	parsed_authors := "ARRAY["
+	for _, v := range author {
+		parsed_authors = parsed_authors + "'" + strings.ToTitle(v) + "',"
+	}
+	parsed_authors = parsed_authors[:len(parsed_authors)-1] + "]"
+
+	// conditions to double check formatting
+	var parsed_rating string
+	if rating == 0 {
+		parsed_rating = "NULL"
+	} else {
+		parsed_rating = "'" + strconv.Itoa(rating) + "'"
+	}
+	if !completed {
+		parsed_date_completed = "NULL"
+	}
+
 	switch cmd {
 	case "update":
-		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, title, link, parsed_date, content, link)
-		fmt.Printf("\tupdated link: %v\n", link)
+		// INSERT INTO books (tags, author, title, url, in_progress, completed, rating, date_published, date_completed)
+		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed, title)
+		fmt.Printf("\tupdated book: %v\n", title)
 	case "insert":
-		script = fmt.Sprintf(INSERT_TEMPLATE, parsed_tags, title, link, parsed_date, content)
-		fmt.Printf("\tupdated link: %v\n", link)
+		script = fmt.Sprintf(INSERT_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed)
+		fmt.Printf("\tupdated book: %v\n", title)
 	default:
 		panic("`UploadPost`: `cmd` should either be `update` or `insert`")
 	}
+
+	fmt.Printf("\tscript: %v\n", script)
+
 	// Execute script
 	_, err = dbpool.Exec(context.Background(), script)
 	if err != nil {

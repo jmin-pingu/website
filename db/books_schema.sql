@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS books (
 	completed 			BOOLEAN NOT NULL, 
  	rating 				NUMERIC CHECK (rating >= 0 AND rating <= 10),
 	date_published 		DATE NOT NULL,
-	date_completed 		DATE,
+	date_completed 		DATE
 );
