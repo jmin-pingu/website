@@ -107,12 +107,19 @@ func UploadToBooks(dbpool *pgxpool.Pool, paths []string) {
 
 	books := ParseBooksJson(path)
 	for _, book := range books {
-		ParseBook(book)
-		// TODO: need to implement uploading scheme for books
+		tags, author, title, url, in_progress, completed, rating, date_published, date_completed := ParseBook(book)
+
+		// cmd string, tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time)
+		if db.Exists(dbpool, "books", "title", title) {
+			db.UploadBook(dbpool, "update", tags, author, title, url, in_progress, completed, rating, date_published, date_completed)
+		} else {
+			db.UploadBook(dbpool, "insert", tags, author, title, url, in_progress, completed, rating, date_published, date_completed)
+		}
 	}
 }
 
-func ParseBook(book Book) {
+// tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time)
+func ParseBook(book Book) ([]string, []string, string, string, bool, bool, int, time.Time, time.Time) {
 	var (
 		date_published time.Time
 		date_completed time.Time
@@ -155,7 +162,7 @@ func ParseBook(book Book) {
 	for k, _ := range authors_set {
 		authors = append(authors, k)
 	}
-	fmt.Println("", date_published, date_completed, tags, authors)
+	return tags, authors, book.Title, book.URL, book.InProgress, book.Completed, book.Rating, date_published, date_completed
 }
 
 func ParseBooksJson(path string) []Book {
@@ -211,7 +218,6 @@ func UploadToPosts(dbpool *pgxpool.Pool, paths []string) {
 			db.UploadPost(dbpool, "insert", tags, title, link, date, content)
 		}
 	}
-
 }
 
 func parse_md_metadata(md []byte) ([]string, string, string, time.Time) {
