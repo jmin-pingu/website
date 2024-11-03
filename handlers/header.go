@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"mywebsite/db"
 	"mywebsite/ds"
 )
 
@@ -14,6 +15,8 @@ var PAGES_METADATA ds.PagesMetadata = []ds.PageMetadata{
 }
 
 var POSTS_METADATA ds.PostsMetadata = []*ds.PostMetadata{}
+
+var BOOKS map[string][]db.Book
 
 var POSTS_TAGS ds.OrderedList[string] = make(ds.OrderedList[string], 0)
 

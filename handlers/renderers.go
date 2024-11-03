@@ -19,8 +19,8 @@ func SetupRenders(e *echo.Echo) {
 	e.GET("/blog/", blogRenderer(&PAGES_METADATA, &POSTS_METADATA, &POSTS_TAGS, DISPLAY_TAGS))
 	e.GET("/resources/", resourcesRenderer(&PAGES_METADATA))
 	e.GET("/projects/", projectsRenderer(&PAGES_METADATA))
-	e.GET("/creative/", projectsRenderer(&PAGES_METADATA))
-	e.GET("/reading_list/", projectsRenderer(&PAGES_METADATA))
+	e.GET("/creative/", creativeRenderer(&PAGES_METADATA))
+	e.GET("/reading_list/", readingListRenderer(&PAGES_METADATA, &BOOKS))
 	// Render blog posts
 	RenderBlogPosts(e)
 }
@@ -75,6 +75,18 @@ func resourcesRenderer(pages_metadata *ds.PagesMetadata) echo.HandlerFunc {
 func projectsRenderer(pages_metadata *ds.PagesMetadata) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return pages.ProjectsPage(pages_metadata).Render(context.Background(), c.Response().Writer)
+	}
+}
+
+func creativeRenderer(pages_metadata *ds.PagesMetadata) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		return pages.CreativePage(pages_metadata).Render(context.Background(), c.Response().Writer)
+	}
+}
+
+func readingListRenderer(pages_metadata *ds.PagesMetadata, books *map[string][]db.Book) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		return pages.ReadingListPage(pages_metadata, books).Render(context.Background(), c.Response().Writer)
 	}
 }
 
