@@ -81,6 +81,7 @@ type Book struct {
 	Rating        int      `json:"rating"`
 	DatePublished string   `json:"date_published"`
 	DateCompleted string   `json:"date_completed"`
+	DateStarted   string   `json:"date_started"`
 }
 
 func UploadToBooks(dbpool *pgxpool.Pool, paths []string) {
@@ -107,22 +108,23 @@ func UploadToBooks(dbpool *pgxpool.Pool, paths []string) {
 
 	books := ParseBooksJson(path)
 	for _, book := range books {
-		tags, author, title, url, in_progress, completed, rating, date_published, date_completed := ParseBook(book)
+		tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started := ParseBook(book)
 
 		// cmd string, tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time)
 		if db.Exists(dbpool, "books", "title", title) {
-			db.UploadBook(dbpool, "update", tags, author, title, url, in_progress, completed, rating, date_published, date_completed)
+			db.UploadBook(dbpool, "update", tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started)
 		} else {
-			db.UploadBook(dbpool, "insert", tags, author, title, url, in_progress, completed, rating, date_published, date_completed)
+			db.UploadBook(dbpool, "insert", tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started)
 		}
 	}
 }
 
 // tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time)
-func ParseBook(book Book) ([]string, []string, string, string, bool, bool, int, time.Time, time.Time) {
+func ParseBook(book Book) ([]string, []string, string, string, bool, bool, int, time.Time, time.Time, time.Time) {
 	var (
 		date_published time.Time
 		date_completed time.Time
+		date_started   time.Time
 		err            error
 	)
 	// Parse Books struct
@@ -131,6 +133,13 @@ func ParseBook(book Book) ([]string, []string, string, string, bool, bool, int, 
 	date_published, err = time.Parse("2006-01-02", book.DatePublished)
 	if err != nil {
 		log.Fatalf("failed to parse date_published from json: %v", err)
+	}
+
+	if book.InProgress {
+		date_started, err = time.Parse("2006-01-02", book.DateStarted)
+		if err != nil {
+			log.Fatalf("failed to parse date_started from json: %v", err)
+		}
 	}
 
 	if book.Completed {
@@ -162,7 +171,7 @@ func ParseBook(book Book) ([]string, []string, string, string, bool, bool, int, 
 	for k, _ := range authors_set {
 		authors = append(authors, k)
 	}
-	return tags, authors, book.Title, book.URL, book.InProgress, book.Completed, book.Rating, date_published, date_completed
+	return tags, authors, book.Title, book.URL, book.InProgress, book.Completed, book.Rating, date_published, date_completed, date_started
 }
 
 func ParseBooksJson(path string) []Book {
