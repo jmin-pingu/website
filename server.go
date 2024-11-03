@@ -23,8 +23,7 @@ func main() {
 
 	// Realistically, we really do not want the option to delete the DB.
 	db.InitPosts(dbpool, false)
-	db.InitBooks(dbpool, false)
-
+	handlers.BOOKS = db.GetBooks(dbpool)
 	dbpool.Close() // Make sure to finish the transaction
 
 	// Setup routes
