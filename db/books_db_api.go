@@ -23,6 +23,7 @@ type Book struct {
 	Rating        int
 	DatePublished time.Time
 	DateCompleted time.Time
+	DateStarted   time.Time
 }
 
 func InitBooks(dbpool *pgxpool.Pool, clean bool) {
@@ -63,7 +64,7 @@ func GetBooks(dbpool *pgxpool.Pool) []*Book {
 	return books
 }
 
-func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time) {
+func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time, date_started time.Time) {
 	var (
 		script string
 		err    error
@@ -71,12 +72,12 @@ func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string
 
 	UPDATE_TEMPLATE := `
 		UPDATE books 
-		SET tags=%v, author=%v, title='%v', url='%v', in_progress='%v', completed='%v', rating=%v, date_published='%v', date_completed=%v
+		SET tags=%v, author=%v, title='%v', url='%v', in_progress='%v', completed='%v', rating=%v, date_published='%v', date_completed=%v, date_started=%v
 		WHERE title = '%v';
 	`
 
 	INSERT_TEMPLATE := `
-		INSERT INTO books (tags, author, title, url, in_progress, completed, rating, date_published, date_completed)
+		INSERT INTO books (tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started)
 		VALUES (
 			%v,
 			%v,
@@ -86,6 +87,7 @@ func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string
 			'%v',
 			%v,
 			'%v',
+			%v,
 			%v
 		);
 	`
@@ -93,6 +95,7 @@ func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string
 	// Parse date and tags to make sure inputs work with SQL
 	parsed_date_published := strings.Split(date_published.String(), " ")[0]             // Change date to proper formatting for SQL
 	parsed_date_completed := "'" + strings.Split(date_completed.String(), " ")[0] + "'" // Change date to proper formatting for SQL
+	parsed_date_started := "'" + strings.Split(date_started.String(), " ")[0] + "'"     // Change date to proper formatting for SQL
 
 	parsed_tags := "ARRAY["
 	for _, v := range tags {
@@ -113,17 +116,22 @@ func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string
 	} else {
 		parsed_rating = "'" + strconv.Itoa(rating) + "'"
 	}
+
 	if !completed {
 		parsed_date_completed = "NULL"
+	}
+
+	if !in_progress {
+		parsed_date_started = "NULL"
 	}
 
 	switch cmd {
 	case "update":
 		// INSERT INTO books (tags, author, title, url, in_progress, completed, rating, date_published, date_completed)
-		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed, title)
+		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed, parsed_date_started, title)
 		fmt.Printf("\tupdated book: %v\n", title)
 	case "insert":
-		script = fmt.Sprintf(INSERT_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed)
+		script = fmt.Sprintf(INSERT_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed, parsed_date_started)
 		fmt.Printf("\tupdated book: %v\n", title)
 	default:
 		panic("`UploadPost`: `cmd` should either be `update` or `insert`")
