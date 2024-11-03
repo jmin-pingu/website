@@ -9,21 +9,28 @@ import (
 	"time"
 
 	"github.com/georgysavva/scany/v2/pgxscan"
+	"github.com/jackc/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+// struct for reading from books db
 type Book struct {
 	BookID        int
 	Tags          []string
-	Author        string
+	Author        []string
 	Title         string
 	URL           string
 	InProgress    bool
 	Completed     bool
-	Rating        int
+	Rating        pgtype.Float4
 	DatePublished time.Time
-	DateCompleted time.Time
-	DateStarted   time.Time
+	DateCompleted pgtype.Date
+	DateStarted   pgtype.Date
+}
+
+func (b Book) Compare(other_b Book) int {
+	// TODO: need to implement go comparable
+	return -1
 }
 
 func InitBooks(dbpool *pgxpool.Pool, clean bool) {
@@ -40,6 +47,7 @@ func InitBooks(dbpool *pgxpool.Pool, clean bool) {
 		fmt.Fprintf(os.Stderr, "`init_posts` failed to read schema: %v\n", err)
 		os.Exit(1)
 	}
+
 	stmt = string(dat)
 
 	if clean {
@@ -53,18 +61,41 @@ func InitBooks(dbpool *pgxpool.Pool, clean bool) {
 	}
 }
 
-func GetBooks(dbpool *pgxpool.Pool) []*Book {
-	query := `SELECT * FROM books;`
+func GetBooks(dbpool *pgxpool.Pool) map[string][]Book {
+	query := `SELECT * FROM books ORDER BY date_completed;`
 	var books []*Book
 	err := pgxscan.Select(context.Background(), dbpool, &books, query)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "`GetBooks` failed: %v\n", err)
 		os.Exit(1)
 	}
-	return books
+	ordered_books := make(map[string][]Book)
+	var key string
+	var ok bool
+	for _, book := range books {
+		if book.DateCompleted.Status == pgtype.Null {
+			if book.InProgress {
+				key = "in-progress"
+			} else {
+				key = "to-read"
+			}
+		} else if book.DateCompleted.Status == pgtype.Present {
+			key = strconv.Itoa(book.DateCompleted.Time.Year())
+		} else {
+			panic("Failed to parse DateCompleted for entry in books")
+		}
+
+		_, ok = ordered_books[key]
+		if ok {
+			ordered_books[key] = append(ordered_books[key], *book)
+		} else {
+			ordered_books[key] = []Book{*book}
+		}
+	}
+	return ordered_books
 }
 
-func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time, date_started time.Time) {
+func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string, title string, url string, in_progress bool, completed bool, rating float32, date_published time.Time, date_completed time.Time, date_started time.Time) {
 	var (
 		script string
 		err    error
@@ -114,7 +145,7 @@ func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string
 	if rating == 0 {
 		parsed_rating = "NULL"
 	} else {
-		parsed_rating = "'" + strconv.Itoa(rating) + "'"
+		parsed_rating = "'" + fmt.Sprintf("%.1f", rating) + "'"
 	}
 
 	if !completed {
