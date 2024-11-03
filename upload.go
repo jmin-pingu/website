@@ -78,7 +78,7 @@ type Book struct {
 	URL           string   `json:"url"`
 	InProgress    bool     `json:"in_progress"`
 	Completed     bool     `json:"completed"`
-	Rating        int      `json:"rating"`
+	Rating        float32  `json:"rating"`
 	DatePublished string   `json:"date_published"`
 	DateCompleted string   `json:"date_completed"`
 	DateStarted   string   `json:"date_started"`
@@ -120,7 +120,7 @@ func UploadToBooks(dbpool *pgxpool.Pool, paths []string) {
 }
 
 // tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time)
-func ParseBook(book Book) ([]string, []string, string, string, bool, bool, int, time.Time, time.Time, time.Time) {
+func ParseBook(book Book) ([]string, []string, string, string, bool, bool, float32, time.Time, time.Time, time.Time) {
 	var (
 		date_published time.Time
 		date_completed time.Time
