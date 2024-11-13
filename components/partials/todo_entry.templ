@@ -1,8 +1,0 @@
-package partials
-
-templ TodoEntry(entry string) {
-	<li name="todo_rm" hx-swap="outerHTML">{entry}	
-	<input type="checkbox" hx-swap="none" hx-get="todo" hx-include="todo_rm">
-	<button hx-delete="todo" hx-include="todo_rm" hx-target="closest li" >X</button>	
-	</li>
-}
