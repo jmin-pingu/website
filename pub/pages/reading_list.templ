@@ -13,8 +13,10 @@ import (
 
 templ ReadingListPage(pages_metadata *ds.PagesMetadata, sorted_books *map[string][]db.Book) {
 	@shared.Page("Reading List", pages_metadata) {
-		@ReadingListContents()
-		@ReadingListBooks(sorted_books)
+		<div class="prose prose-h1:text-left">
+			@ReadingListContents()
+			@ReadingListBooks(sorted_books)
+		</div>
 	}
 }
 

@@ -2050,6 +2050,11 @@ html {
   }
 }
 
+.prose code {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
 .prose h1 {
   text-align: center;
   font-weight: 600;
@@ -2084,7 +2089,7 @@ html {
   line-height: 1.75rem;
 }
 
-.prose ul, dl, ol, li {
+.prose dd, dr, ul, dl, ol, li {
   font-weight: 100;
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -2092,10 +2097,18 @@ html {
   margin-bottom: 0px;
 }
 
+.prose dt {
+  margin-top: 0px;
+}
+
 /* formatting for util */
 
 .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.prose-h1\:text-left :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  text-align: left;
 }
 
