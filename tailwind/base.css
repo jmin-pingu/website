@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* formatting daisyui components */
+.navbar {
+	@apply p-0;
+	@apply min-h-24;
+}
+
+/* formatting for tailwind/typography */
+.prose {
+	/* set a break point when we change alignment */
+	@apply sm:max-w-none;
+	@apply md:max-w-none;
+	@apply lg:mx-40;
+	@apply lg:mx-40;
+}
+
+.prose h1 { 
+	@apply text-center;
+	@apply font-semibold;
+	@apply text-4xl;
+}
+
+.prose h2, h3, h4 { 
+	@apply font-semibold;
+}
+
+.prose a { 
+	@apply hover:text-gray-500
+}
+
+.prose a.footnote-ref { 
+	@apply text-blue-600;
+	@apply no-underline;
+}
+
+.prose a.footnote-backref { 
+	@apply text-blue-600;
+	@apply no-underline;
+}
+
+.prose p { 
+	@apply font-thin;
+	@apply text-lg;
+}
+
+.prose ul, dl, ol, li{
+	@apply font-thin;
+	@apply text-lg;
+	@apply my-0;
+	
+}
+
+/* formatting for util */
+@layer utilities {
+  .scrollbar {
+    &::-webkit-scrollbar {
+      width: 15px;
+      height: 15px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #fafafa;
+      z-index: 25;
+      border-left: 0.5px solid #e8e8e8;
+      padding: 2px; /* Adds space around the thumb to prevent overlap */
+      box-sizing: border-box;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 50px;
+      background: #BDD5E7;
+      border: 3px solid #fafafa;
+      box-sizing: border-box;
+      
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #9ABDDC;
+    }
+  }
+}
+
