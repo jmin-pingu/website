@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"log"
-	"mywebsite/components/pages"
+	"mywebsite/pub/pages"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -13,6 +13,9 @@ import (
 func SetupRoutes(e *echo.Echo) {
 	// Render pages
 	SetupRenders(e)
+
+	// set up static assets
+	e.Static("/assets", "pub/assets")
 
 	// BLOG
 	// tag filtering functionality

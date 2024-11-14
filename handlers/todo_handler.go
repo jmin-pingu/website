@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"sync"
 
-	"mywebsite/components/partials"
+	"mywebsite/pub/partials"
 
 	"github.com/labstack/echo/v4"
 )

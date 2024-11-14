@@ -6,9 +6,9 @@ import (
 	"os"
 	"strings"
 
-	"mywebsite/components/pages"
 	"mywebsite/db"
 	"mywebsite/ds"
+	"mywebsite/pub/pages"
 
 	"github.com/labstack/echo/v4"
 )
