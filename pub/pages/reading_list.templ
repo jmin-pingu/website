@@ -1,0 +1,65 @@
+package pages
+
+import (
+	"mywebsite/pub/shared"
+	"mywebsite/ds"
+	"mywebsite/db"
+    "golang.org/x/text/cases"
+    "golang.org/x/text/language"
+	"strconv"
+	"fmt"
+	"strings"
+)
+
+templ ReadingListPage(pages_metadata *ds.PagesMetadata, sorted_books *map[string][]db.Book) {
+	@shared.Page("Reading List", pages_metadata) {
+		@ReadingListContents()
+		@ReadingListBooks(sorted_books)
+	}
+}
+
+templ ReadingListContents() {
+	<h1>Reading List</h1>
+}
+
+templ ReadingListBooks(sorted_books *map[string][]db.Book) {
+	// TODO: need to think about a data structure to ensure fixed ordering from in-progress, lowest year to highest year, then to-read
+	for k, books := range *sorted_books {
+		<h2>{ strings.Title(k) }</h2>
+		<dl id={ "reading-list-" + k }>
+			for _, book := range books {
+				// TODO: add documentation
+				<dt> <a id={ strconv.Itoa(book.BookID) } href={ templ.URL(book.URL) }> { book.Title } </a> </dt>
+				if k == "in-progress" {
+					<dd> 
+					Author(s): { cases.Title(language.English).String(strings.Join(book.Author, ", ")) }.
+					<br>
+					Tags: { cases.Title(language.English).String(strings.Join(book.Tags, ", ")) }.
+					<br>
+					Date Started: { strings.Split(book.DateStarted.Time.String(), " ")[0] } 
+					</dd>
+				} else if k == "to-read" {
+					<dd> 
+					Author(s): { cases.Title(language.English).String(strings.Join(book.Author, ", ")) }.
+					<br>
+					Tags: { cases.Title(language.English).String(strings.Join(book.Tags, ", ")) }. 
+					</dd>
+				} else {
+					<dd> 
+					Author(s): { cases.Title(language.English).String(strings.Join(book.Author, ", ")) }.
+					<br>
+					Tags: { cases.Title(language.English).String(strings.Join(book.Tags, ", ")) }. 
+					<br>
+					Date Started: { strings.Split(book.DateStarted.Time.String(), " ")[0] } 
+					<br>
+					Date Completed: { strings.Split(book.DateCompleted.Time.String(), " ")[0] } 
+					<br>
+					Date Rating: { fmt.Sprintf("%v", book.Rating.Float) } 
+					</dd>
+				}
+			}
+		</dl>
+
+	}
+
+}

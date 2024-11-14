@@ -1,0 +1,16 @@
+package pages
+
+import (
+	"mywebsite/pub/shared"
+	"mywebsite/ds"
+)
+
+templ CreativePage(pages_metadata *ds.PagesMetadata) {
+	@shared.Page("Creative", pages_metadata) {
+ 		@CreativeContents()
+	}
+}
+
+templ CreativeContents() {
+	<h1>Whats up fuckers. Its time to be creative.</h1>
+}

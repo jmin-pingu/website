@@ -1,0 +1,24 @@
+package pages
+
+import (
+	"mywebsite/ds"
+)
+
+templ TodoPage(todos []*ds.Todo, term string) {
+	<body>
+	
+		<button hx-post="/clicked">
+			Click Me
+		</button>
+	
+		<form hx-post="http://localhost:1323/todo"
+			  hx-target="#todo-list">
+			<label for="newTodo">Add Task:</label>
+			<input type="text" name="newTodo" id="newTodo" />
+			<button type="submit" hx-target="#newTodo" hx-swap="textContext">Submit</button>
+		</form>
+	
+		<h2>TO-DO</h2>
+		<ol id="todo-list" hx-get="http://localhost:1323/todo" hx-trigger="load"></ol>
+	</body>
+	}

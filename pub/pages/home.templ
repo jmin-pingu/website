@@ -1,0 +1,32 @@
+package pages
+
+import (
+	"mywebsite/pub/shared"
+	"mywebsite/ds"
+)
+
+templ HomePage(pages_metadata *ds.PagesMetadata) {
+	@shared.Page("Home", pages_metadata) {
+		<h1><a href="/">Jonathan Min</a></h1>
+		@Images()
+		<hr>
+		@HomeContent()
+	}
+}
+
+
+templ HomeContent() {
+	<div>
+	<p>I am currently a Data Scientist living in Boston, MA.</p>
+	<br>
+	<p>Paragraph about interests + a little bit about me</p>
+	<br>
+	<p>More about the page and so on.</p>
+	</div>
+}
+
+templ Images() {
+	<div>
+	<p>Eventually this will be images of myself that will scroll</p>
+	</div>
+}
