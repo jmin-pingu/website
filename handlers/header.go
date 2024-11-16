@@ -16,7 +16,8 @@ var PAGES_METADATA ds.PagesMetadata = []ds.PageMetadata{
 
 var POSTS_METADATA ds.PostsMetadata = []*ds.PostMetadata{}
 
-var BOOKS map[string][]db.Book
+var BOOKS ds.StrictDict[string, db.Book]
+var BOOK_TAGS ds.OrderedList[string] = make(ds.OrderedList[string], 0)
 
 var POSTS_TAGS ds.OrderedList[string] = make(ds.OrderedList[string], 0)
 

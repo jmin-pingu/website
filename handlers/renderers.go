@@ -9,6 +9,7 @@ import (
 	"mywebsite/db"
 	"mywebsite/ds"
 	"mywebsite/pub/pages"
+	"mywebsite/pub/pages/creative"
 
 	"github.com/labstack/echo/v4"
 )
@@ -80,11 +81,11 @@ func projectsRenderer(pages_metadata *ds.PagesMetadata) echo.HandlerFunc {
 
 func creativeRenderer(pages_metadata *ds.PagesMetadata) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		return pages.CreativePage(pages_metadata).Render(context.Background(), c.Response().Writer)
+		return creative.CreativePage(pages_metadata).Render(context.Background(), c.Response().Writer)
 	}
 }
 
-func readingListRenderer(pages_metadata *ds.PagesMetadata, books *map[string][]db.Book) echo.HandlerFunc {
+func readingListRenderer(pages_metadata *ds.PagesMetadata, books *ds.StrictDict[string, db.Book]) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return pages.ReadingListPage(pages_metadata, books).Render(context.Background(), c.Response().Writer)
 	}
