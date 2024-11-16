@@ -1,0 +1,38 @@
+package creative
+
+import (
+	"mywebsite/ds"
+	"strings"
+)
+
+templ Nav(pages_metadata ds.PagesMetadata) {
+	<div class="border-b border-gray-800">
+	<div class="border-b-2 border-gray-600">
+	<header id="creative-page-nav" class="bg-gray-300 h-14 border-black border-b flex font-thin items-center justify-left top-0 z-50" style="font-family:'Times New Roman'">
+			<div class="ml-4">
+			</div>
+			// Navigation
+			@NavItems("jmin", templ.URL("/"))
+			for _, pm := range pages_metadata { 
+				if pm.Name != "Home" {
+					@NavItems(pm.Name, pm.Path)
+				}
+			}
+			// Images
+			<div class="ml-auto mr-4"> 
+				<a href="https://nannou.cc/"><img class="border-t border-r float-left h-10 max-w-full self-center" src="/assets/img/charts.gif" alt="charts"></a>
+			</div>
+	</header>
+	</div>
+	</div>
+}
+
+templ NavItems(page string, link templ.SafeURL) {
+	<a href={ link }>
+	@NavFrame(4) {
+		<div class="text-lg text-center hover:font-medium hover:bg-gray-350 bg-gray-400 h-8 w-32 pointer-events-auto"> 
+			<strong>{ strings.ToLower(page) }</strong>
+		</div>
+	}
+	</a>
+}
