@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "comic-sans";
+    src: url("/assets/fonts/Comic Sans MS.ttf");
+}
+
 /* formatting daisyui components */
 .navbar {
 	@apply p-0;
@@ -17,6 +22,10 @@
 	@apply lg:mx-40;
 }
 
+.prose code { 
+	@apply text-gray-200;
+}
+
 .prose h1 { 
 	@apply text-center;
 	@apply font-semibold;
@@ -25,10 +34,7 @@
 
 .prose h2, h3, h4 { 
 	@apply font-semibold;
-}
-
-.prose a { 
-	@apply hover:text-gray-500
+	@apply mt-6;
 }
 
 .prose a.footnote-ref { 
@@ -46,11 +52,14 @@
 	@apply text-lg;
 }
 
-.prose ul, dl, ol, li{
+.prose dd, ul, dl, ol, li{
 	@apply font-thin;
 	@apply text-lg;
 	@apply my-0;
-	
+}
+
+.prose dt {
+	@apply mt-0;
 }
 
 /* formatting for util */
