@@ -1,5 +1,8 @@
 .DS_Store
-posts
+data
 *.json
 node_modules
 views/**/*.go
+*.gif
+*.jpg
+*.png
