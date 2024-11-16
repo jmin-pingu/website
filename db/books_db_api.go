@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"fmt"
+	"mywebsite/ds"
 	"os"
 	"strconv"
 	"strings"
@@ -27,6 +28,11 @@ type Book struct {
 	DateCompleted pgtype.Date
 	DateStarted   pgtype.Date
 }
+
+const (
+	InProgress = "In-Progress"
+	ToRead     = "To-Read"
+)
 
 func (b Book) Compare(other_b Book) int {
 	// TODO: need to implement go comparable
@@ -61,23 +67,25 @@ func InitBooks(dbpool *pgxpool.Pool, clean bool) {
 	}
 }
 
-func GetBooks(dbpool *pgxpool.Pool) map[string][]Book {
-	query := `SELECT * FROM books ORDER BY date_completed;`
-	var books []*Book
-	err := pgxscan.Select(context.Background(), dbpool, &books, query)
+func GetBooks(dbpool *pgxpool.Pool) ds.StrictDict[string, Book] {
+	var (
+		books []*Book
+		key   string
+	)
+	const QUERY = `SELECT * FROM books ORDER BY date_completed;`
+	err := pgxscan.Select(context.Background(), dbpool, &books, QUERY)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "`GetBooks` failed: %v\n", err)
 		os.Exit(1)
 	}
-	ordered_books := make(map[string][]Book)
-	var key string
-	var ok bool
+	// TODO: create ordered map
+	ordered_books, _ := ds.NewStrictDict[string, Book]([]string{"2024", InProgress, ToRead})
 	for _, book := range books {
 		if book.DateCompleted.Status == pgtype.Null {
 			if book.InProgress {
-				key = "in-progress"
+				key = InProgress
 			} else {
-				key = "to-read"
+				key = ToRead
 			}
 		} else if book.DateCompleted.Status == pgtype.Present {
 			key = strconv.Itoa(book.DateCompleted.Time.Year())
@@ -85,11 +93,9 @@ func GetBooks(dbpool *pgxpool.Pool) map[string][]Book {
 			panic("Failed to parse DateCompleted for entry in books")
 		}
 
-		_, ok = ordered_books[key]
-		if ok {
-			ordered_books[key] = append(ordered_books[key], *book)
-		} else {
-			ordered_books[key] = []Book{*book}
+		err = ordered_books.Append(key, *book)
+		if err != nil {
+			panic("failed to append to StrictDict of ordered books")
 		}
 	}
 	return ordered_books

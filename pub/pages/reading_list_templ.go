@@ -19,7 +19,7 @@ import (
 	"strings"
 )
 
-func ReadingListPage(pages_metadata *ds.PagesMetadata, sorted_books *map[string][]db.Book) templ.Component {
+func ReadingListPage(pages_metadata *ds.PagesMetadata, categorized_books *ds.StrictDict[string, db.Book]) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -57,7 +57,7 @@ func ReadingListPage(pages_metadata *ds.PagesMetadata, sorted_books *map[string]
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = ReadingListBooks(sorted_books).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = ReadingListBooks(categorized_books).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -93,7 +93,7 @@ func ReadingListContents() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1>Reading List</h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1>Reading List</h1><p>One of my goals in the fall of 2024 was to read/finish a book a week. One may ask why I began this endeavor.</p><p>Was it for self-growth? Partially.</p><p>Was it a sudden burst of passion? A little bit. </p><p>Or was it wrought by pure guilt? Spot on.</p><p>As I was doomscrolling, I ended up watching a Youtube video by <a href=\"https://www.youtube.com/@_jared/videos\">Jared Henderson</a>, a philosophy Youtuber. The video, titled <a href=\"https://www.youtube.com/watch?v=A3wJcF0t0bQ&amp;t=364s&amp;ab_channel=JaredHenderson\">Why Everyone Stopped Reading</a>, brought up some damning arguments about the current state of reading. While I often read textbooks and nonfiction, I couldn't remember the last time that I set aside distraction-free time to solely absorb a good book. Thus, here I am, doing my part in rebuilding and maintaining my reading stamina. Specifically, I plan on expanding the types of books that I read. As I mentioned before, I typically read nonfiction and textbooks. However, it's been an embarrassingly long time since I last read fiction. I believe that fiction (at least good fiction) forces the reader to grapple with certain ideas and emotions which may not be easily conveyed through other mediums. Of course, I am casting an extremely wide-net when I say \"I want to read more fiction\". In general, my larger goal is to read books where the author is trying to transfer an experience to the reader rather than knowledge or information in a strict sense.</p><p>So that explains the start of my reading list. I still am thinking about additional ideas with respect to what I will do with this list. Maybe I will blog about particular books that I enjoyed but for now here is my list!</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -101,7 +101,7 @@ func ReadingListContents() templ.Component {
 	})
 }
 
-func ReadingListBooks(sorted_books *map[string][]db.Book) templ.Component {
+func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -119,46 +119,46 @@ func ReadingListBooks(sorted_books *map[string][]db.Book) templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		for k, books := range *sorted_books {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h2>")
+		for i, k := range sorted_books.Categories {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h2 class=\"mb-4\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(strings.Title(k))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 30, Col: 24}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 36, Col: 37}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><dl id=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var6 string
-			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs("reading-list-" + k)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 31, Col: 30}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			for _, book := range books {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <dt><a id=\"")
+			for _, book := range sorted_books.Values[i] {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<dl id=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var6 string
+				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs("reading-list-" + k)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 38, Col: 31}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"my-0\"><dt><a id=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(book.BookID))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 34, Col: 42}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 40, Col: 42}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -180,7 +180,7 @@ func ReadingListBooks(sorted_books *map[string][]db.Book) templ.Component {
 				var templ_7745c5c3_Var9 string
 				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(book.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 34, Col: 87}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 40, Col: 87}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -190,7 +190,7 @@ func ReadingListBooks(sorted_books *map[string][]db.Book) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				if k == "in-progress" {
+				if k == "In-Progress" {
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<dd>Author(s): ")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
@@ -198,33 +198,33 @@ func ReadingListBooks(sorted_books *map[string][]db.Book) templ.Component {
 					var templ_7745c5c3_Var10 string
 					templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Author, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 37, Col: 87}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 43, Col: 87}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(".<br>Tags: ")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br>Tags: ")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var11 string
 					templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Tags, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 39, Col: 80}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 45, Col: 80}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(".<br>Date Started: ")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br>Date Started: ")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var12 string
 					templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(strings.Split(book.DateStarted.Time.String(), " ")[0])
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 41, Col: 74}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 47, Col: 74}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 					if templ_7745c5c3_Err != nil {
@@ -234,7 +234,7 @@ func ReadingListBooks(sorted_books *map[string][]db.Book) templ.Component {
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-				} else if k == "to-read" {
+				} else if k == "To-Read" {
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<dd>Author(s): ")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
@@ -242,26 +242,26 @@ func ReadingListBooks(sorted_books *map[string][]db.Book) templ.Component {
 					var templ_7745c5c3_Var13 string
 					templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Author, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 45, Col: 87}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 51, Col: 87}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(".<br>Tags: ")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br>Tags: ")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var14 string
 					templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Tags, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 47, Col: 80}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 53, Col: 80}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(". </dd>")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</dd>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -273,33 +273,33 @@ func ReadingListBooks(sorted_books *map[string][]db.Book) templ.Component {
 					var templ_7745c5c3_Var15 string
 					templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Author, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 51, Col: 87}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 57, Col: 87}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(".<br>Tags: ")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br>Tags: ")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var16 string
 					templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Tags, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 53, Col: 80}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 59, Col: 80}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(". <br>Date Started: ")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br>Date Started: ")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var17 string
 					templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(strings.Split(book.DateStarted.Time.String(), " ")[0])
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 55, Col: 74}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 61, Col: 74}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 					if templ_7745c5c3_Err != nil {
@@ -312,20 +312,20 @@ func ReadingListBooks(sorted_books *map[string][]db.Book) templ.Component {
 					var templ_7745c5c3_Var18 string
 					templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(strings.Split(book.DateCompleted.Time.String(), " ")[0])
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 57, Col: 78}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 63, Col: 78}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br>Date Rating: ")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br>Rating: ")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var19 string
 					templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%v", book.Rating.Float))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 59, Col: 56}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 65, Col: 51}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 					if templ_7745c5c3_Err != nil {
@@ -336,10 +336,10 @@ func ReadingListBooks(sorted_books *map[string][]db.Book) templ.Component {
 						return templ_7745c5c3_Err
 					}
 				}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</dl>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</dl>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
 			}
 		}
 		return templ_7745c5c3_Err
