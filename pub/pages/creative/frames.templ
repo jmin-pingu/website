@@ -11,6 +11,18 @@ templ Frame(width int, classNames string) {
 	</div>
 }
 
+templ WoodFrame(width int, classNames string) {  
+	<div class={ "border-yellow-950 border " + classNames }>
+		<div class={ "border-yellow-900 border-b-yellow-950 border-r-yellow-950 border-" + strconv.Itoa(width) }>
+		<div class="border-yellow-500 border-2">
+		<div class="border-white-200 border-2">
+		{ children... }
+		</div>
+		</div>
+		</div>
+	</div>
+}
+
 templ NavFrame(width int) {  
 	<div class="font-thin text-black border-gray-800 border mx-1">
 		<div class="border-gray-300 border-b-gray-500 border-r-gray-500 hover:border-gray-500 hover:border-b-gray-300 hover:border-r-gray-300 border-4 pointer-events-none">
