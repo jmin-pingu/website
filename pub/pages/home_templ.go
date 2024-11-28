@@ -43,19 +43,19 @@ func HomePage(pages_metadata *ds.PagesMetadata) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1><a href=\"/\">Jonathan Min</a></h1>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"home-layout\" class=\"grid gap-40 grid-cols-2 text-lg font-thin\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = Images().Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <hr>")
+			templ_7745c5c3_Err = Pictures().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			templ_7745c5c3_Err = HomeContent().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -87,7 +87,7 @@ func HomeContent() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div><p>I am currently a Data Scientist living in Boston, MA.</p><br><p>Paragraph about interests + a little bit about me</p><br><p>More about the page and so on.</p></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mx-4 \"><p>My name is Young Woong (Jonathan) Min. Welcome to my page! </p><br><p>Currently, I am a data scientist at the University of California, San Francisco.  In my mind, a data scientist lies somewhere in the middle of a computer scientist, statistician, and domain expert; my goal is to master each field individually and in harmony.  Thus, this page serves to document my journey in both this endeavor as well as my other interests.  But what are my other interests?  I enjoy reading books, DJing (both turntablism and mixing), working out (usually a mix between lifting and more recently running), watching movies, and learning. Given my history of embracing change, I'm sure I will pick up (and drop) many hobbies throughout the lifecycle of this website. </p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -95,7 +95,7 @@ func HomeContent() templ.Component {
 	})
 }
 
-func Images() templ.Component {
+func Pictures() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -113,7 +113,7 @@ func Images() templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div><p>Eventually this will be images of myself that will scroll</p></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div><img src=\"/assets/img/homepage_photo.jpg\"><p class=\"my-4\"><em>A memory in front of Sproul Hall at UC Berkeley.</em></p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

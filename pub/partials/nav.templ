@@ -24,11 +24,11 @@ templ Nav(pages_metadata ds.PagesMetadata, current_page string) {
 templ NavItems(page string, current_page string, link templ.SafeURL) {
 	if page == current_page {
 		<li class="ml-6"> 
-			<a href={ link } class="text-lg underline text-black hover:text-gray-500"> { page } </a>
+			<a href={ link } class="text-xl underline text-black hover:text-gray-500"> { page } </a>
 		</li>
 	} else {
 		<li class="ml-6"> 
-			<a href={ link } class="text-lg text-black hover:text-gray-500"> { page } </a>
+			<a href={ link } class="text-xl text-black hover:text-gray-500"> { page } </a>
 		</li>
 	}
 }

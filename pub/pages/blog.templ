@@ -11,27 +11,27 @@ import (
 templ BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata, tags *ds.OrderedList[string], filter_tags ds.Set[string]) {
 	@shared.Page("Blog", pages_metadata) {
 		// Page specific features
-		@partials.Search("/blog/search", "#blog-posts")
-		@TagsNavigation(tags) // Filter for blog post tags 
+		<div class="prose !max-w-none mx-0">
+	 	<h1 class="mb-2">Blog Posts</h1>
 		// Content
-		<h1>Blog Posts</h1>
-		@BlogPageContent()
+
+		@TagsNavigation(tags) // Filter for blog post tags 
+
+		@partials.Search("/blog/search", "#blog-posts")
+
+		<h2 class="mb-0">Posts</h2>
 		@BlogPosts(posts_metadata, filter_tags, "")
+		</div>
 	}
 }
 
-
-templ BlogPageContent() {
-	<p>
-	On my free time, I enjoy writing about the things that I am learning, find interesting, or am working on. Here are these posts!
-	</p>
-}
-
 templ TagsNavigation(tags *ds.OrderedList[string]) {
-	<h2>Tags</h2>
-	<ul>
+	<div id="tags-navbar" class="flex flex-row items-center h-6">
+		<p class="font-semibold">
+		Tags: 
+		</p>
 		for _, v := range *tags {
-			<li> <label> { v } </label> 
+			<div class="mx-2"> <label> { v } </label> 
 				<input name={ v } 
 					type="checkbox" 
 					value="1" 
@@ -40,9 +40,9 @@ templ TagsNavigation(tags *ds.OrderedList[string]) {
 					hx-swap="outerHTML"
 					hx-include="next input"/> 
 				<input type="hidden" name={ v } value="0"/> 
-			</li>
+			</div>
 		}
-	</ul>
+	</div>
 }
 
 templ BlogPosts(posts_metadata *ds.PostsMetadata, tags_filter ds.Set[string], search string) {

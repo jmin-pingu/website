@@ -7,26 +7,40 @@ import (
 
 templ HomePage(pages_metadata *ds.PagesMetadata) {
 	@shared.Page("Home", pages_metadata) {
-		<h1><a href="/">Jonathan Min</a></h1>
-		@Images()
-		<hr>
+		<div id="home-layout" class="grid gap-40 grid-cols-2 text-lg font-thin">
+		@Pictures()
+
 		@HomeContent()
+		</div>
 	}
 }
 
 
+
 templ HomeContent() {
-	<div>
-	<p>I am currently a Data Scientist living in Boston, MA.</p>
+	<div class="mx-4 ">
+	<p>
+	My name is Young Woong (Jonathan) Min. Welcome to my page! 
+	</p>
 	<br>
-	<p>Paragraph about interests + a little bit about me</p>
-	<br>
-	<p>More about the page and so on.</p>
+	<p>
+	Currently, I am a data scientist at the University of California, San Francisco. 
+	In my mind, a data scientist lies somewhere in the middle of a computer scientist, statistician, and domain expert; my goal is to master each field individually and in harmony. 
+	Thus, this page serves to document my journey in both this endeavor as well as my other interests. 
+	But what are my other interests? 
+	I enjoy reading books, DJing (both turntablism and mixing), working out (usually a mix between lifting and more recently running), watching movies, and learning. Given my history of embracing change, I'm sure I will pick up (and drop) many hobbies throughout the lifecycle of this website. 
+	</p>
 	</div>
 }
 
-templ Images() {
+templ Pictures() {
 	<div>
-	<p>Eventually this will be images of myself that will scroll</p>
+		<img src="/assets/img/homepage_photo.jpg">
+		<p class="my-4">
+		<em>
+		A memory in front of Sproul Hall at UC Berkeley.
+		</em>
+		</p>
 	</div>
 }
+

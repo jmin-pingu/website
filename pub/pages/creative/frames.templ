@@ -12,6 +12,7 @@ templ Frame(width int, classNames string) {
 }
 
 templ WoodFrame(width int, classNames string) {  
+	<div id="wood-frame">
 	<div class={ "border-yellow-950 border " + classNames }>
 		<div class={ "border-yellow-900 border-b-yellow-950 border-r-yellow-950 border-" + strconv.Itoa(width) }>
 		<div class="border-yellow-500 border-2">
@@ -20,6 +21,7 @@ templ WoodFrame(width int, classNames string) {
 		</div>
 		</div>
 		</div>
+	</div>
 	</div>
 }
 

@@ -36,7 +36,7 @@ templ Sisyphus() {
 				</span>
 				</p>
 				<div class="grid grid-cols-6">
- 					<a class="-mt-2 h-2 text-lg col-start-5 text-center" href="https://archive.org/details/the-stranger_202404/mode/2up">-<span class="hover:font-Times hover:underline hover:font-serif hover:text-blue-500">camus</span></a>
+ 					<a class="-mt-2 h-2 text-lg col-start-5 text-center" href="https://archive.org/details/the-stranger_202404/mode/2up">-<span class="hover:underline hover:font-serif hover:text-blue-500">camus</span></a>
 				</div>
 			</div>
 		@Frame(4, "mx-4 self-center") { 
@@ -68,37 +68,39 @@ templ Gallery() {
 	<em><strong class="text-5xl text-black underline text-center" style="font-family:'Times New Roman'">the gallery</strong></em>
 	</div>
 	<div class="grid grid-cols-3 gap-11 place-items-center">
-	<div>
-	@WoodFrame(8, "mx-2 center") { 
-		<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/noooo.png" alt="image">
-	}
-	</div>
-	<div>
+		@WoodFrame(8, "mx-2 center") { 
+			<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/noooo.png" alt="image">
+		}
+
 	 	@WoodFrame(8, "mx-2 center") { 
 			<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/dj2.gif" alt="image">
 		}
-	</div>
-	<div>
 		@WoodFrame(8, "mx-2 center") { 
 			<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/vaporwave.gif" alt="image">
 		}
-	</div>
-	<div class="flex">	
+
+		<div class="flex">	
+			@WoodFrame(8, "mx-2 center w-48 h-48") { 
+				<img class="self-auto bg-gray-300 w-full h-full" src="/assets/img/bobomb.png" alt="image">
+			}
+			<img class="self-end w-15 h-20" src="/assets/img/mario-1.gif" alt="image">
+		</div>
+
 		@WoodFrame(8, "mx-2 center") { 
-			<img class="self-auto bg-gray-300 w-40 h-40" src="/assets/img/bobomb.png" alt="image">
+			<img class="justify-center w-48 h-48" src="/assets/img/nerd.gif" alt="image">
 		}
-		<img class="self-end w-15 h-20" src="/assets/img/mario-1.gif" alt="image">
+
+		<div class="flex flex-col">	
+			@WoodFrame(8, "mx-2 center w-48 h-48") { 
+				<a href="https://drive.google.com/file/d/1I8HIKCbS0-E2Kv3d3G3W3bsDEt4Eb5VT/view?usp=drive_link">		
+					<img class="justify-center w-full h-full" src="/assets/img/i-hate-koreans.jpg" alt="image">
+				</a>
+			} 
+			<div class="text-center hover:underline hover:font-serif hover:text-blue-500">
+			<p>^a year and a half <br>in boston mix</p>
+		</div>
 	</div>
-	<div>
-		@WoodFrame(8, "mx-2 center") { 
-			<img class="justify-center w-40 h-40" src="/assets/img/nerd.gif" alt="image">
-		}
-	</div>
-	<div>
-		@WoodFrame(8, "mx-2 center") { 
-			<img class="justify-center w-40 h-40" src="/assets/img/no1.gif" alt="image">
-		}
-	</div>
+
 	<div>
 
 	</div>

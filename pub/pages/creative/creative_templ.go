@@ -161,7 +161,7 @@ func Sisyphus() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"sisyphus-quote\" class=\"flex flex-col flex-nowrap my-2\"><p class=\"text-4xl font-thin text-center self-center\">one must imagine sisyphus  <span class=\"flex justify-center\"><img class=\"float-left h-14 max-w-full self-center\" src=\"/assets/img/happy1.gif\" alt=\"lol\"> <em><span class=\"text-red-600\">h</span><span class=\"text-yellow-500\">a</span><span class=\"text-yellow-300\">p</span><span class=\"text-green-500\">p</span><span class=\"text-blue-700\">y</span> <img class=\"float-right h-14 max-w-full self-center\" src=\"/assets/img/happy1.gif\" alt=\"lol\"></em></span></p><div class=\"grid grid-cols-6\"><a class=\"-mt-2 h-2 text-lg col-start-5 text-center\" href=\"https://archive.org/details/the-stranger_202404/mode/2up\">-<span class=\"hover:font-Times hover:underline hover:font-serif hover:text-blue-500\">camus</span></a></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"sisyphus-quote\" class=\"flex flex-col flex-nowrap my-2\"><p class=\"text-4xl font-thin text-center self-center\">one must imagine sisyphus  <span class=\"flex justify-center\"><img class=\"float-left h-14 max-w-full self-center\" src=\"/assets/img/happy1.gif\" alt=\"lol\"> <em><span class=\"text-red-600\">h</span><span class=\"text-yellow-500\">a</span><span class=\"text-yellow-300\">p</span><span class=\"text-green-500\">p</span><span class=\"text-blue-700\">y</span> <img class=\"float-right h-14 max-w-full self-center\" src=\"/assets/img/happy1.gif\" alt=\"lol\"></em></span></p><div class=\"grid grid-cols-6\"><a class=\"-mt-2 h-2 text-lg col-start-5 text-center\" href=\"https://archive.org/details/the-stranger_202404/mode/2up\">-<span class=\"hover:underline hover:font-serif hover:text-blue-500\">camus</span></a></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -277,7 +277,7 @@ func Gallery() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"gallery\" class=\"border border-gray-600 text-black bg-repeat\" style=\"background-image: url(&#39;/assets/img/bg1.png&#39;);\"><div id=\"gallery-title\" class=\"my-6 text-center\"><em><strong class=\"text-5xl text-black underline text-center\" style=\"font-family:&#39;Times New Roman&#39;\">the gallery</strong></em></div><div class=\"grid grid-cols-3 gap-11 place-items-center\"><div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"gallery\" class=\"border border-gray-600 text-black bg-repeat\" style=\"background-image: url(&#39;/assets/img/bg1.png&#39;);\"><div id=\"gallery-title\" class=\"my-6 text-center\"><em><strong class=\"text-5xl text-black underline text-center\" style=\"font-family:&#39;Times New Roman&#39;\">the gallery</strong></em></div><div class=\"grid grid-cols-3 gap-11 place-items-center\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -303,10 +303,6 @@ func Gallery() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
 			templ_7745c5c3_Var13 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 				templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -326,10 +322,6 @@ func Gallery() templ.Component {
 				return templ_7745c5c3_Err
 			})
 			templ_7745c5c3_Err = WoodFrame(8, "mx-2 center").Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -355,7 +347,7 @@ func Gallery() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"flex\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -371,17 +363,17 @@ func Gallery() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"self-auto bg-gray-300 w-40 h-40\" src=\"/assets/img/bobomb.png\" alt=\"image\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"self-auto bg-gray-300 w-full h-full\" src=\"/assets/img/bobomb.png\" alt=\"image\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				return templ_7745c5c3_Err
 			})
-			templ_7745c5c3_Err = WoodFrame(8, "mx-2 center").Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = WoodFrame(8, "mx-2 center w-48 h-48").Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"self-end w-15 h-20\" src=\"/assets/img/mario-1.gif\" alt=\"image\"></div><div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"self-end w-15 h-20\" src=\"/assets/img/mario-1.gif\" alt=\"image\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -397,7 +389,7 @@ func Gallery() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"justify-center w-40 h-40\" src=\"/assets/img/nerd.gif\" alt=\"image\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"justify-center w-48 h-48\" src=\"/assets/img/nerd.gif\" alt=\"image\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -407,7 +399,7 @@ func Gallery() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -423,17 +415,17 @@ func Gallery() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"justify-center w-40 h-40\" src=\"/assets/img/no1.gif\" alt=\"image\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"https://drive.google.com/file/d/1I8HIKCbS0-E2Kv3d3G3W3bsDEt4Eb5VT/view?usp=drive_link\"><img class=\"justify-center w-full h-full\" src=\"/assets/img/i-hate-koreans.jpg\" alt=\"image\"></a>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				return templ_7745c5c3_Err
 			})
-			templ_7745c5c3_Err = WoodFrame(8, "mx-2 center").Render(templ.WithChildren(ctx, templ_7745c5c3_Var17), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = WoodFrame(8, "mx-2 center w-48 h-48").Render(templ.WithChildren(ctx, templ_7745c5c3_Var17), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div></div></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"text-center hover:underline hover:font-serif hover:text-blue-500\"><p>^a year and a half <br>in boston mix</p></div></div><div></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -499,7 +491,7 @@ func Page(title string, pages_metadata *ds.PagesMetadata) templ.Component {
 		var templ_7745c5c3_Var20 string
 		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/creative/creative.templ`, Line: 131, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/creative/creative.templ`, Line: 133, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {

@@ -13,7 +13,7 @@ import (
 
 templ ReadingListPage(pages_metadata *ds.PagesMetadata, categorized_books *ds.StrictDict[string, db.Book]) {
 	@shared.Page("Reading List", pages_metadata) {
-		<div class="prose prose-h1:text-left">
+		<div class="prose">
 			@ReadingListContents()
 			@ReadingListBooks(categorized_books)
 		</div>
