@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -16,6 +17,7 @@ type Post struct {
 	Tags    []string
 	Title   string
 	Link    string
+	Display bool
 	Date    time.Time
 	Content string // Format: HTML
 }
@@ -32,7 +34,7 @@ func InitPosts(dbpool *pgxpool.Pool, clean bool) {
 	dat, err = os.ReadFile(pwd + "/db/posts_schema.sql")
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "`init_posts` failed to read schema: %v\n", err)
+		fmt.Fprintf(os.Stderr, "`InitPosts` failed to read schema: %v\n", err)
 		os.Exit(1)
 	}
 	stmt = string(dat)
@@ -43,7 +45,7 @@ func InitPosts(dbpool *pgxpool.Pool, clean bool) {
 	// Execute script
 	_, err = dbpool.Exec(context.Background(), stmt)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "`init_posts` failed: %v\n", err)
+		fmt.Fprintf(os.Stderr, "`InitPosts` failed: %v\n", err)
 		os.Exit(1)
 	}
 }
@@ -69,21 +71,22 @@ func GetPosts(dbpool *pgxpool.Pool) []*Post {
 	return posts
 }
 
-func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, link string, date time.Time, content string) {
+func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, link string, date time.Time, display bool, content string) {
 	var (
 		script string
 		err    error
 	)
 	UPDATE_TEMPLATE := `
 		UPDATE posts 
-		SET tags=%s, title='%s', link='%s', date='%s', content=$html$%s$html$
+		SET tags=%s, title='%s', link='%s', date='%s', display='%s', content=$html$%s$html$
 		WHERE link = '%s';
 	`
 
 	INSERT_TEMPLATE := `
-		INSERT INTO posts (tags, title, link, date, content)
+		INSERT INTO posts (tags, title, link, date, display, content)
 		VALUES (
 			%s,
+			'%s',
 			'%s',
 			'%s',
 			'%s',
@@ -102,10 +105,13 @@ func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, l
 
 	switch cmd {
 	case "update":
-		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, title, link, parsed_date, content, link)
+		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, title, link, parsed_date,
+			strconv.FormatBool(display), content, link)
+
 		fmt.Printf("\tupdated link: %v\n", link)
 	case "insert":
-		script = fmt.Sprintf(INSERT_TEMPLATE, parsed_tags, title, link, parsed_date, content)
+		script = fmt.Sprintf(INSERT_TEMPLATE, parsed_tags, title, link, parsed_date,
+			strconv.FormatBool(display), content)
 		fmt.Printf("\tupdated link: %v\n", link)
 	default:
 		panic("`UploadPost`: `cmd` should either be `update` or `insert`")

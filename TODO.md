@@ -10,4 +10,5 @@
   mess.
 - [ ] Determine which pages are static and which are not.
 - [ ] Creative Page design[Cameron's World](https://www.cameronsworld.net/)
+    - [ ] Figure out cursors
 

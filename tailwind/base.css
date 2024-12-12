@@ -37,6 +37,10 @@
 	@apply mt-6;
 }
 
+.prose a { 
+	@apply hover:text-gray-500;
+}
+
 .prose a.footnote-ref { 
 	@apply text-blue-600;
 	@apply no-underline;

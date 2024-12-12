@@ -1926,6 +1926,10 @@ html {
   grid-column-start: 5 !important;
 }
 
+.col-start-2 {
+  grid-column-start: 2 !important;
+}
+
 .float-right {
   float: right !important;
 }

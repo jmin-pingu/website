@@ -2,7 +2,7 @@
 data
 *.json
 node_modules
-views/**/*.go
+pub/**/*.go
 *.gif
 *.jpg
 *.png

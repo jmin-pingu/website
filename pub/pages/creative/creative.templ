@@ -54,13 +54,13 @@ templ Gallery() {
 	// I've created, where if you click on the "painting", it expands/plays the song/track in a pop up 
 	// icon/situation. Additionally, I can overlay my webpage with "spectators" or "enjoyers of art" so 
 	// I can make it look like a real gallery.
-	<div class="flex justify-center">
-	@NavFrame(8){
-	<button type="button" class="leading-5 text-center hover:font-medium hover:font-extrabold hover:bg-gray-350 bg-gray-400 h-16 w-48 pointer-events-auto text-lg text-black text-center" style="font-family:'Arial'">
-	ENTRANCE<br><span style="font-family: Times, 'Times New Roman', serif;"><em>for</em> the gallery</span>
-	</button>
-	}
-	</div>
+	// <div class="flex justify-center">
+	// @NavFrame(8){
+	// <button type="button" class="leading-5 text-center hover:font-medium hover:font-extrabold hover:bg-gray-350 bg-gray-400 h-16 w-48 pointer-events-auto text-lg text-black text-center" style="font-family:'Arial'">
+	// ENTRANCE<br><span style="font-family: Times, 'Times New Roman', serif;"><em>for</em> the gallery</span>
+	// </button>
+	// }
+	// </div>
 
 	@Frame(8, "mx-40 my-6 center"){
 	<div id="gallery" class="border border-gray-600 text-black bg-repeat" style="background-image: url('/assets/img/bg1.png');">
@@ -68,32 +68,33 @@ templ Gallery() {
 	<em><strong class="text-5xl text-black underline text-center" style="font-family:'Times New Roman'">the gallery</strong></em>
 	</div>
 	<div class="grid grid-cols-3 gap-11 place-items-center">
-		@WoodFrame(4, "mx-2 center") { 
-			<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/noooo.png" alt="image">
-		}
+		// @WoodFrame(4, "mx-2 center") { 
+		// 	<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/noooo.png" alt="image">
+		// }
 
-	 	@WoodFrame(4, "mx-2 center") { 
-			<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/dj2.gif" alt="image">
-		}
-		@WoodFrame(4, "mx-2 center") { 
-			<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/vaporwave.gif" alt="image">
-		}
+	 	// @WoodFrame(4, "mx-2 center") { 
+		// 	<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/dj2.gif" alt="image">
+		// }
+		// @WoodFrame(4, "mx-2 center") { 
+		// 	<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/vaporwave.gif" alt="image">
+		// }
 
-		<div class="flex">	
-			@WoodFrame(4, "mx-2 center w-48 h-48") { 
-				<img class="self-auto bg-gray-300 w-full h-full" src="/assets/img/bobomb.png" alt="image">
-			}
-			<img class="self-end w-15 h-20" src="/assets/img/mario-1.gif" alt="image">
-		</div>
+		// <div class="flex">	
+		// 	@WoodFrame(4, "mx-2 center w-48 h-48") { 
+		// 		<img class="self-auto bg-gray-300 w-full h-full" src="/assets/img/bobomb.png" alt="image">
+		// 	}
+		// 	<img class="self-end w-15 h-20" src="/assets/img/mario-1.gif" alt="image">
+		// </div>
 
-		@WoodFrame(4, "mx-2 center") { 
-			<img class="justify-center w-48 h-48" src="/assets/img/nerd.gif" alt="image">
-		}
+		// @WoodFrame(4, "mx-2 center") { 
+		// 	<img class="justify-center w-48 h-48" src="/assets/img/nerd.gif" alt="image">
+		// }
 
-		<div class="flex flex-col">	
-			@WoodFrame(4, "mx-2 center w-48 h-48") { 
-				<a href="https://drive.google.com/file/d/1I8HIKCbS0-E2Kv3d3G3W3bsDEt4Eb5VT/view?usp=drive_link">		
-					<img class="justify-center w-full h-full" src="/assets/img/i-hate-koreans.jpg" alt="image">
+		<div class="col-start-2 flex flex-col">	
+			@WoodFrame(4, "mx-2 center") { 
+				<a href="https://drive.google.com/file/d/1rm1BGEQgOPQi36vfnZITKuGNHVM5A3BD/view?usp=sharing">		
+ 
+					<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/noooo.png" alt="image">
 				</a>
 			} 
 			<div class="text-center hover:underline hover:font-serif hover:text-blue-500">
