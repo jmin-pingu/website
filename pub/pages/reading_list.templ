@@ -34,13 +34,20 @@ templ ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) {
 	// TODO: need to think about a data structure to ensure fixed ordering from in-progress, lowest year to highest year, then to-read
 	for i, k := range sorted_books.Categories {
 		<h2 class="mb-4">{ strings.Title(k) }</h2>
+		{{ var author string }}
 		for _, book := range sorted_books.Values[i] {
 			<dl id={ "reading-list-" + k } class="my-0">
 				// TODO: add documentation
 				<dt> <a id={ strconv.Itoa(book.BookID) } href={ templ.URL(book.URL) }> { book.Title } </a> </dt>
+				if len(book.Author) == 1 {
+					{{ author = "Author" }}
+				} else {
+					{{ author = "Authors" }}
+				}
+
 				if k == "In-Progress" {
 					<dd> 
-					Author(s): { cases.Title(language.English).String(strings.Join(book.Author, ", ")) }
+					{ author }: { cases.Title(language.English).String(strings.Join(book.Author, ", ")) }
 					<br>
 					Tags: { cases.Title(language.English).String(strings.Join(book.Tags, ", ")) }
 					<br>
@@ -48,13 +55,13 @@ templ ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) {
 					</dd>
 				} else if k == "To-Read" {
 					<dd> 
-					Author(s): { cases.Title(language.English).String(strings.Join(book.Author, ", ")) }
+					{ author }: { cases.Title(language.English).String(strings.Join(book.Author, ", ")) }
 					<br>
 					Tags: { cases.Title(language.English).String(strings.Join(book.Tags, ", ")) }
 					</dd>
 				} else {
 					<dd> 
-					Author(s): { cases.Title(language.English).String(strings.Join(book.Author, ", ")) }
+					{ author }: { cases.Title(language.English).String(strings.Join(book.Author, ", ")) }
 					<br>
 					Tags: { cases.Title(language.English).String(strings.Join(book.Tags, ", ")) } 
 					<br>

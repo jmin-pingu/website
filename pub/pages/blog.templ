@@ -19,14 +19,14 @@ templ BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadat
 
 		@partials.Search("/blog/search", "#blog-posts")
 
-		<h2 class="mb-0">Posts</h2>
+
 		@BlogPosts(posts_metadata, filter_tags, "")
 		</div>
 	}
 }
 
 templ TagsNavigation(tags *ds.OrderedList[string]) {
-	<div id="tags-navbar" class="flex flex-row items-center h-6">
+	<div id="tags-navbar" class="flex flex-row items-center mt-6 h-6">
 		<p class="font-semibold">
 		Tags: 
 		</p>
@@ -50,8 +50,17 @@ templ BlogPosts(posts_metadata *ds.PostsMetadata, tags_filter ds.Set[string], se
 		for _, post := range *posts_metadata {
 			// TODO: add documentation
 			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.IsEmpty() || !(tags_filter.Intersection(post.Tags)).IsEmpty()) {
-				<dt> <a id={ strconv.Itoa(post.PostID) } href={ post.Path }> { post.Title } </a> </dt>
+				<dt class="flex flex-col"> 
+				<div><a class="text-3xl" id={ strconv.Itoa(post.PostID) } href={ post.Path }> { post.Title } </a> 
+				<p class="my-2">{ post.Date.Format("01-02-2006") }</p>
+				</div>
+				</dt>
 			}
 		}
+		<dt class="flex flex-col"> 
+				<div class="font-thin text-3xl"> 
+				Posts-in-Progress: <em>Let's Talk about p-values</em> and <em>Learning Zig</em>
+				</div>
+		</dt>
 	</dl>
 }

@@ -34,7 +34,7 @@ func InitPosts(dbpool *pgxpool.Pool, clean bool) {
 	dat, err = os.ReadFile(pwd + "/db/posts_schema.sql")
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "`init_posts` failed to read schema: %v\n", err)
+		fmt.Fprintf(os.Stderr, "`InitPosts` failed to read schema: %v\n", err)
 		os.Exit(1)
 	}
 	stmt = string(dat)
@@ -45,7 +45,7 @@ func InitPosts(dbpool *pgxpool.Pool, clean bool) {
 	// Execute script
 	_, err = dbpool.Exec(context.Background(), stmt)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "`init_posts` failed: %v\n", err)
+		fmt.Fprintf(os.Stderr, "`InitPosts` failed: %v\n", err)
 		os.Exit(1)
 	}
 }

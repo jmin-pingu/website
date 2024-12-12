@@ -23,12 +23,18 @@ func main() {
 
 	// Realistically, we really do not want the option to delete the DB.
 	db.InitPosts(dbpool, false)
+	db.InitBooks(dbpool, false)
+
 	handlers.BOOKS = db.GetBooks(dbpool)
 	dbpool.Close() // Make sure to finish the transaction
 
 	// Setup routes
 	handlers.SetupRoutes(e)
 
+<<<<<<< HEAD
 	e.Logger.Fatal(e.Start(":1323"))
+=======
+	e.Logger.Fatal(e.Start(":8080"))
+>>>>>>> refs/remotes/origin/main
 
 }
