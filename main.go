@@ -31,10 +31,6 @@ func main() {
 	// Setup routes
 	handlers.SetupRoutes(e)
 
-<<<<<<< HEAD
-	e.Logger.Fatal(e.Start(":1323"))
-=======
 	e.Logger.Fatal(e.Start(":8080"))
->>>>>>> refs/remotes/origin/main
 
 }

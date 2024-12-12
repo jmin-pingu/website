@@ -275,11 +275,7 @@ func Gallery() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-<<<<<<< HEAD
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"https://drive.google.com/file/d/1I8HIKCbS0-E2Kv3d3G3W3bsDEt4Eb5VT/view?usp=drive_link\"><img class=\"justify-center bg-gray-300 w-40 h-40\" src=\"/assets/img/noooo.png\" alt=\"image\"></a>")
-=======
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"https://drive.google.com/file/d/1rm1BGEQgOPQi36vfnZITKuGNHVM5A3BD/view?usp=sharing\"><img class=\"justify-center bg-gray-300 w-40 h-40\" src=\"/assets/img/noooo.png\" alt=\"image\"></a>")
->>>>>>> refs/remotes/origin/main
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -361,7 +357,7 @@ func Page(title string, pages_metadata *ds.PagesMetadata) templ.Component {
 		var templ_7745c5c3_Var14 string
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/creative/creative.templ`, Line: 134, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/creative/creative.templ`, Line: 133, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {

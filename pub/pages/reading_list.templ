@@ -31,10 +31,9 @@ templ ReadingListContents() {
 }
 
 templ ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) {
-	// TODO: need to think about a data structure to ensure fixed ordering from in-progress, lowest year to highest year, then to-read
+	{{ var author string }}
 	for i, k := range sorted_books.Categories {
 		<h2 class="mb-4">{ strings.Title(k) }</h2>
-		{{ var author string }}
 		for _, book := range sorted_books.Values[i] {
 			<dl id={ "reading-list-" + k } class="my-0">
 				// TODO: add documentation

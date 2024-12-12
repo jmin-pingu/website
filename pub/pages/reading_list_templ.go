@@ -128,6 +128,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		var author string
 		for i, k := range sorted_books.Categories {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h2 class=\"mb-4\">")
 			if templ_7745c5c3_Err != nil {
@@ -146,7 +147,6 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var author string
 			for _, book := range sorted_books.Values[i] {
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<dl id=\"")
 				if templ_7745c5c3_Err != nil {
@@ -155,7 +155,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs("reading-list-" + k)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 39, Col: 31}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 38, Col: 31}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -168,7 +168,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(book.BookID))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 41, Col: 42}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 40, Col: 42}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -190,7 +190,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 				var templ_7745c5c3_Var9 string
 				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(book.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 41, Col: 87}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 40, Col: 87}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -213,7 +213,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var10 string
 					templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(author)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 50, Col: 13}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 49, Col: 13}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 					if templ_7745c5c3_Err != nil {
@@ -226,7 +226,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var11 string
 					templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Author, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 50, Col: 88}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 49, Col: 88}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 					if templ_7745c5c3_Err != nil {
@@ -239,7 +239,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var12 string
 					templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Tags, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 52, Col: 80}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 51, Col: 80}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 					if templ_7745c5c3_Err != nil {
@@ -252,7 +252,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var13 string
 					templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(strings.Split(book.DateStarted.Time.String(), " ")[0])
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 54, Col: 74}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 53, Col: 74}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 					if templ_7745c5c3_Err != nil {
@@ -270,7 +270,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var14 string
 					templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(author)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 58, Col: 13}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 57, Col: 13}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 					if templ_7745c5c3_Err != nil {
@@ -283,7 +283,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var15 string
 					templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Author, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 58, Col: 88}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 57, Col: 88}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 					if templ_7745c5c3_Err != nil {
@@ -296,7 +296,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var16 string
 					templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Tags, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 60, Col: 80}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 59, Col: 80}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 					if templ_7745c5c3_Err != nil {
@@ -314,7 +314,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var17 string
 					templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(author)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 64, Col: 13}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 63, Col: 13}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 					if templ_7745c5c3_Err != nil {
@@ -327,7 +327,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var18 string
 					templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Author, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 64, Col: 88}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 63, Col: 88}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 					if templ_7745c5c3_Err != nil {
@@ -340,7 +340,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var19 string
 					templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(cases.Title(language.English).String(strings.Join(book.Tags, ", ")))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 66, Col: 80}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 65, Col: 80}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 					if templ_7745c5c3_Err != nil {
@@ -353,7 +353,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var20 string
 					templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(strings.Split(book.DateStarted.Time.String(), " ")[0])
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 68, Col: 74}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 67, Col: 74}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 					if templ_7745c5c3_Err != nil {
@@ -366,7 +366,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var21 string
 					templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(strings.Split(book.DateCompleted.Time.String(), " ")[0])
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 70, Col: 78}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 69, Col: 78}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 					if templ_7745c5c3_Err != nil {
@@ -379,7 +379,7 @@ func ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) templ.Compon
 					var templ_7745c5c3_Var22 string
 					templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%v", book.Rating.Float))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 72, Col: 51}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pub/pages/reading_list.templ`, Line: 71, Col: 51}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 					if templ_7745c5c3_Err != nil {
