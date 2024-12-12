@@ -4,5 +4,6 @@ CREATE TABLE IF NOT EXISTS posts (
 	title 			VARCHAR(255) NOT NULL,
 	link 			VARCHAR(255) NOT NULL UNIQUE,
 	date 			DATE NOT NULL,
+	display 		BOOLEAN NOT NULL,
 	content 		TEXT NOT NULL
 );

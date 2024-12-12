@@ -1,4 +1,7 @@
-startup:
+server:
 	templ generate 
 	# open http://localhost:1323/
-	go run server.go
+	go run main.go
+
+watch:
+	npm run tailwind

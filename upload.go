@@ -218,18 +218,18 @@ func UploadToPosts(dbpool *pgxpool.Pool, paths []string) {
 			log.Fatalf("failed to read markdown file: %v", err)
 		}
 		content := mdToHTML(md)
-		tags, title, link, date := parse_md_metadata(md)
+		tags, title, link, display, date := parse_md_metadata(md)
 
 		// Based on contents of md file, upload or insert
 		if db.Exists(dbpool, "posts", "link", link) {
-			db.UploadPost(dbpool, "update", tags, title, link, date, content)
+			db.UploadPost(dbpool, "update", tags, title, link, date, display, content)
 		} else {
-			db.UploadPost(dbpool, "insert", tags, title, link, date, content)
+			db.UploadPost(dbpool, "insert", tags, title, link, date, display, content)
 		}
 	}
 }
 
-func parse_md_metadata(md []byte) ([]string, string, string, time.Time) {
+func parse_md_metadata(md []byte) ([]string, string, string, bool, time.Time) {
 	// Get metadata from markdown
 	metadata := getMetadata(md) // Consider what additional metadata I would want to consider
 
@@ -250,7 +250,7 @@ func parse_md_metadata(md []byte) ([]string, string, string, time.Time) {
 	for k, _ := range tags_set {
 		tags = append(tags, k)
 	}
-	return tags, metadata["title"].(string), metadata["link"].(string), date
+	return tags, metadata["title"].(string), metadata["link"].(string), metadata["display"].(bool), date
 }
 
 // ----- Markdown-to-HTML Functions  -----

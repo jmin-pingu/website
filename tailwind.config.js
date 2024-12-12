@@ -3,6 +3,7 @@
 
 module.exports = {
 	content: ["pub/**/*.{templ,go}"],
+	important: true,
 	theme: {
 		extend: {
 			cursor: {

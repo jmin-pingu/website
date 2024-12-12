@@ -30,4 +30,5 @@ func main() {
 	handlers.SetupRoutes(e)
 
 	e.Logger.Fatal(e.Start(":1323"))
+
 }

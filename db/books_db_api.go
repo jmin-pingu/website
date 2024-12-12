@@ -72,7 +72,7 @@ func GetBooks(dbpool *pgxpool.Pool) ds.StrictDict[string, Book] {
 		books []*Book
 		key   string
 	)
-	const QUERY = `SELECT * FROM books ORDER BY date_completed;`
+	const QUERY = `SELECT * FROM books ORDER BY date_completed DESC, date_started DESC;`
 	err := pgxscan.Select(context.Background(), dbpool, &books, QUERY)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "`GetBooks` failed: %v\n", err)
