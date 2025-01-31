@@ -1,9 +1,0 @@
-CREATE TABLE IF NOT EXISTS posts (
-	post_id 		SERIAL PRIMARY KEY,
-	tags 			VARCHAR(255)[] NOT NULL,
-	title 			VARCHAR(255) NOT NULL,
-	link 			VARCHAR(255) NOT NULL UNIQUE,
-	date 			DATE NOT NULL,
-	display 		BOOLEAN NOT NULL,
-	content 		TEXT NOT NULL
-);
