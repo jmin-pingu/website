@@ -1,0 +1,31 @@
+package shared
+
+import (
+	"website/pub/partials"
+	"website/ds"
+)
+
+// The general template for a page
+templ Page(title string, pages_metadata *ds.PagesMetadata) {
+	<!DOCTYPE html>
+	<html lang="en" data-theme="lofi" >
+	<head>
+		<title>{ title }</title>
+		<script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+		<style>  
+			@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+			@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Doto:wght@100..900&display=swap');
+  			@import url("https://use.typekit.net/rgk7flt.css");
+		</style>
+		<link rel="stylesheet" href="/assets/main.css"/>
+	</head>
+
+	<body class="min-h-screen font-garamond border-r-indigo-500 overflow-y-scroll scrollwheel">
+	@partials.Nav(*pages_metadata, title)
+	<div id="content-wrapper" class="py-8 px-8">	
+	{ children... }
+	</div>
+	</body> 
+	@Footer()
+	</html>
+}

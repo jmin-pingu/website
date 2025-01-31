@@ -1,0 +1,65 @@
+package pages
+
+import (
+	"website/pub/shared"
+	"website/pub/partials"
+	"website/ds"
+	"strings"
+	"strconv"
+)
+
+templ BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata, tags *ds.OrderedList[string], filter_tags ds.Set[string]) {
+	@shared.Page("Blog", pages_metadata) {
+		// Page specific features
+		<div class="prose !max-w-none mx-0">
+	 	<h1 class="mb-2">Blog Posts</h1>
+		// Content
+
+		@TagsNavigation(tags) // Filter for blog post tags 
+
+		@partials.Search("/blog/search", "#blog-posts")
+
+		@BlogPosts(posts_metadata, filter_tags, "")
+		</div>
+	}
+}
+
+templ TagsNavigation(tags *ds.OrderedList[string]) {
+	<div id="tags-navbar" class="flex flex-row items-center mt-6 h-6">
+		<p class="font-semibold">
+		Tags: 
+		</p>
+		for _, v := range *tags {
+			<div class="mx-2"> <label> { v } </label> 
+				<input name={ v } 
+					type="checkbox" 
+					value="1" 
+					hx-post="/blog/" 
+					hx-target="#blog-posts"
+					hx-swap="outerHTML"
+					hx-include="next input"/> 
+				<input type="hidden" name={ v } value="0"/> 
+			</div>
+		}
+	</div>
+}
+
+templ BlogPosts(posts_metadata *ds.PostsMetadata, tags_filter ds.Set[string], search string) {
+	<dl id="blog-posts">
+		for _, post := range *posts_metadata {
+			// TODO: add documentation
+			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.IsEmpty() || !(tags_filter.Intersection(post.Tags)).IsEmpty()) {
+				<dt class="flex flex-col"> 
+				<div><a class="text-3xl" id={ strconv.Itoa(post.PostID) } href={ post.Path }> { post.Title } </a> 
+				<p class="my-2">{ post.Date.Format("01-02-2006") }</p>
+				</div>
+				</dt>
+			}
+		}
+		<dt class="flex flex-col"> 
+				<div class="font-thin text-3xl"> 
+				Posts-in-Progress: <em>Let's Talk about p-values</em> and <em>Learning Zig</em>
+				</div>
+		</dt>
+	</dl>
+}

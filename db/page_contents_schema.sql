@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS page_contents (
+	link 			VARCHAR(255) NOT NULL UNIQUE,
+	title 			VARCHAR(255) NOT NULL
+	content 		TEXT NOT NULL
+);
