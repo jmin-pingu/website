@@ -1,8 +1,9 @@
 .DS_Store
 data
-*.json
 node_modules
-src/pub/**/*.go
+*.json
 *.gif
 *.jpg
 *.png
+bin
+

@@ -1,0 +1,19 @@
+package partials
+
+import (
+	"internal/ds"
+)
+
+templ BlogMenu(posts_metadata ds.PostsMetadata) {
+	<ul class="menu">
+		for _, pm := range posts_metadata{ 
+			@BlogMenuItems(pm.Title, pm.Path)
+		}
+	</ul>
+}
+
+templ BlogMenuItems(title string, link templ.SafeURL) {
+	<li> 
+		<a href={ link }> { title } </a>
+	</li>
+}

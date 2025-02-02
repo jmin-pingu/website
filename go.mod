@@ -2,6 +2,9 @@ module website
 
 go 1.23
 
+require internal v1.0.0
+replace internal => ./internal
+
 require (
 	github.com/PuerkitoBio/goquery v1.10.1 // indirect
 	github.com/a-h/parse v0.0.0-20240121214402-3caf7543159a // indirect

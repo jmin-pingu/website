@@ -1,0 +1,151 @@
+package creative
+
+import (
+	"internal/pub/shared"
+	"internal/ds"
+)
+
+templ CreativePage(pages_metadata *ds.PagesMetadata) {
+	@Page("Creative", pages_metadata) {
+ 		@CreativeContents()
+	}
+}
+
+templ CreativeContents() {
+	@Greeting()
+	<div class="mt-10 flex"></div>
+	@Gallery()
+	@Sisyphus()
+}
+
+templ Sisyphus() {  
+	<div id="sisyphus-happy" class="flex flex-nowrap justify-center">
+		@Frame(4, "mx-2 self-center") { 
+		<img class="bg-gray-400 h-16 max-w-full" src="/assets/img/hamster-wheel.gif" alt="hamster-wheel-1">
+		}
+		@Frame(4, "mx-4 self-center") { 
+			<img class="border-2 border-black max-w-full h-24" src="/assets/img/sisyphus.gif" alt="roblox-sisyphus">
+		}
+			<div id="sisyphus-quote" class="flex flex-col flex-nowrap my-2">
+				<p class="text-4xl font-thin text-center self-center">one must imagine sisyphus 
+				<span class="flex justify-center">
+				<img class="float-left h-14 max-w-full self-center" src="/assets/img/happy1.gif" alt="lol">
+				<em><span class="text-red-600">h</span><span class="text-yellow-500">a</span><span class="text-yellow-300">p</span><span class="text-green-500">p</span><span class="text-blue-700">y</span>
+				<img class="float-right h-14 max-w-full self-center" src="/assets/img/happy1.gif" alt="lol">
+				</em>
+				</span>
+				</p>
+				<div class="grid grid-cols-6">
+ 					<a class="-mt-2 h-2 text-lg col-start-5 text-center" href="https://archive.org/details/the-stranger_202404/mode/2up">-<span class="hover:underline hover:font-serif hover:text-blue-500">camus</span></a>
+				</div>
+			</div>
+		@Frame(4, "mx-4 self-center") { 
+			<img class="border-2 border-black max-w-full h-24" src="/assets/img/sisyphus.gif" alt="roblox-sisyphus">
+		}
+		@Frame(4, "mx-2 self-center") { 
+		<img class="bg-gray-400 h-16 max-w-full" src="/assets/img/hamster-wheel2.gif" alt="hamster-wheel-2">
+		}
+	</div>
+
+}
+
+templ Gallery() {
+	// TODO: I have an idea for this. We can essentially make a portrait/art gallery of the songs/things 
+	// I've created, where if you click on the "painting", it expands/plays the song/track in a pop up 
+	// icon/situation. Additionally, I can overlay my webpage with "spectators" or "enjoyers of art" so 
+	// I can make it look like a real gallery.
+	// <div class="flex justify-center">
+	// @NavFrame(8){
+	// <button type="button" class="leading-5 text-center hover:font-medium hover:font-extrabold hover:bg-gray-350 bg-gray-400 h-16 w-48 pointer-events-auto text-lg text-black text-center" style="font-family:'Arial'">
+	// ENTRANCE<br><span style="font-family: Times, 'Times New Roman', serif;"><em>for</em> the gallery</span>
+	// </button>
+	// }
+	// </div>
+
+	@Frame(8, "mx-40 my-6 center"){
+	<div id="gallery" class="border border-gray-600 text-black bg-repeat" style="background-image: url('/assets/img/bg1.png');">
+	<div id="gallery-title" class="my-6 text-center">
+	<em><strong class="text-5xl text-black underline text-center" style="font-family:'Times New Roman'">the gallery</strong></em>
+	</div>
+	<div class="grid grid-cols-3 gap-11 place-items-center">
+		// @WoodFrame(4, "mx-2 center") { 
+		// 	<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/noooo.png" alt="image">
+		// }
+
+	 	// @WoodFrame(4, "mx-2 center") { 
+		// 	<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/dj2.gif" alt="image">
+		// }
+		// @WoodFrame(4, "mx-2 center") { 
+		// 	<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/vaporwave.gif" alt="image">
+		// }
+
+		// <div class="flex">	
+		// 	@WoodFrame(4, "mx-2 center w-48 h-48") { 
+		// 		<img class="self-auto bg-gray-300 w-full h-full" src="/assets/img/bobomb.png" alt="image">
+		// 	}
+		// 	<img class="self-end w-15 h-20" src="/assets/img/mario-1.gif" alt="image">
+		// </div>
+
+		// @WoodFrame(4, "mx-2 center") { 
+		// 	<img class="justify-center w-48 h-48" src="/assets/img/nerd.gif" alt="image">
+		// }
+
+		<div class="col-start-2 flex flex-col">	
+			@WoodFrame(4, "mx-2 center") { 
+				<a href="https://drive.google.com/file/d/1rm1BGEQgOPQi36vfnZITKuGNHVM5A3BD/view?usp=sharing">		
+					<img class="justify-center bg-gray-300 w-40 h-40" src="/assets/img/noooo.png" alt="image">
+				</a>
+			} 
+			<div class="text-center hover:underline hover:font-serif hover:text-blue-500">
+			<p>^a year and a half <br>in boston mix</p>
+		</div>
+	</div>
+
+	<div>
+
+	</div>
+	</div>
+	</div>
+	}
+}
+
+templ Greeting() {
+	<div class="float-right -mt-8 text-white text-opacity-0 hover:text-opacity-80">click here for some cool visualizations!!! ^</div>
+
+	<div class="flex text-blue-500 flex-col items-center" style="font-family:'Times New Roman'">
+	<em><strong class="text-4xl underline text-center">you <span class="not-italic" style="font-family:'Arial'">FINE, BEAUTIFUL</span> individual.</strong></em>
+	<div class="flex mt-2">
+	<img class="h-12 mr-8" src="/assets/img/cupid-left.gif" alt="dj1">
+	<em><strong class="align-middle underline text-4xl text-center">thanks for visiting my</strong></em>
+	<img class="h-12 ml-8" src="/assets/img/cupid-right.gif" alt="cupid2">
+	</div>
+	<em><strong class="underline text-4xl"><span class="hover:font-comic-sans">
+	creative</span> page</strong></em>
+	</div>
+}
+
+// The special template for a page
+templ Page(title string, pages_metadata *ds.PagesMetadata) {
+	<!DOCTYPE html>
+	<html lang="en" data-theme="lofi" class="text-white bg-repeat" style="background-image: url('/assets/img/bg.png'); font-family: comic-sans;">
+	// 
+	<head>
+		<title>{ title }</title>
+		<script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+		<style>  
+			@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+			@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Doto:wght@100..900&display=swap');
+  			@import url("https://use.typekit.net/rgk7flt.css");
+		</style>
+		<link rel="stylesheet" href="/assets/main.css"/>
+	</head>
+
+	@Nav(*pages_metadata)
+	<body id="creative-body" class="min-h-screen font-comic-sans border-r-indigo-500 overflow-y-scroll scrollwheel">
+	<div id="content-wrapper" class="py-8 px-8">	
+	{ children... }
+	</div>
+	</body> 
+	@shared.Footer()
+	</html>
+}
