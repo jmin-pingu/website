@@ -2,7 +2,7 @@
 //const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-	content: ["pub/**/*.{templ,go}"],
+	content: ["internal/pub/**/*.{templ,go}"],
 	important: true,
 	theme: {
 		extend: {

@@ -3,13 +3,14 @@ module website
 go 1.23
 
 require internal v1.0.0
+
 replace internal => ./internal
 
 require (
 	github.com/PuerkitoBio/goquery v1.10.1 // indirect
-	github.com/a-h/parse v0.0.0-20240121214402-3caf7543159a // indirect
+	github.com/a-h/parse v0.0.0-20250122154542-74294addb73e // indirect
 	github.com/a-h/protocol v0.0.0-20240704131721-1e461c188041 // indirect
-	github.com/a-h/templ v0.3.819 // indirect
+	github.com/a-h/templ v0.3.833 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
