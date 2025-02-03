@@ -12,7 +12,7 @@ import (
 
 func SetupRoutes(e *echo.Echo) {
 	// set up static assets
-	e.Static("/assets", "pub/assets")
+	e.Static("/assets", "internal/pub/assets")
 
 	// Render pages
 	SetupRenders(e)
