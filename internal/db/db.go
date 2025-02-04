@@ -1,6 +1,7 @@
 package db
 
 import (
+	"bufio"
 	"context"
 	"fmt"
 	"log"
@@ -33,7 +34,24 @@ func GetConnection(dbName string) (*pgxpool.Pool, error) {
 		return db, nil
 	}
 	// Init connection to PostgreSQL db
-	dbpool, err := pgxpool.New(context.Background(), os.Getenv("POSTGRES_URL"))
+	f, err := os.Open(os.Getenv("POSTGRES_PASSWORD_FILE"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	scanner := bufio.NewScanner(f)
+	scanner.Split(bufio.ScanWords)
+
+	postgres_url := fmt.Sprintf(
+		"postgres://%s:%s@%s:%s/%s",
+		os.Getenv("POSTGRES_USER"),
+		string(scanner.Text()),
+		os.Getenv("POSTGRES_IP"),
+		os.Getenv("POSTGRES_PORT"),
+		os.Getenv("POSTGRES_DB"),
+	)
+	defer f.Close()
+	dbpool, err := pgxpool.New(context.Background(), postgres_url)
 	if err != nil {
 		return nil, fmt.Errorf("🔥 failed to connect to the database: %s", err)
 	}

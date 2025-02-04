@@ -7,10 +7,8 @@ run:
 
 build:
 	templ generate 
-	go build ./cmd/run
-	go build ./cmd/upload
-	mv run bin
-	mv upload bin
+	go build -o ./bin/run ./cmd/run 
+	go build -o ./bin/upload ./cmd/upload 
 
 watch:
 	npm run tailwind

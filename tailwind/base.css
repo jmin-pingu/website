@@ -1,11 +1,14 @@
-@import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
     font-family: "comic-sans";
-    src: url("./assets/fonts/Comic Sans MS.ttf");
+    src: url("/assets/fonts/Comic Sans MS.ttf");
+}
+
+.font-garamond {
+	font-family: "adobe-garamond-pro", serif !important;
 }
 
 /* formatting daisyui components */

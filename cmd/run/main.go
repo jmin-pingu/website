@@ -15,7 +15,7 @@ func main() {
 	e := echo.New()
 
 	// Initialize db
-	dbpool, err := db.GetConnection("websitedb")
+	dbpool, err := db.GetConnection(os.Getenv("POSTGRES_DB"))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to connect to website: %v\n", err)
 		os.Exit(1)
@@ -31,6 +31,6 @@ func main() {
 	// Setup routes
 	handlers.SetupRoutes(e)
 
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":8080"))
 
 }

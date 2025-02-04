@@ -1,27 +1,47 @@
-# Readings
+# TODO
+### Readings
 I really should have done this sooner. A classic example of slack off early and pay later. The point
 is, we're back at square one so let's do this right.
-- [ ] Read all of HTMX documentation
-- [ ] Read all of templ documentation
-- [ ] Read all of tailwind documentation
-    - [ ] Understand "middleware"
-- [ ] Read all of labstack/echo Go framework documentation
-- [ ] Read all of Docker
-- [ ] Read source code of DB interaction and etc.
+- [ ] Read HTMX documentation
+- [ ] Read templ documentation
+- [ ] Read Tailwind documentation
+- [X] Review Docker introduction documentation
+- [X] Review Docker workshop on website
+- [ ] Read Dockerfile documentation
+- [ ] Read Docker manual (Engine and Build)
+- [X] Read Traefik documentation
+    - [X] Understand "middleware"
+- [X] Read Watchtower documentation
+- [ ] Read NGinx documentation
+- [ ] Read source code of generic DB interactions and etc.
  
-# TODO
+ ### Tasks
 - [X] Creative Page design[Cameron's World](https://www.cameronsworld.net/)
     - [ ] Figure out cursors
-- [ ] REFACTOR: God this code is ugly 
-- [ ] Implement "watching"
-- [ ] node failure notification
-- [ ] Implement logging 
-- [ ] Implement better error handling 
+- [X] Containerize
+- [X] :80 -> :443 redirect
+- [ ] Switch from using lib `go/echo` to `go/http` for handing http requests
+- [ ] Refactor: God this code is ugly 
+- [ ] Automatic updating via "watching"
+- [ ] Load balancing
+- [ ] Figure out DB logistics with containers and organization
+- [ ] Observability
+    - [ ] Node failure notification
+    - [ ] Logging 
+    - [ ] Metrics 
+- [ ] Better error handling and documentation
 
-# Features
+### Features
 - [ ] Shiny apps
-- [ ] safe runtimes with wasm
+- [ ] Safe runtimes with wasm
 
-# References 
-- [ ] [Setting up a production ready VPS is a lot easier than I thought - Dreams Of Code](https://www.youtube.com/watch?v=F-9KWQByeU0&t=435s&ab_channel=DreamsofCode)
+### References 
+- [Setting up a production ready VPS is a lot easier than I thought - Dreams Of Code](https://www.youtube.com/watch?v=F-9KWQByeU0&t=435s&ab_channel=DreamsofCode)
+- [Traefik Documentation](https://doc.traefik.io/traefik/)
+- [Traefik + Docker Examples](https://doc.traefik.io/traefik/user-guides/docker-compose/basic-example/)
+- [Docker Documentation](https://docs.docker.com/)
+- [Watchtower Documentation](https://containrrr.dev/watchtower/)
+- [Example Full Stack Application](https://github.com/emarifer/go-echo-templ-htmx/tree/main)
+- [Docker-Compose with PostgreSQL](https://github.com/felipewom/docker-compose-postgres)
+- [NGinx Deep Dive](https://www.limchayseng.com/2022/02/14/NGINX-deep-dive/)
 
