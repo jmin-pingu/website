@@ -53,6 +53,10 @@ func main() {
 	dbpool, err := db.GetConnection("websitedb")
 	defer dbpool.Close() // Make sure to finish the transaction
 
+	// Leave this as a custom option for recreating the DB
+	// db.InitPosts(dbpool, false)
+	// db.InitBooks(dbpool, false)
+
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to connect to websitedb: %v\n", err)
 		os.Exit(1)

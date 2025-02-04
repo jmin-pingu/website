@@ -20,11 +20,6 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Failed to connect to website: %v\n", err)
 		os.Exit(1)
 	}
-
-	// // Realistically, we really do not want the option to delete the DB.
-	db.InitPosts(dbpool, false)
-	db.InitBooks(dbpool, false)
-
 	handlers.BOOKS = db.GetBooks(dbpool)
 	dbpool.Close() // Make sure to finish the transaction
 

@@ -25,6 +25,7 @@ is, we're back at square one so let's do this right.
 - [ ] Automatic updating via "watching"
 - [ ] Load balancing
 - [ ] Figure out DB logistics with containers and organization
+- [ ] Implement automatic backups 
 - [ ] Observability
     - [ ] Node failure notification
     - [ ] Logging 

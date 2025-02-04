@@ -17,21 +17,21 @@ services:
       - "--accesslog=true"
       - "--api.insecure=true"
       - "--providers.docker"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entryPoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=jonathanheromin@gmail.com"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-      - "--entryPoints.websecure.address=:443"
-      - "--entryPoints.web.http.redirections.entrypoint.to=websecure"
-      - "--entryPoints.web.http.redirections.entrypoint.scheme=https"
+      # - "--providers.docker.exposedbydefault=false"
+      # - "--entryPoints.websecure.address=:443"
+      # - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      # - "--certificatesresolvers.myresolver.acme.email=jonathanheromin@gmail.com"
+      # - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      # - "--entryPoints.websecure.address=:443"
+      # - "--entryPoints.web.http.redirections.entrypoint.to=websecure"
+      # - "--entryPoints.web.http.redirections.entrypoint.scheme=https"
     ports:
       - "443:443"
       - "80:80"
       - "8080:8080"
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock
-      - letsencrypt:/letsencrypt
+      # - letsencrypt:/letsencrypt
   server:
     image: jminpingu/website:1.0
     labels:
@@ -39,9 +39,9 @@ services:
       # change host to `jminpingu.com`
       # to access service's host's localhost from container, use host `host.docker.internal`
       - "traefik.enable=true"
-      - "traefik.http.routers.server.rule=Host(`jminpingu.com`)"
-      - "traefik.http.routers.server.entrypoints=websecure"
-      - "traefik.http.routers.server.tls.certresolver=myresolver"
+      - "traefik.http.routers.server.rule=Host(`host.docker.internal`)"
+      # - "traefik.http.routers.server.entrypoints=websecure"
+      # - "traefik.http.routers.server.tls.certresolver=myresolver"
     secrets:
       - db-password
     environment:

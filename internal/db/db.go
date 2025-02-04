@@ -39,9 +39,9 @@ func GetConnection(dbName string) (*pgxpool.Pool, error) {
 		log.Fatal(err)
 	}
 
+	// Scan a line
 	scanner := bufio.NewScanner(f)
-	scanner.Split(bufio.ScanWords)
-
+	scanner.Scan()
 	postgres_url := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s",
 		os.Getenv("POSTGRES_USER"),
@@ -50,6 +50,7 @@ func GetConnection(dbName string) (*pgxpool.Pool, error) {
 		os.Getenv("POSTGRES_PORT"),
 		os.Getenv("POSTGRES_DB"),
 	)
+	log.Println(postgres_url)
 	defer f.Close()
 	dbpool, err := pgxpool.New(context.Background(), postgres_url)
 	if err != nil {
