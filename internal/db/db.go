@@ -24,7 +24,7 @@ import (
 // 	fmt.Printf("We are all done!")
 // }
 
-func GetConnection(dbName string) (*pgxpool.Pool, error) {
+func GetConnection(db_name string) (*pgxpool.Pool, error) {
 	var (
 		err error
 		db  *pgxpool.Pool
@@ -35,6 +35,7 @@ func GetConnection(dbName string) (*pgxpool.Pool, error) {
 	}
 	// Init connection to PostgreSQL db
 	f, err := os.Open(os.Getenv("POSTGRES_PASSWORD_FILE"))
+	defer f.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -48,16 +49,14 @@ func GetConnection(dbName string) (*pgxpool.Pool, error) {
 		string(scanner.Text()),
 		os.Getenv("POSTGRES_IP"),
 		os.Getenv("POSTGRES_PORT"),
-		os.Getenv("POSTGRES_DB"),
+		db_name,
 	)
-	log.Println(postgres_url)
-	defer f.Close()
 	dbpool, err := pgxpool.New(context.Background(), postgres_url)
 	if err != nil {
-		return nil, fmt.Errorf("🔥 failed to connect to the database: %s", err)
+		return nil, fmt.Errorf("db: %s", err)
 	}
 
-	log.Println("🚀 Connected Successfully to the Database")
+	log.Printf("db: connected to %s\n", db_name)
 	return dbpool, nil
 }
 

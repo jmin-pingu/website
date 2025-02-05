@@ -22,7 +22,7 @@ is, we're back at square one so let's do this right.
     - [ ] Figure out cursors
 - [X] Containerize
 ##### Priority
-- [ ] Switch from using lib `go/echo` to `go/http` for handing http requests
+- [X] Switch from using lib `go/echo` to `go/http` for handing http requests
 - [ ] Refactor: God this code is ugly 
 - [ ] Better error handling and documentation
 ##### When I get back home
@@ -50,4 +50,4 @@ is, we're back at square one so let's do this right.
 - [Example Full Stack Application](https://github.com/emarifer/go-echo-templ-htmx/tree/main)
 - [Docker-Compose with PostgreSQL](https://github.com/felipewom/docker-compose-postgres)
 - [NGinx Deep Dive](https://www.limchayseng.com/2022/02/14/NGINX-deep-dive/)
-
+- [Effective Go](https://go.dev/doc/effective_go)

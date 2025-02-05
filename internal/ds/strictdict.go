@@ -14,7 +14,6 @@ func NewStrictDict[K comparable, V any](categories []K) (StrictDict[K, V], error
 			return StrictDict[K, V]{}, fmt.Errorf("categories %v are not unique", categories)
 		}
 		seen[c] = true
-		fmt.Println(c)
 	}
 	return StrictDict[K, V]{Categories: categories, Values: make([][]V, len(categories))}, nil
 }

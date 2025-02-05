@@ -22,3 +22,8 @@ var BOOK_TAGS ds.OrderedList[string] = make(ds.OrderedList[string], 0)
 var POSTS_TAGS ds.OrderedList[string] = make(ds.OrderedList[string], 0)
 
 var DISPLAY_TAGS ds.Set[string] = make(ds.Set[string], 0)
+
+type BlogPostTags struct {
+	Cs       string `json:"cs"`
+	Personal string `json:"personal"`
+}

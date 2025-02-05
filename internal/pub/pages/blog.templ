@@ -29,14 +29,14 @@ templ TagsNavigation(tags *ds.OrderedList[string]) {
 		<p class="font-semibold">
 		Tags: 
 		</p>
+
 		for _, v := range *tags {
 			<div class="mx-2"> <label> { v } </label> 
-				<input name={ v } 
+				<input value="1" 
 					type="checkbox" 
-					value="1" 
 					hx-post="/blog/" 
 					hx-target="#blog-posts"
-					hx-swap="outerHTML"
+					hx-swap="outerHTML"name={ v } 
 					hx-include="next input"/> 
 				<input type="hidden" name={ v } value="0"/> 
 			</div>

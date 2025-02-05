@@ -8,6 +8,7 @@ RUN --mount=type=cache,target=/go/pkg/mod/ \
     --mount=type=bind,source=go.sum,target=go.sum \
     --mount=type=bind,source=go.mod,target=go.mod \
     --mount=type=bind,source=internal/go.mod,target=internal/go.mod \
+    --mount=type=bind,source=internal/go.sum,target=internal/go.sum \
     go mod download -x
 
 ARG TARGETARCH
