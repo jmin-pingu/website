@@ -9,6 +9,8 @@ is, we're back at square one so let's do this right.
 - [X] Review Docker workshop on website
 - [ ] Read Dockerfile documentation
 - [ ] Read Docker manual (Engine and Build)
+- [ ] Learn Docker Swarm
+- [ ] Learn Docker Stack
 - [X] Read Traefik documentation
     - [X] Understand "middleware"
 - [X] Read Watchtower documentation
@@ -19,18 +21,21 @@ is, we're back at square one so let's do this right.
 - [X] Creative Page design[Cameron's World](https://www.cameronsworld.net/)
     - [ ] Figure out cursors
 - [X] Containerize
-- [X] :80 -> :443 redirect
+##### Priority
 - [ ] Switch from using lib `go/echo` to `go/http` for handing http requests
 - [ ] Refactor: God this code is ugly 
-- [ ] Automatic updating via "watching"
-- [ ] Load balancing
+- [ ] Better error handling and documentation
+##### When I get back home
+- [ ] Automatic updating via "watching" a registry/repository
+- [ ] TLS: general security stuff
+- [ ] :80 -> :443 redirect
+- [ ] Load balancing across Pi servers
 - [ ] Figure out DB logistics with containers and organization
-- [ ] Implement automatic backups 
 - [ ] Observability
     - [ ] Node failure notification
     - [ ] Logging 
     - [ ] Metrics 
-- [ ] Better error handling and documentation
+- [ ] Implement automatic backups 
 
 ### Features
 - [ ] Shiny apps

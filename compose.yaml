@@ -6,11 +6,11 @@
 # TODO: add cacheing and think more about db implementation
 
 services:
-  watchtower: 
-    image: containrrr/watchtower
-    volumes: 
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: "--interval 60"
+  # watchtower: 
+  #   image: containrrr/watchtower
+  #   volumes: 
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   command: "--interval 60"
   reverse-proxy: 
     image: traefik:v3.1
     command: 
@@ -26,20 +26,22 @@ services:
       # - "--entryPoints.web.http.redirections.entrypoint.to=websecure"
       # - "--entryPoints.web.http.redirections.entrypoint.scheme=https"
     ports:
-      - "443:443"
+      # - "443:443"
       - "80:80"
       - "8080:8080"
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock
       # - letsencrypt:/letsencrypt
   server:
-    image: jminpingu/website:1.0
+    image: jminpingu/website
     labels:
+      - "traefik.http.routers.server.rule=Host(`localhost`)"
       # Once I get this all setup on my rpi5 server
+      # host.docker.internal
       # change host to `jminpingu.com`
-      # to access service's host's localhost from container, use host `host.docker.internal`
-      - "traefik.enable=true"
-      - "traefik.http.routers.server.rule=Host(`host.docker.internal`)"
+      # to access service's host's localhost from container, use host `localhost` or `host.docker.internal`
+      # Resolve http requests to localhost
+      # - "traefik.enable=true"
       # - "traefik.http.routers.server.entrypoints=websecure"
       # - "traefik.http.routers.server.tls.certresolver=myresolver"
     secrets:
@@ -55,17 +57,11 @@ services:
     # Load balancing + increased availability
     deploy:
       mode: replicated
-      replicas: 3
+      replicas: 3 
     depends_on:
       db:
         condition: service_healthy
 
-# The commented out section below is an example of how to define a PostgreSQL
-# database that your application can use. `depends_on` tells Docker Compose to
-# start the database before your application. The `db-data` volume persists the
-# database data between container restarts. The `db-password` secret is used
-# to set the database password. You must create `db/password.txt` and add
-# a password of your choosing to it before running `docker compose up`.
   db:
     image: postgres:latest
     restart: always
