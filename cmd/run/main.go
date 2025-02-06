@@ -22,5 +22,4 @@ func main() {
 	handlers.RenderStaticPosts()
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
-
 }

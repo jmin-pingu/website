@@ -2,9 +2,13 @@ package db
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"internal/ds"
+	"io/ioutil"
+	"log"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -14,7 +18,11 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// struct for reading from books db
+const (
+	InProgress = "In-Progress"
+	ToRead     = "To-Read"
+)
+
 type Book struct {
 	BookID        int
 	Tags          []string
@@ -29,14 +37,122 @@ type Book struct {
 	DateStarted   pgtype.Date
 }
 
-const (
-	InProgress = "In-Progress"
-	ToRead     = "To-Read"
-)
-
 func (b Book) Compare(other_b Book) int {
-	// TODO: need to implement go comparable
 	return -1
+}
+
+type BooksJson struct {
+	Books []BookJson `json:"books"`
+}
+
+type BookJson struct {
+	Tags          []string `json:"tags"`
+	Author        []string `json:"author"`
+	Title         string   `json:"title"`
+	URL           string   `json:"url"`
+	InProgress    bool     `json:"in_progress"`
+	Completed     bool     `json:"completed"`
+	Rating        float32  `json:"rating"`
+	DatePublished string   `json:"date_published"`
+	DateCompleted string   `json:"date_completed"`
+	DateStarted   string   `json:"date_started"`
+}
+
+// TODO: multithread
+func UploadToBooks(dbpool *pgxpool.Pool, paths []string) {
+	log.Printf("--------- Uploading Paths to `books` table ---------")
+	log.Printf("paths: %v", paths)
+
+	if len(paths) != 1 {
+		fmt.Fprintf(os.Stderr, "`upload.go` failed: there should be only one file for books table\n")
+		os.Exit(1)
+	}
+
+	for _, path := range paths {
+		if _, err := os.Stat(path); err == nil {
+			log.Printf("path '%v' exists", path)
+		} else if match, _ := regexp.MatchString(".json$", path); !match {
+			fmt.Fprintf(os.Stderr, "`upload.go` failed to read arguments : file should be .json\n")
+			os.Exit(1)
+		} else {
+			fmt.Fprintf(os.Stderr, "`upload.go` failed to read sql template: %v\n", err)
+			os.Exit(1)
+		}
+
+		books := ParseBooksJson(path)
+		for _, book := range books {
+			tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started := ParseBook(book)
+
+			// cmd string, tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time)
+			if Exists(dbpool, "books", "title", title) {
+				UploadBook(dbpool, "update", tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started)
+			} else {
+				UploadBook(dbpool, "insert", tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started)
+			}
+		}
+	}
+}
+
+func ParseBook(book BookJson) ([]string, []string, string, string, bool, bool, float32, time.Time, time.Time, time.Time) {
+	var (
+		date_published time.Time
+		date_completed time.Time
+		date_started   time.Time
+		err            error
+	)
+
+	date_published, err = time.Parse("2006-01-02", book.DatePublished)
+	if err != nil {
+		log.Fatalf("failed to parse date_published from json: %v", err)
+	}
+
+	if book.InProgress {
+		date_started, err = time.Parse("2006-01-02", book.DateStarted)
+		if err != nil {
+			log.Fatalf("failed to parse date_started from json: %v", err)
+		}
+	}
+
+	if book.Completed {
+		date_completed, err = time.Parse("2006-01-02", book.DateCompleted)
+		if err != nil {
+			log.Fatalf("failed to parse date_completed from json: %v", err)
+		}
+	}
+
+	tags_set := make(ds.Set[string], 0)
+	parsed_tags := book.Tags
+	for _, tag := range parsed_tags {
+		tags_set.Add(tag)
+	}
+	tags := make([]string, 0)
+	for k, _ := range tags_set {
+		tags = append(tags, k)
+	}
+
+	authors_set := make(ds.Set[string], 0)
+	parsed_authors := book.Author
+	for _, author := range parsed_authors {
+		authors_set.Add(author)
+	}
+	authors := make([]string, 0)
+	for k, _ := range authors_set {
+		authors = append(authors, k)
+	}
+	return tags, authors, book.Title, book.URL, book.InProgress, book.Completed, book.Rating, date_published, date_completed, date_started
+}
+
+func ParseBooksJson(path string) []BookJson {
+	jsonf, err := os.Open(path)
+	if err != nil {
+		log.Fatalf("failed to read json file: %v", err)
+	}
+	defer jsonf.Close()
+	bytes, _ := ioutil.ReadAll(jsonf)
+
+	var books BooksJson
+	json.Unmarshal(bytes, &books)
+	return books.Books
 }
 
 func InitBooks(dbpool *pgxpool.Pool, clean bool) {
@@ -59,7 +175,7 @@ func InitBooks(dbpool *pgxpool.Pool, clean bool) {
 	if clean {
 		_, err = dbpool.Exec(context.Background(), `DROP TABLE books;`)
 	}
-	// Execute script
+
 	_, err = dbpool.Exec(context.Background(), stmt)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "`init_books` failed: %v\n", err)
@@ -78,7 +194,7 @@ func GetBooks(dbpool *pgxpool.Pool) ds.StrictDict[string, Book] {
 		fmt.Fprintf(os.Stderr, "`GetBooks` failed: %v\n", err)
 		os.Exit(1)
 	}
-	// TODO: create ordered map
+
 	ordered_books, _ := ds.NewStrictDict[string, Book]([]string{"2025", "2024", InProgress, ToRead})
 
 	for _, book := range books {
@@ -168,15 +284,14 @@ func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string
 	case "update":
 		// INSERT INTO books (tags, author, title, url, in_progress, completed, rating, date_published, date_completed)
 		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed, parsed_date_started, title)
-		fmt.Printf("\tupdated book: %v\n", title)
+		log.Printf("updated: %v", title)
 	case "insert":
 		script = fmt.Sprintf(INSERT_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed, parsed_date_started)
-		fmt.Printf("\tupdated book: %v\n", title)
+		log.Printf("inserted: %v", title)
+
 	default:
 		panic("`UploadPost`: `cmd` should either be `update` or `insert`")
 	}
-
-	fmt.Printf("\tscript: %v\n", script)
 
 	// Execute script
 	_, err = dbpool.Exec(context.Background(), script)

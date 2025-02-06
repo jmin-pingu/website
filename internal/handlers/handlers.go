@@ -36,6 +36,7 @@ func (h *homeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 type blogSearchHandler struct{}
 
 func (h *blogSearchHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	// TODO: implement fuzzy searching https://github.com/lithammer/fuzzysearch
 	if r.Method == http.MethodPost {
 		log.Println("POST /blog/search: request received")
 		err := r.ParseForm()
@@ -66,17 +67,13 @@ func (h *blogHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// - https://stackoverflow.com/questions/55945248/go-keep-get-scan-file-error-http-invalid-read-on-closed-body
 		// - https://pkg.go.dev/net/http#Request.FormValue
 		// - https://github.com/golang/go/issues/4637
+		// - "ParseForm populates r.Form and r.PostForm. For all requests, ParseForm parses the raw query from the URL and updates r.Form."
 		err := r.ParseForm()
 		if err != nil {
 			panic(err)
 		}
 		log.Println(r.Form)
 
-		// if f, ok := w.(http.Flusher); ok {
-		// 	f.Flush()
-		// } else {
-		// 	log.Println("/blog/: did not flush")
-		// }
 		for k, v := range r.Form {
 			log.Printf("POST /blog/: key %v, value %v\n", k, v)
 			if v[0] == "1" {
