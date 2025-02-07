@@ -44,13 +44,16 @@ func GetConnection(db_name string) (*pgxpool.Pool, error) {
 	scanner := bufio.NewScanner(f)
 	scanner.Scan()
 	postgres_url := fmt.Sprintf(
-		"postgres://%s:%s@%s:%s/%s",
+		"postgresql://%s:%s@%s:%s/%s",
 		os.Getenv("POSTGRES_USER"),
 		string(scanner.Text()),
 		os.Getenv("POSTGRES_IP"),
 		os.Getenv("POSTGRES_PORT"),
 		db_name,
 	)
+
+	log.Printf(postgres_url)
+
 	dbpool, err := pgxpool.New(context.Background(), postgres_url)
 	if err != nil {
 		return nil, fmt.Errorf("db: %s", err)

@@ -21,5 +21,7 @@ func main() {
 	handlers.SetUpRoutes()
 	handlers.RenderStaticPosts()
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	port := "8080"
+	log.Printf("listening on port %s", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

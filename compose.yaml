@@ -4,7 +4,6 @@
 # - https://docs.docker.com/go/compose-spec-reference/
 # - https://github.com/docker/awesome-compose
 # TODO: add cacheing and think more about db implementation
-
 services:
   # watchtower: 
   #   image: containrrr/watchtower
@@ -26,20 +25,19 @@ services:
       # - "--entryPoints.web.http.redirections.entrypoint.to=websecure"
       # - "--entryPoints.web.http.redirections.entrypoint.scheme=https"
     ports:
-      # - "443:443"
+      - "443:443"
       - "80:80"
       - "8080:8080"
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock
       # - letsencrypt:/letsencrypt
   server:
-    image: jminpingu/website
+    image: docker.io/jminpingu/website
     labels:
-      - "traefik.http.routers.server.rule=Host(`localhost`)"
-      # Once I get this all setup on my rpi5 server
-      # host.docker.internal
-      # change host to `jminpingu.com`
-      # to access service's host's localhost from container, use host `localhost` or `host.docker.internal`
+      - "traefik.http.routers.server.rule=Host(`jminpingu.com`)"
+      # Once I get this all setup on my rpi5 server change host to `jminpingu.com`
+      # To access service's host's localhost from container, use `localhost` 
+      
       # Resolve http requests to localhost
       # - "traefik.enable=true"
       # - "traefik.http.routers.server.entrypoints=websecure"
@@ -61,7 +59,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
-
+    # need to include `extra_hosts` for Linux systems
+    # - reference: https://stackoverflow.com/questions/31324981/how-to-access-host-port-from-docker-container#4354173 
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   db:
     image: postgres:latest
     restart: always
@@ -69,21 +70,21 @@ services:
     secrets:
       - db-password
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - website-db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=websitedb
       - POSTGRES_USER=jonathanmin
       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-    expose:
-      - 5432
+    ports:
+      - :5432
     healthcheck:
-      test: [ "CMD", "pg_isready" ]
+      test: [ "CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
 volumes:
-  db-data:
-  letsencrypt:
+  website-db-data:
+  # letsencrypt:
 secrets:
   db-password:
     file: secrets/passwords.txt
