@@ -57,9 +57,8 @@ USER appuser
 COPY --from=build /bin/server /bin/
 COPY ./internal/pub ./internal/pub
 
-# COPY ./internal/db/books_schema.sql ./internal/db/books_schema.sql
-# COPY ./internal/db/posts_schema.sql ./internal/db/posts_schema.sql
-
+# NOTE: does it make sense to include environment variables in my Dockerfile
+ 
 # Expose the port that the application listens on.
 EXPOSE 8080
 

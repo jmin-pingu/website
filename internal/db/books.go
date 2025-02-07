@@ -58,7 +58,7 @@ type BookJson struct {
 	DateStarted   string   `json:"date_started"`
 }
 
-// TODO: multithread
+// TODO: implement multithreading
 func UploadToBooks(dbpool *pgxpool.Pool, paths []string) {
 	log.Printf("--------- Uploading Paths to `books` table ---------")
 	log.Printf("paths: %v", paths)
@@ -72,7 +72,7 @@ func UploadToBooks(dbpool *pgxpool.Pool, paths []string) {
 		if _, err := os.Stat(path); err == nil {
 			log.Printf("path '%v' exists", path)
 		} else if match, _ := regexp.MatchString(".json$", path); !match {
-			fmt.Fprintf(os.Stderr, "`upload.go` failed to read arguments : file should be .json\n")
+			fmt.Fprintf(os.Stderr, "`upload.go` failed to read file: file should be .json\n")
 			os.Exit(1)
 		} else {
 			fmt.Fprintf(os.Stderr, "`upload.go` failed to read sql template: %v\n", err)
@@ -82,8 +82,6 @@ func UploadToBooks(dbpool *pgxpool.Pool, paths []string) {
 		books := ParseBooksJson(path)
 		for _, book := range books {
 			tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started := ParseBook(book)
-
-			// cmd string, tags []string, author []string, title string, url string, in_progress bool, completed bool, rating int, date_published time.Time, date_completed time.Time)
 			if Exists(dbpool, "books", "title", title) {
 				UploadBook(dbpool, "update", tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started)
 			} else {

@@ -35,7 +35,7 @@ func main() {
 	dbpool, err := db.GetConnection(os.Getenv("POSTGRES_DB"))
 	defer dbpool.Close()
 
-	// Leave this as a custom option for recreating the DB
+	// NOTE: consider if InitPosts/InitBooks API is worth it
 	// db.InitPosts(dbpool, false)
 	// db.InitBooks(dbpool, false)
 
