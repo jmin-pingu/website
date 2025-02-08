@@ -52,8 +52,6 @@ func GetConnection(db_name string) (*pgxpool.Pool, error) {
 		db_name,
 	)
 
-	log.Printf(postgres_url)
-
 	dbpool, err := pgxpool.New(context.Background(), postgres_url)
 	if err != nil {
 		return nil, fmt.Errorf("db: %s", err)

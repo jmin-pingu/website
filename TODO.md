@@ -23,13 +23,13 @@ is, we're back at square one so let's do this right.
 - [X] Containerize
 ##### Priority
 - [X] Switch from using lib `go/echo` to `go/http` for handing http requests
-- [ ] Refactor: God this code is ugly 
+- [X] Refactor: God this code is ugly 
 - [ ] Better error handling and documentation
 ##### When I get back home
-- [ ] Automatic updating via "watching" a registry/repository
-- [ ] TLS: general security stuff
-- [ ] :80 -> :443 redirect
-- [ ] Load balancing across Pi servers
+- [X] Automatic updating via "watching" a registry/repository
+- [X] TLS: general security stuff
+- [X] :80 -> :443 redirect
+- [ ] Load balancing across Pi servers (need to learn Docker Swarm for this)
 - [ ] Figure out DB logistics with containers and organization
 - [ ] Observability
     - [ ] Node failure notification

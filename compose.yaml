@@ -1,47 +1,48 @@
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Docker Compose reference guide at
 # References
 # - https://docs.docker.com/go/compose-spec-reference/
 # - https://github.com/docker/awesome-compose
 # TODO: add cacheing and think more about db implementation
 services:
-  # watchtower: 
-  #   image: containrrr/watchtower
-  #   volumes: 
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   command: "--interval 60"
+  watchtower: 
+    image: containrrr/watchtower
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+    # Look into A/B testing with rollouts
+    command: "--label-enable --interval 30 --rolling-restart"
   reverse-proxy: 
     image: traefik:v3.1
     command: 
       - "--accesslog=true"
-      - "--api.insecure=true"
+      # - "--api.insecure=false"
+      # - "--api.dashboard=true"
+      # - "--api.debug=true"
       - "--providers.docker"
-      # - "--providers.docker.exposedbydefault=false"
-      # - "--entryPoints.websecure.address=:443"
-      # - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      # - "--certificatesresolvers.myresolver.acme.email=jonathanheromin@gmail.com"
-      # - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-      # - "--entryPoints.websecure.address=:443"
-      # - "--entryPoints.web.http.redirections.entrypoint.to=websecure"
-      # - "--entryPoints.web.http.redirections.entrypoint.scheme=https"
+      - "--providers.docker.exposedbydefault=false"
+      # - "--log.level=DEBUG"
+      - '--entrypoints.web.address=:80'
+      - '--entrypoints.web.http.redirections.entryPoint.to=websecure'
+      - '--entrypoints.web.http.redirections.entryPoint.scheme=https'
+      - '--entrypoints.websecure.address=:443'
+
+      - '--certificatesresolvers.le.acme.email=jonathanheromin@gmail.com'
+      - '--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json'
+      - '--certificatesresolvers.le.acme.tlschallenge=true'
+
     ports:
-      - "443:443"
       - "80:80"
-      - "8080:8080"
+      - "443:443"
     volumes: 
+      - /etc/letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
-      # - letsencrypt:/letsencrypt
   server:
-    image: docker.io/jminpingu/website
+    image: ghcr.io/jmin-pingu/website/server:latest
     labels:
+      # for debugging, use `localhost` 
       - "traefik.http.routers.server.rule=Host(`jminpingu.com`)"
-      # Once I get this all setup on my rpi5 server change host to `jminpingu.com`
-      # To access service's host's localhost from container, use `localhost` 
-      
-      # Resolve http requests to localhost
-      # - "traefik.enable=true"
-      # - "traefik.http.routers.server.entrypoints=websecure"
-      # - "traefik.http.routers.server.tls.certresolver=myresolver"
+      - "traefik.enable=true"
+      - "traefik.http.routers.server.entrypoints=websecure"
+      - "traefik.http.routers.server.tls.certresolver=le"
+      - "com.centurylinklabs.watchtower.enable=true"
     secrets:
       - db-password
     environment:
@@ -56,35 +57,36 @@ services:
     deploy:
       mode: replicated
       replicas: 3 
-    depends_on:
-      db:
-        condition: service_healthy
+    # NOTE: reasona about whether it makes sense to containerize a db
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
     # need to include `extra_hosts` for Linux systems
     # - reference: https://stackoverflow.com/questions/31324981/how-to-access-host-port-from-docker-container#4354173 
     extra_hosts:
       - "host.docker.internal:host-gateway"
-  db:
-    image: postgres:latest
-    restart: always
-    user: postgres
-    secrets:
-      - db-password
-    volumes:
-      - website-db-data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=websitedb
-      - POSTGRES_USER=jonathanmin
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-    ports:
-      - :5432
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+  # db:
+  #   image: postgres:latest
+  #   restart: always
+  #   user: postgres
+  #   secrets:
+  #     - db-password
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_DB=websitedb
+  #     - POSTGRES_USER=jonathanmin
+  #     - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+  #   ports:
+  #     - :5432
+  #   healthcheck:
+  #     test: [ "CMD", "pg_isready"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
 volumes:
-  website-db-data:
-  # letsencrypt:
+  db-data:
+  letsencrypt:
 secrets:
   db-password:
     file: secrets/passwords.txt
