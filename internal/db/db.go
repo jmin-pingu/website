@@ -10,20 +10,6 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// NOTE: for testing `db` package, uncomment main()
-// func main() {
-// 	dbpool, err := GetConnection("websitedb")
-// 	defer dbpool.Close()
-// 	if err != nil {
-// 		fmt.Fprintf(os.Stderr, "GetConnection failed: %v\n", err)
-// 		os.Exit(1)
-// 	}
-//
-// 	view(dbpool, "posts", 4)
-//
-// 	fmt.Printf("We are all done!")
-// }
-
 func GetConnection(db_name string) (*pgxpool.Pool, error) {
 	var (
 		err error

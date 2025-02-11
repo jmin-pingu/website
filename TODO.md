@@ -16,6 +16,7 @@ is, we're back at square one so let's do this right.
 - [X] Read Watchtower documentation
 - [ ] Read NGinx documentation
 - [ ] Read source code of generic DB interactions and etc.
+- [ ] Projects page: describe the project that I worked on
  
  ### Tasks
 - [X] Creative Page design[Cameron's World](https://www.cameronsworld.net/)
