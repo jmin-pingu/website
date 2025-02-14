@@ -46,7 +46,7 @@ func HomePage(pages_metadata *ds.PagesMetadata) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"home-layout\" class=\"grid grid-cols-2 gap-24 text-lg font-thin\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"home-layout\" class=\"grid grid-cols-3 gap-24 text-xl font-thin\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -93,7 +93,7 @@ func HomeContent() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div class=\"[&amp;_a]:underline [&amp;_a:hover]:text-gray-500\"><p>I'm Jonathan (Young Woong) Min, a Data Scientist at the University of California, San Francisco.</p><br><p>I believe that meaningful data science is done by a very slim percentage of individuals who excel in three roles: 1) computer scientist, 2) statistician, and 3) domain expert; in my career, I hope to master each field individually and in harmony. While that gives a glimpse into my professional interests, it doesn't give the big picture of what motivates me. As of now, I love to learn and derive pleasure from deeply understanding first-principles and seeing how they arise in complex problems. </p><br><p>Thus, this website serves two purposes: 1) to document my journey of continuous learning and 2) to hopefully be a helpful resource by distilling interesting topics that I have learned or am learning. If you would like to contact me about the website or anything else, the best way is by <a href=\"jonathanheromin@gmail.com\">email</a>.</p><br><p>During my free time, you'll probably see me doing one of the following: tinkering with electronics, DJing, producing music, working out, studying, programming,  cooking, or reading. I'm sure I will pick up (and drop) many hobbies throughout the lifecycle of this website and I hope you will join me in this journey! </p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div class=\"col-span-2 [&amp;_a]:underline [&amp;_a:hover]:text-gray-500\"><p>I'm Jonathan (Young Woong) Min, a Data Scientist at the University of California, San Francisco.</p><br><p>I believe that meaningful data science is done by a very slim percentage of individuals who excel in three roles: 1) computer scientist, 2) statistician, and 3) domain expert; in my career, I hope to master each field individually and in harmony. While that gives a glimpse into my professional interests, it doesn't give the big picture of what motivates me. As of now, I love to learn and derive pleasure from deeply understanding first-principles and seeing how they arise in complex problems. </p><br><p>Thus, this website serves two purposes: 1) to document my journey of continuous learning and 2) to hopefully be a helpful resource by distilling interesting topics that I have learned or am learning. I've already documented my experience <a href=\"/blog/tmcs\">teaching myself computer science</a> this past year and there will be many more posts to come. If you would like to contact me about the website or anything else, the best way is by <a href=\"jonathanheromin@gmail.com\">email</a>.</p><br><p>During my free time, you'll probably see me doing one of the following: tinkering with electronics, DJing, producing music, working out, studying, programming,  cooking, or reading. I'm sure I will pick up (and drop) many hobbies throughout the lifecycle of this website and I hope you will join me in this journey! </p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -122,7 +122,7 @@ func Pictures() templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div><img src=\"/assets/img/homepage_photo.jpg\"><p class=\"\"><em>A memory in front of Sproul Hall at UC Berkeley.</em></p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div><img src=\"/assets/img/landing-page-picture.jpg\"><p class=\"\"><em>A memory at Buenas Coffee at Costa Mesa, CA.</em></p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

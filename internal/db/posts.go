@@ -71,7 +71,7 @@ func InitPosts(dbpool *pgxpool.Pool, clean bool) {
 // }
 
 func GetPosts(dbpool *pgxpool.Pool) []*Post {
-	query := `SELECT * FROM posts;`
+	query := `SELECT * FROM posts ORDER BY date DESC;`
 
 	var posts []*Post
 	err := pgxscan.Select(context.Background(), dbpool, &posts, query)

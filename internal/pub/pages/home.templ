@@ -7,7 +7,7 @@ import (
 
 templ HomePage(pages_metadata *ds.PagesMetadata) {
 	@shared.Page("Home", pages_metadata) {
-		<div id="home-layout" class="grid grid-cols-2 gap-24 text-lg font-thin">
+		<div id="home-layout" class="grid grid-cols-3 gap-24 text-xl font-thin">
 		@Pictures()
 
 		@HomeContent()
@@ -18,7 +18,7 @@ templ HomePage(pages_metadata *ds.PagesMetadata) {
 
 
 templ HomeContent() {
-	<div class="[&_a]:underline [&_a:hover]:text-gray-500">
+	<div class="col-span-2 [&_a]:underline [&_a:hover]:text-gray-500">
 	<p>
 	I'm Jonathan (Young Woong) Min, a Data Scientist at the University of California, San Francisco.
 	</p>
@@ -28,7 +28,10 @@ templ HomeContent() {
 	</p>
 	<br>
 	<p>
-	Thus, this website serves two purposes: 1) to document my journey of continuous learning and 2) to hopefully be a helpful resource by distilling interesting topics that I have learned or am learning. If you would like to contact me about the website or anything else, the best way is by <a href="jonathanheromin@gmail.com">email</a>.
+	Thus, this website serves two purposes: 1) to document my journey of continuous learning and 2)
+	to hopefully be a helpful resource by distilling interesting topics that I have learned or am
+	learning. I've already documented my experience <a href="/blog/tmcs">teaching myself computer science</a> this
+	past year and there will be many more posts to come. If you would like to contact me about the website or anything else, the best way is by <a href="jonathanheromin@gmail.com">email</a>.
 	</p>
 	<br>
 	<p>
@@ -40,10 +43,10 @@ templ HomeContent() {
 
 templ Pictures() {
 	<div>
-		<img src="/assets/img/homepage_photo.jpg">
+		<img src="/assets/img/landing-page-picture.jpg">
 		<p class="">
 		<em>
-		A memory in front of Sproul Hall at UC Berkeley.
+		A memory at Buenas Coffee at Costa Mesa, CA.
 		</em>
 		</p>
 	</div>

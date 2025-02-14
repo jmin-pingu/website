@@ -41,6 +41,7 @@ is, we're back at square one so let's do this right.
 ### Features
 - [ ] Shiny apps
 - [ ] Safe runtimes with wasm
+- [ ] Fill out Resources and Projects today
 
 ### References 
 - [Setting up a production ready VPS is a lot easier than I thought - Dreams Of Code](https://www.youtube.com/watch?v=F-9KWQByeU0&t=435s&ab_channel=DreamsofCode)

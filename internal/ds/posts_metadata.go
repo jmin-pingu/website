@@ -9,22 +9,24 @@ import (
 type PostsMetadata []*PostMetadata
 
 type PostMetadata struct {
-	Title   string
-	Date    time.Time
-	PostID  int
-	Path    templ.SafeURL
-	Tags    Set[string]
-	Display bool
+	Title     string
+	Date      time.Time
+	PostID    int
+	Path      templ.SafeURL
+	Tags      Set[string]
+	TagsFixed []string
+	Display   bool
 }
 
 func NewPostMetadata(title string, date time.Time, path string, id int, tags Set[string]) *PostMetadata {
 	return &PostMetadata{
-		Title:   title,
-		Date:    date,
-		Path:    templ.URL(path),
-		Tags:    tags,
-		PostID:  id,
-		Display: true,
+		Title:     title,
+		Date:      date,
+		Path:      templ.URL(path),
+		Tags:      tags,
+		TagsFixed: tags.ToList(),
+		PostID:    id,
+		Display:   true,
 	}
 }
 

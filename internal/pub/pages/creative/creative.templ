@@ -1,7 +1,6 @@
 package creative
 
 import (
-	"internal/pub/shared"
 	"internal/ds"
 )
 
@@ -146,6 +145,18 @@ templ Page(title string, pages_metadata *ds.PagesMetadata) {
 	{ children... }
 	</div>
 	</body> 
-	@shared.Footer()
+	@Footer()
 	</html>
+}
+
+templ Footer() {
+	<footer class="ml-8 mt-10 mb-10 text-med">
+	© 2025 Jonathan Min.
+	<div>
+	<a target="_blank" rel="noopener noreferrer" href="mailto:jonathanheromin@gmail.com" class="underline hover:text-gray-500"><span>email</span></a>
+	<a target="_blank" rel="noopener noreferrer" href="https://github.com/jmin-pingu" class="underline hover:text-gray-500"><span>github</span></a>
+	<a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/jonathan-min"
+	class="underline hover:text-gray-500"><span>linkedin</span></a>
+	</div>
+	</footer>
 }

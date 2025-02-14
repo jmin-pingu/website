@@ -1,0 +1,28 @@
+package pages
+
+import (
+	"internal/pub/shared"
+	"internal/ds"
+)
+
+templ LinksPage(pages_metadata *ds.PagesMetadata) {
+	@shared.Page("Links", pages_metadata) {
+		@LinksContent()
+	}
+}
+
+templ LinksContent() {
+	<article class="prose prose-ul:mt-0 prose-li:my-0 !max-w-none">
+	<h1>Links</h1>
+	<p>Here are some of articles/posts/videos that have stuck with me throughout the year(s).</p>
+	<div class="text-left">
+		<dl class="my-0">
+			<dt><a href="https://www.youtube.com/watch?v=rX0ItVEVjHc&ab_channel=CppCon">Data Oriented Design and C++ - Mike Acton</a></dt>
+			<dd>When programming, it's often easy to forget the trivial fact that programs exist to transform data. This video was a great reminder of how to actually take advantage of the compiler and hardware (via the <a href="https://en.wikipedia.org/wiki/Memory_hierarchy">memory hierarchy</a>) to improve performance.</dd>
+
+			<dt><a href="https://www.youtube.com/watch?v=IroPQ150F6c&ab_channel=ChimiChanga">Practical Data Oriented Design - Andrew Kelley</a></dt>
+			<dd>Similar to the Acton's 2014 CppCon talk, except it actually goes through best-practices to help achieve DOD.</dd>
+		</dl>
+	</div>
+	</article>
+}

@@ -13,7 +13,7 @@ import (
 	"internal/pub/shared"
 )
 
-func ProjectsPage(pages_metadata *ds.PagesMetadata) templ.Component {
+func LinksPage(pages_metadata *ds.PagesMetadata) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -46,17 +46,13 @@ func ProjectsPage(pages_metadata *ds.PagesMetadata) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = ProjectsContent().Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, " ")
+			templ_7745c5c3_Err = LinksContent().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = shared.Page("Projects", pages_metadata).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = shared.Page("Links", pages_metadata).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -64,7 +60,7 @@ func ProjectsPage(pages_metadata *ds.PagesMetadata) templ.Component {
 	})
 }
 
-func ProjectsContent() templ.Component {
+func LinksContent() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -85,7 +81,7 @@ func ProjectsContent() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<article class=\"prose prose-ul:mt-0 prose-li:my-0 !max-w-none\"><h1>Projects</h1><h2 class=\"mb-4\">Things I Am Building</h2><div class=\"text-left\"><ul><li><a href=\"https://github.com/jmin-pingu/minux\">Mini OS</a></li><li><a href=\"https://github.com/jmin-pingu/zlx\">Interpreter</a></li></ul></div><h2 class=\"mb-4\">Things I Want to Build</h2><div class=\"text-left\"><ul><li>Git</li><li>Package Manager</li><li>Database Manager</li><li>SQL</li><li>Distributed File System</li></ul></div></article>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<article class=\"prose prose-ul:mt-0 prose-li:my-0 !max-w-none\"><h1>Links</h1><p>Here are some of articles/posts/videos that have stuck with me throughout the year(s).</p><div class=\"text-left\"><dl class=\"my-0\"><dt><a href=\"https://www.youtube.com/watch?v=rX0ItVEVjHc&amp;ab_channel=CppCon\">Data Oriented Design and C++ - Mike Acton</a></dt><dd>When programming, it's often easy to forget the trivial fact that programs exist to transform data. This video was a great reminder of how to actually take advantage of the compiler and hardware (via the <a href=\"https://en.wikipedia.org/wiki/Memory_hierarchy\">memory hierarchy</a>) to improve performance.</dd><dt><a href=\"https://www.youtube.com/watch?v=IroPQ150F6c&amp;ab_channel=ChimiChanga\">Practical Data Oriented Design - Andrew Kelley</a></dt><dd>Similar to the Acton's 2014 CppCon talk, except it actually goes through best-practices to help achieve DOD.</dd></dl></div></article>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

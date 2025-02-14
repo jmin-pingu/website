@@ -29,7 +29,7 @@ func Footer() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<footer class=\"ml-8 mb-10 text-sm\"><div>© 2025 Jonathan Min.</div><div id=\"footer-links\"><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"mailto:jonathanheromin@gmail.com\" class=\"underline hover:text-gray-500\"><span>mail</span></a> <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/jmin-pingu\" class=\"underline hover:text-gray-500\"><span>github</span></a> <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.linkedin.com/in/jonathan-min\" class=\"underline hover:text-gray-500\"><span>linkedin</span></a></div></footer>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<footer class=\"ml-8 mt-10 mb-10 text-med\"><div class=\"flex gap-2 justify-center\"><div>© 2025 Jonathan Min</div><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"mailto:jonathanheromin@gmail.com\" class=\"underline hover:text-gray-500\"><span>email</span></a> <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/jmin-pingu\" class=\"underline hover:text-gray-500\"><span>github</span></a> <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.linkedin.com/in/jonathan-min\" class=\"underline hover:text-gray-500\"><span>linkedin</span></a></div></footer>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

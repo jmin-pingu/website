@@ -33,6 +33,12 @@ func (h *homeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	pages.HomePage(&PAGES_METADATA).Render(context.Background(), w)
 }
 
+type linksHandler struct{}
+
+func (h *linksHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	pages.LinksPage(&PAGES_METADATA).Render(context.Background(), w)
+}
+
 type blogSearchHandler struct{}
 
 func (h *blogSearchHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -121,6 +127,7 @@ func SetUpRoutes() {
 	http.Handle("/projects/", new(projectsHandler))
 	http.Handle("/creative/", new(creativeHandler))
 	http.Handle("/reading_list/", new(readingListHandler))
+	http.Handle("/links/", new(linksHandler))
 
 }
 func RenderStaticPosts() {

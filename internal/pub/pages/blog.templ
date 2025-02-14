@@ -44,22 +44,34 @@ templ TagsNavigation(tags *ds.OrderedList[string]) {
 	</div>
 }
 
-templ BlogPosts(posts_metadata *ds.PostsMetadata, tags_filter ds.Set[string], search string) {
+templ BlogPosts(posts_metadata *ds.PostsMetadata, selected_tags ds.Set[string], search string) {
 	<dl id="blog-posts">
 		for _, post := range *posts_metadata {
-			// TODO: add documentation
-			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.IsEmpty() || !(tags_filter.Intersection(post.Tags)).IsEmpty()) {
+			{{ 
+			search_match := strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) 
+			tags_match := selected_tags.SubsetOf(post.Tags)
+			}}
+
+			if search_match && tags_match {
 				<dt class="flex flex-col"> 
 				<div><a class="text-3xl" id={ strconv.Itoa(post.PostID) } href={ post.Path }> { post.Title } </a> 
-				<p class="my-2">{ post.Date.Format("01-02-2006") }</p>
+				{{ builder_string := "" }}
+				for _, tag := range post.TagsFixed {
+					if builder_string == "" {
+						{{ builder_string = tag }}
+					} else {
+						{{ builder_string = builder_string + ", " + tag }}
+					}
+				}
+				<p class="mb-4 mt-1">{ post.Date.Format("01-02-2006") + " | "  + "" + builder_string }</p>
 				</div>
 				</dt>
 			}
 		}
 		<dt class="flex flex-col"> 
-				<div class="font-thin text-3xl"> 
-				Posts-in-Progress: <em>Let's Talk about p-values</em> and <em>Learning Zig</em>
-				</div>
+			<div class="font-thin text-3xl"> 
+				Posts-in-Progress: <em>More examples about `comptime`</em> and <em>Leveraging SIMD with Zig's @vector()</em> 
+			</div>
 		</dt>
 	</dl>
 }

@@ -10,7 +10,6 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"internal/ds"
-	"internal/pub/shared"
 )
 
 func CreativePage(pages_metadata *ds.PagesMetadata) templ.Component {
@@ -357,7 +356,7 @@ func Page(title string, pages_metadata *ds.PagesMetadata) templ.Component {
 		var templ_7745c5c3_Var14 string
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/pages/creative/creative.templ`, Line: 133, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/pages/creative/creative.templ`, Line: 132, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
@@ -383,11 +382,40 @@ func Page(title string, pages_metadata *ds.PagesMetadata) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = shared.Footer().Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Footer().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "</html>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return nil
+	})
+}
+
+func Footer() templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var15 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var15 == nil {
+			templ_7745c5c3_Var15 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<footer class=\"ml-8 mt-10 mb-10 text-med\">© 2025 Jonathan Min.<div><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"mailto:jonathanheromin@gmail.com\" class=\"underline hover:text-gray-500\"><span>email</span></a> <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/jmin-pingu\" class=\"underline hover:text-gray-500\"><span>github</span></a> <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.linkedin.com/in/jonathan-min\" class=\"underline hover:text-gray-500\"><span>linkedin</span></a></div></footer>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -24,8 +24,8 @@ templ Page(title string, pages_metadata *ds.PagesMetadata) {
 
 	<body class="min-h-screen font-garamond border-r-indigo-500 overflow-y-scroll scrollwheel">
 	@partials.Nav(*pages_metadata, title)
-	<div id="content-wrapper" class="py-8 px-8">	
-	{ children... }
+	<div id="content-wrapper" class="py-8 px-40">	
+ 	{ children... }
 	</div>
 	</body> 
 	@Footer()

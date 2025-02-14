@@ -157,7 +157,7 @@ func TagsNavigation(tags *ds.OrderedList[string]) templ.Component {
 	})
 }
 
-func BlogPosts(posts_metadata *ds.PostsMetadata, tags_filter ds.Set[string], search string) templ.Component {
+func BlogPosts(posts_metadata *ds.PostsMetadata, selected_tags ds.Set[string], search string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -183,25 +183,24 @@ func BlogPosts(posts_metadata *ds.PostsMetadata, tags_filter ds.Set[string], sea
 			return templ_7745c5c3_Err
 		}
 		for _, post := range *posts_metadata {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, " ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			if strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) && (tags_filter.IsEmpty() || !(tags_filter.Intersection(post.Tags)).IsEmpty()) {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<dt class=\"flex flex-col\"><div><a class=\"text-3xl\" id=\"")
+
+			search_match := strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search))
+			tags_match := selected_tags.SubsetOf(post.Tags)
+			if search_match && tags_match {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<dt class=\"flex flex-col\"><div><a class=\"text-3xl\" id=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var8 string
 				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(post.PostID))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/pages/blog.templ`, Line: 53, Col: 59}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/pages/blog.templ`, Line: 57, Col: 59}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "\" href=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\" href=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -210,27 +209,39 @@ func BlogPosts(posts_metadata *ds.PostsMetadata, tags_filter ds.Set[string], sea
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var10 string
 				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(post.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/pages/blog.templ`, Line: 53, Col: 94}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/pages/blog.templ`, Line: 57, Col: 94}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "</a><p class=\"my-2\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</a>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				builder_string := ""
+				for _, tag := range post.TagsFixed {
+					if builder_string == "" {
+						builder_string = tag
+					} else {
+						builder_string = builder_string + ", " + tag
+					}
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "<p class=\"mb-4 mt-1\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var11 string
-				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(post.Date.Format("01-02-2006"))
+				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(post.Date.Format("01-02-2006") + " | " + "" + builder_string)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/pages/blog.templ`, Line: 54, Col: 52}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/pages/blog.templ`, Line: 66, Col: 88}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
@@ -242,7 +253,7 @@ func BlogPosts(posts_metadata *ds.PostsMetadata, tags_filter ds.Set[string], sea
 				}
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<dt class=\"flex flex-col\"><div class=\"font-thin text-3xl\">Posts-in-Progress: <em>Let's Talk about p-values</em> and <em>Learning Zig</em></div></dt></dl>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<dt class=\"flex flex-col\"><div class=\"font-thin text-3xl\">Posts-in-Progress: <em>More examples about `comptime`</em> and <em>Leveraging SIMD with Zig's @vector()</em></div></dt></dl>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

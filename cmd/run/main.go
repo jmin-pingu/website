@@ -11,15 +11,15 @@ import (
 
 func main() {
 	dbpool, err := db.GetConnection(os.Getenv("POSTGRES_DB"))
-	defer dbpool.Close()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to connect to website: %v\n", err)
 		os.Exit(1)
 	}
-	handlers.BOOKS = db.GetBooks(dbpool)
 
-	handlers.SetUpRoutes()
+	handlers.BOOKS = db.GetBooks(dbpool)
 	handlers.RenderStaticPosts()
+	dbpool.Close()
+	handlers.SetUpRoutes()
 
 	port := "8080"
 	log.Printf("listening on port %s", port)
