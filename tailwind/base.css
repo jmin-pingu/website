@@ -29,10 +29,12 @@
 .prose pre code { 
 	@apply text-gray-200;
 	@apply bg-black;
+	@apply text-sm;
 }
 
 .prose code { 
 	@apply text-gray-900;
+	@apply text-sm;
 	/* @apply bg-gray-400; */
 	@apply p-0;
 	@apply rounded;

@@ -33,7 +33,7 @@ func Nav(pages_metadata ds.PagesMetadata, current_page string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<header id=\"page-nav\" class=\"navbar bg-base-100 sticky top-0 z-50\"><div class=\"flex-1\"><a href=\"/\" class=\"mx-40 text-3xl font-thin text-black hover:text-gray-500\">Jonathan Min</a></div><ul class=\"horizontal mr-32\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<header id=\"page-nav\" class=\"navbar bg-base-100 sticky top-0 z-50\"><div class=\"flex-1\"><a href=\"/\" class=\"mx-36 text-3xl font-thin text-black hover:text-gray-500\">Jonathan Min</a></div><ul class=\"horizontal mr-36\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

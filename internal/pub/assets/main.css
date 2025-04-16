@@ -2112,6 +2112,11 @@ html {
   margin-right: 0.5rem !important;
 }
 
+.mx-36 {
+  margin-left: 9rem !important;
+  margin-right: 9rem !important;
+}
+
 .mx-4 {
   margin-left: 1rem !important;
   margin-right: 1rem !important;
@@ -2145,31 +2150,6 @@ html {
 .my-6 {
   margin-top: 1.5rem !important;
   margin-bottom: 1.5rem !important;
-}
-
-.mx-16 {
-  margin-left: 4rem !important;
-  margin-right: 4rem !important;
-}
-
-.mx-24 {
-  margin-left: 6rem !important;
-  margin-right: 6rem !important;
-}
-
-.mx-32 {
-  margin-left: 8rem !important;
-  margin-right: 8rem !important;
-}
-
-.mx-3 {
-  margin-left: 0.75rem !important;
-  margin-right: 0.75rem !important;
-}
-
-.mx-36 {
-  margin-left: 9rem !important;
-  margin-right: 9rem !important;
 }
 
 .-mt-2 {
@@ -2208,6 +2188,10 @@ html {
   margin-left: auto !important;
 }
 
+.mr-36 {
+  margin-right: 9rem !important;
+}
+
 .mr-4 {
   margin-right: 1rem !important;
 }
@@ -2234,22 +2218,6 @@ html {
 
 .mt-6 {
   margin-top: 1.5rem !important;
-}
-
-.mt-0 {
-  margin-top: 0px !important;
-}
-
-.mt-4 {
-  margin-top: 1rem !important;
-}
-
-.mr-24 {
-  margin-right: 6rem !important;
-}
-
-.mr-32 {
-  margin-right: 8rem !important;
 }
 
 .flex {
@@ -2396,14 +2364,6 @@ html {
   gap: 6rem !important;
 }
 
-.gap-4 {
-  gap: 1rem !important;
-}
-
-.gap-2 {
-  gap: 0.5rem !important;
-}
-
 .self-auto {
   align-self: auto !important;
 }
@@ -2540,6 +2500,11 @@ html {
   padding-right: 0.25rem !important;
 }
 
+.px-36 {
+  padding-left: 9rem !important;
+  padding-right: 9rem !important;
+}
+
 .px-8 {
   padding-left: 2rem !important;
   padding-right: 2rem !important;
@@ -2550,27 +2515,16 @@ html {
   padding-bottom: 2rem !important;
 }
 
-.px-32 {
-  padding-left: 8rem !important;
-  padding-right: 8rem !important;
-}
-
-.px-40 {
-  padding-left: 10rem !important;
-  padding-right: 10rem !important;
-}
-
-.px-36 {
-  padding-left: 9rem !important;
-  padding-right: 9rem !important;
-}
-
 .text-left {
   text-align: left !important;
 }
 
 .text-center {
   text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
 }
 
 .align-middle {
@@ -2599,11 +2553,6 @@ html {
 .text-lg {
   font-size: 1.125rem !important;
   line-height: 1.75rem !important;
-}
-
-.text-sm {
-  font-size: 0.875rem !important;
-  line-height: 1.25rem !important;
 }
 
 .text-xl {
@@ -2722,11 +2671,15 @@ html {
   color: rgb(229 231 235 / var(--tw-text-opacity, 1));
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .prose code {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   /* @apply bg-gray-400; */
   padding: 0px;
   border-radius: 0.25rem;

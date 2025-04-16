@@ -26,6 +26,7 @@ is, we're back at square one so let's do this right.
 - [X] Switch from using lib `go/echo` to `go/http` for handing http requests
 - [X] Refactor: God this code is ugly 
 - [ ] Better error handling and documentation
+- [ ] Add mobile functionality AND large/small/medium designs
 ##### When I get back home
 - [X] Automatic updating via "watching" a registry/repository
 - [X] TLS: general security stuff

@@ -253,7 +253,7 @@ func BlogPosts(posts_metadata *ds.PostsMetadata, selected_tags ds.Set[string], s
 				}
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<dt class=\"flex flex-col\"><div class=\"font-thin text-3xl\">Posts-in-Progress: <em>More examples about `comptime`</em> and <em>Leveraging SIMD with Zig's @vector()</em></div></dt></dl>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "</dl>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

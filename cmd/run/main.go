@@ -17,6 +17,7 @@ func main() {
 	}
 
 	handlers.BOOKS = db.GetBooks(dbpool)
+	dbpool.Close()
 	handlers.RenderStaticPosts()
 	dbpool.Close()
 	handlers.SetUpRoutes()

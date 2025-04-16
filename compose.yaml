@@ -2,6 +2,7 @@
 # - https://docs.docker.com/go/compose-spec-reference/
 # - https://github.com/docker/awesome-compose
 # TODO: add cacheing and think more about db implementation
+#
 services:
   watchtower: 
     image: containrrr/watchtower
