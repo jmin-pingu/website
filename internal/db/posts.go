@@ -33,7 +33,7 @@ type Post struct {
 	Content string // Format: HTML
 }
 
-func InitPosts(dbpool *pgxpool.Pool, clean bool) {
+func InitPosts(dbpool *pgxpool.Pool) {
 	var (
 		stmt string
 		err  error
@@ -50,9 +50,6 @@ func InitPosts(dbpool *pgxpool.Pool, clean bool) {
 	}
 	stmt = string(dat)
 
-	if clean {
-		_, err = dbpool.Exec(context.Background(), `DROP TABLE posts;`)
-	}
 	// Execute script
 	_, err = dbpool.Exec(context.Background(), stmt)
 	if err != nil {

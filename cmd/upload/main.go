@@ -5,30 +5,28 @@ import (
 	"internal/db"
 	"log"
 	"os"
+	"slices"
 )
 
 var VALID_RELATION = []string{"books", "posts"}
 
 func main() {
+	if len(os.Args) <= 2 {
+		fmt.Println("Not enough arguments provided")
+		fmt.Printf("Usage: upload [VALID_RELATION] [PATH_TO_DATA]\n\tvalid relations: %v\n", VALID_RELATION)
+		os.Exit(1)
+	}
+
 	target := os.Args[1]
+	if target == "-h" {
+		fmt.Printf("Usage: upload [VALID_RELATION] [PATH_TO_DATA]\n\tvalid relations: %v\n", VALID_RELATION)
+		return
+	}
+
 	paths := os.Args[2:]
 
-	if target == "-h" {
-		fmt.Printf("USAGE: upload [VALID_RELATION] [PATH_TO_DATA]\n\tvalid relations: %v\n", VALID_RELATION)
-		return
-	} else if len(paths) == 0 {
-		panic("Did not provide paths to upload")
-	}
-
-	found := false
-	for _, v := range VALID_RELATION {
-		if target == v {
-			found = true
-			break
-		}
-	}
-	if !found {
-		fmt.Printf("USAGE: upload [VALID_RELATION] [PATH_TO_DATA]\n\tvalid relations: %v\n", VALID_RELATION)
+	if !slices.Contains(VALID_RELATION, target) {
+		fmt.Printf("Usage: upload [VALID_RELATION] [PATH_TO_DATA]\n\tvalid relations: %v\n", VALID_RELATION)
 		panic(fmt.Sprintf("Did not provide a valid relation."))
 	}
 
@@ -36,8 +34,8 @@ func main() {
 	defer dbpool.Close()
 
 	// NOTE: consider if InitPosts/InitBooks API is worth it
-	// db.InitPosts(dbpool, false)
-	// db.InitBooks(dbpool, false)
+	db.InitPosts(dbpool)
+	db.InitBooks(dbpool)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to connect to %v: %v\n", os.Getenv("POSTGRES_DB"), err)
