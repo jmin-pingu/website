@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 //const defaultTheme = require('tailwindcss/defaultTheme')
+//
 
 module.exports = {
 	content: ["internal/pub/**/*.{templ,go}"],
@@ -33,7 +34,6 @@ module.exports = {
 	},
 	plugins: [
 		require("@tailwindcss/typography"),
-		require("daisyui"),
 	],
 	daisyui: {
 		themes: [

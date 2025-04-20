@@ -11,7 +11,7 @@ import (
 templ BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata, tags *ds.OrderedList[string], filter_tags ds.Set[string]) {
 	@shared.Page("Blog", pages_metadata) {
 		// Page specific features
-		<div class="prose !max-w-none mx-0">
+		<div class="prose !max-w-none !m-0">
 		<h1 class="mb-2 text-left underline italic text-8xl md:font-extrabold">BLOG POSTS</h1>
 		// Content
 

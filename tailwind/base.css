@@ -1,3 +1,10 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+	themes: [
+	"lofi"
+	]
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,7 +35,7 @@
 	}
 	
 	.strikethrough-gray{
-	  text-decoration: none;
+	  	text-decoration: none;
 	    position: relative;
 	}
 	
@@ -41,7 +48,6 @@
 	    border-bottom: 6px solid rgba(107, 114, 128, 1);
 	}
 }
-
 
 @font-face {
     font-family: "comic-sans";
@@ -62,6 +68,7 @@
 /* formatting daisyui components */
 .navbar {
 	@apply p-0;
+	@apply bg-white;
 	@apply min-h-24;
 }
 
@@ -74,6 +81,11 @@
 	@apply lg:mx-40;
 }
 
+.prose pre { 
+	@apply bg-black;
+	@apply leading-tight;
+}
+
 .prose pre code { 
 	@apply text-gray-200;
 	@apply bg-black;
@@ -81,8 +93,8 @@
 }
 
 .prose code { 
-	@apply text-gray-900;
-	@apply text-sm;
+	/* @apply text-gray-900; */
+	@apply text-lg;
 	/* @apply bg-gray-400; */
 	@apply p-0;
 	@apply rounded;
@@ -90,9 +102,9 @@
 }
 
 .prose h1 { 
-	@apply text-center;
-	@apply font-semibold;
-	@apply text-4xl;
+	@apply text-left;
+	@apply font-extrabold;
+	@apply text-7xl;
 }
 
 .prose h2, h3, h4 { 
