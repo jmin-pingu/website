@@ -49,7 +49,7 @@ func BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, " <div class=\"prose !max-w-none mx-0\"><h1 class=\"mb-2\">Blog Posts</h1>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, " <div class=\"prose !max-w-none mx-0\"><h1 class=\"mb-2 text-left underline italic text-8xl md:font-extrabold\">BLOG POSTS</h1>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

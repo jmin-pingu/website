@@ -2094,11 +2094,6 @@ html {
   margin-right: 0.5rem !important;
 }
 
-.mx-36 {
-  margin-left: 9rem !important;
-  margin-right: 9rem !important;
-}
-
 .mx-4 {
   margin-left: 1rem !important;
   margin-right: 1rem !important;
@@ -2200,6 +2195,10 @@ html {
 
 .mt-6 {
   margin-top: 1.5rem !important;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem !important;
 }
 
 .flex {
@@ -2505,10 +2504,6 @@ html {
   vertical-align: middle !important;
 }
 
-.font-garamond {
-  font-family: "adobe-garamond-pro", serif !important;
-}
-
 .text-3xl {
   font-size: 1.875rem !important;
   line-height: 2.25rem !important;
@@ -2524,6 +2519,11 @@ html {
   line-height: 1 !important;
 }
 
+.text-8xl {
+  font-size: 6rem !important;
+  line-height: 1 !important;
+}
+
 .text-base {
   font-size: 1rem !important;
   line-height: 1.5rem !important;
@@ -2534,12 +2534,24 @@ html {
   line-height: 1.75rem !important;
 }
 
+.\!font-extrabold {
+  font-weight: 800 !important;
+}
+
+.font-extrabold {
+  font-weight: 800 !important;
+}
+
 .font-semibold {
   font-weight: 600 !important;
 }
 
 .font-thin {
   font-weight: 100 !important;
+}
+
+.italic {
+  font-style: italic !important;
 }
 
 .not-italic {
@@ -2596,6 +2608,20 @@ html {
 
 .underline {
   text-decoration-line: underline !important;
+}
+
+.strikethrough{
+  text-decoration: none !important;
+  position: relative !important;
+}
+
+.strikethrough::before{
+  content: '' !important;
+  width: 100% !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: calc( 50% - 3px ) !important;
+  border-bottom: 6px solid rgba(0,0,0,1) !important;
 }
 
 @theme {
@@ -2795,6 +2821,20 @@ html {
   text-decoration-line: underline !important;
 }
 
+.hover\:strikethrough-gray:hover{
+  text-decoration: none !important;
+  position: relative !important;
+}
+
+.hover\:strikethrough-gray:hover::before{
+  content: '' !important;
+  width: 100% !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: calc( 50% - 3px ) !important;
+  border-bottom: 6px solid rgba(107, 114, 128, 1) !important;
+}
+
 .prose-ul\:mt-0 :is(:where(ul):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   margin-top: 0px !important;
 }
@@ -2809,9 +2849,8 @@ html {
     grid-column: span 2 / span 2 !important;
   }
 
-  .md\:text-2xl {
-    font-size: 1.5rem !important;
-    line-height: 2rem !important;
+  .md\:font-extrabold {
+    font-weight: 800 !important;
   }
 }
 
@@ -2838,9 +2877,14 @@ html {
     gap: 6rem !important;
   }
 
-  .lg\:text-3xl {
-    font-size: 1.875rem !important;
-    line-height: 2.25rem !important;
+  .lg\:text-2xl {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+
+  .lg\:text-lg {
+    font-size: 1.125rem !important;
+    line-height: 1.75rem !important;
   }
 
   .lg\:text-xl {

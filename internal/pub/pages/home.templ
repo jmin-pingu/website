@@ -7,10 +7,13 @@ import (
 
 templ HomePage(pages_metadata *ds.PagesMetadata) {
 	@shared.Page("Home", pages_metadata) {
+		<div class="prose !max-w-none mx-0">
+		<h1 class="font-extrabold mb-8 text-left underline italic text-8xl">HEY, I'M JMIN</h1>
 		<div id="home-layout" class="lg:grid lg:grid-cols-3 lg:gap-24 text-4xl lg:text-xl 2xl:text-2xl">
-		@Pictures()
+			@Pictures()
 
-		@HomeContent()
+			@HomeContent()
+		</div>
 		</div>
 	}
 }
@@ -20,25 +23,21 @@ templ HomePage(pages_metadata *ds.PagesMetadata) {
 templ HomeContent() {
 	<div class="md:col-span-2 [&_a]:underline [&_a:hover]:text-gray-500">
 	<p>
-	I'm Jonathan (Young Woong) Min, a Consultant at <a href="https://www.premiumiq.com/">PremiumIQ</a> and a Data Scientist at the University of California, San Francisco.
+	I'm Jonathan (영웅) Min, a Consultant at <a href="https://www.premiumiq.com/">PremiumIQ</a> and a Data Scientist at the University of California, San Francisco.
 	</p>
-	<br>
 	<p>
 	I believe that meaningful data science is done by a very slim percentage of individuals who excel in three roles: 1) computer scientist, 2) statistician, and 3) domain expert; in my career, I hope to master each field individually and in harmony. While that gives a glimpse into my professional interests, it doesn't give the big picture of what motivates me. As of now, I love to learn and derive pleasure from deeply understanding first-principles and seeing how they arise in complex problems. 
 	</p>
-	<br>
 	<p>
 	Thus, this website serves two purposes: 
 	<ol>
-	<li style="ml-8">1) to document my journey of continuous learning and </li>
-	<li style="ml-8">2) to hopefully be a helpful resource by distilling interesting topics that I have learned or am
+	<li style="ml-8">to document my journey of continuous learning and </li>
+	<li style="ml-8">to hopefully be a helpful resource by distilling interesting topics that I have learned or am
 	learning.</li>
 	</ol>
-	<br>
 	I've already documented my experience <a href="/blog/tmcs">teaching myself computer science</a> this
 	past year and there will be many more posts to come. If you would like to contact me about the website or anything else, the best way is by <a href="jonathanheromin@gmail.com">email</a>.
 	</p>
-	<br>
 	<p>
 	During my free time, you'll probably see me doing one of the following: tinkering with electronics, DJing, producing music, working out, studying, programming,  cooking, or reading. I'm sure I will pick up (and drop) many hobbies throughout the lifecycle of this website and I hope you will join me in this journey! 
 	</p>
@@ -49,7 +48,7 @@ templ HomeContent() {
 templ Pictures() {
 	<div class="mb-8 mx-44 flex justify-center lg: mb-0 lg:mx-0">
 	<div class="flex-row md:w-84 lg:w-max">
-		<img class="" src="/assets/img/landing-page-picture.jpg">
+		<img class="mb-0" src="/assets/img/landing-page-picture.jpg">
 		<p class="text-base lg:text-xl">
 		<em>
 		A memory at Buenas Coffee at Costa Mesa, CA.

@@ -12,6 +12,37 @@
   --breakpoint-6xl: 1048rem;
 }
 
+@layer utilities{
+	.strikethrough{
+	  text-decoration: none;
+	    position: relative;
+	}
+	
+	.strikethrough::before{
+	    content: '';
+	    width: 100%;
+	    position: absolute;
+	    right: 0;
+	    top: calc( 50% - 3px );
+	    border-bottom: 6px solid rgba(0,0,0,1);
+	}
+	
+	.strikethrough-gray{
+	  text-decoration: none;
+	    position: relative;
+	}
+	
+	.strikethrough-gray::before{
+	    content: '';
+	    width: 100%;
+	    position: absolute;
+	    right: 0;
+	    top: calc( 50% - 3px );
+	    border-bottom: 6px solid rgba(107, 114, 128, 1);
+	}
+}
+
+
 @font-face {
     font-family: "comic-sans";
     src: url("/assets/fonts/Comic Sans MS.ttf");

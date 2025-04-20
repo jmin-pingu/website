@@ -85,7 +85,7 @@ func ProjectsContent() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<article class=\"prose prose-ul:mt-0 prose-li:my-0 !max-w-none\"><h1>Projects</h1><h2 class=\"mb-4\">Things I Am Building</h2><div class=\"text-left\"><ul><li><a href=\"https://github.com/jmin-pingu/minux\">Mini OS</a></li><li><a href=\"https://github.com/jmin-pingu/zlx\">Interpreter</a></li></ul></div><h2 class=\"mb-4\">Things I Want to Build</h2><div class=\"text-left\"><ul><li>Git</li><li>Package Manager</li><li>Database Manager</li><li>SQL</li><li>Distributed File System</li></ul></div></article>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<article class=\"prose prose-ul:mt-0 prose-li:my-0 !max-w-none\"><h1 class=\"mb-2 text-left underline italic text-8xl font-extrabold\">PROJECTS</h1><h2 class=\"mb-4\">Things I Am Building</h2><div class=\"text-left\"><ul><li><a href=\"https://github.com/jmin-pingu/minux\">Mini OS</a></li><li><a href=\"https://github.com/jmin-pingu/zlx\">Interpreter</a></li></ul></div><h2 class=\"mb-4\">Things I Want to Build</h2><div class=\"text-left\"><ul><li>Git</li><li>Package Manager</li><li>Database Manager</li><li>SQL</li><li>Distributed File System</li></ul></div></article>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
