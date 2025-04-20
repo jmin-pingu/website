@@ -26,9 +26,7 @@ templ BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadat
 
 templ TagsNavigation(tags *ds.OrderedList[string]) {
 	<div id="tags-navbar" class="flex flex-row items-center mt-6 h-6">
-		<p class="font-semibold">
-		Tags: 
-		</p>
+		<p class="font-semibold">Tags: </p>
 
 		for _, v := range *tags {
 			<div class="mx-2"> <label> { v } </label> 
@@ -54,7 +52,7 @@ templ BlogPosts(posts_metadata *ds.PostsMetadata, selected_tags ds.Set[string], 
 
 			if search_match && tags_match {
 				<dt class="flex flex-col"> 
-				<div><a class="text-3xl" id={ strconv.Itoa(post.PostID) } href={ post.Path }> { post.Title } </a> 
+				<div><a class="text-3xl font-extrabold" id={ strconv.Itoa(post.PostID) } href={ post.Path }> { strings.ToUpper(post.Title) } </a> 
 				{{ builder_string := "" }}
 				for _, tag := range post.TagsFixed {
 					if builder_string == "" {

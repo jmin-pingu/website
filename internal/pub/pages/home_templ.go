@@ -46,7 +46,7 @@ func HomePage(pages_metadata *ds.PagesMetadata) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"prose !max-w-none mx-0\"><h1 class=\"font-extrabold mb-8 text-left underline italic text-8xl\">HEY, I'M JMIN</h1><div id=\"home-layout\" class=\"lg:grid lg:grid-cols-3 lg:gap-24 text-4xl lg:text-xl 2xl:text-2xl\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"prose !max-w-none mx-0\"><h1 class=\"font-extrabold mb-8 text-left underline italic text-8xl\">HEY, I'M  <typewriter pause=\"8\" typing-speed=\"100\" untyping-speed=\"100\" loop=\"true\"><span>JMIN</span> <span>JONATHAN</span> <span>JMINI</span> <span>영웅</span> <span>JHUNCHO</span> <span>DJMIN</span></typewriter></h1><div id=\"home-layout\" class=\"lg:grid lg:grid-cols-3 lg:gap-24 text-4xl lg:text-xl 2xl:text-2xl\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

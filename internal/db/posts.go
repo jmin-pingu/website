@@ -39,8 +39,8 @@ func InitPosts(dbpool *pgxpool.Pool) {
 		err  error
 		dat  []byte
 	)
-	// Read SQL schema for posts
 
+	// Read SQL schema for posts
 	pwd, err := os.Getwd()
 	dat, err = os.ReadFile(pwd + "/internal/db/posts_schema.sql")
 
@@ -57,15 +57,6 @@ func InitPosts(dbpool *pgxpool.Pool) {
 		os.Exit(1)
 	}
 }
-
-// type Post struct {
-// 	PostID  int
-// 	Tags    []string
-// 	Title   string
-// 	Link    string
-// 	Date    time.Time
-// 	Content string // Format: HTML
-// }
 
 func GetPosts(dbpool *pgxpool.Pool) []*Post {
 	query := `SELECT * FROM posts ORDER BY date DESC;`
