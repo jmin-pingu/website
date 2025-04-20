@@ -33,7 +33,7 @@ func Nav(pages_metadata ds.PagesMetadata, current_page string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<header id=\"page-nav\" class=\"navbar bg-base-100 sticky top-0 z-50\"><div class=\"flex-1\"><a href=\"/\" class=\"mx-36 text-3xl font-thin text-black hover:text-gray-500\">Jonathan Min</a></div><ul class=\"horizontal mr-36\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<header id=\"page-nav\" class=\"bg-base-100 sticky top-0 z-50 mx-16\"><div class=\"flex h-16 items-center\"><div class=\"flex-1\"><a href=\"/\" class=\"xsm2:text-sm xsm:text-base sm:text-l md:text-2xl lg:text-3xl text-black hover:text-gray-500\">Jonathan Min</a></div><div class=\"flex-none lg:text-xl\"><ul class=\"menu-horizontal px-1\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -45,7 +45,7 @@ func Nav(pages_metadata ds.PagesMetadata, current_page string) templ.Component {
 				}
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</ul></header>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</ul></div></div></header>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -84,14 +84,14 @@ func NavItems(page string, current_page string, link templ.SafeURL) templ.Compon
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\" class=\"text-xl underline text-black hover:text-gray-500\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\" class=\"underline text-black hover:text-gray-500\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(page)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/partials/nav.templ`, Line: 27, Col: 84}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/partials/nav.templ`, Line: 29, Col: 76}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -111,14 +111,14 @@ func NavItems(page string, current_page string, link templ.SafeURL) templ.Compon
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "\" class=\"text-xl text-black hover:text-gray-500\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "\" class=\"text-black hover:text-gray-500\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(page)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/partials/nav.templ`, Line: 31, Col: 74}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pub/partials/nav.templ`, Line: 33, Col: 66}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {

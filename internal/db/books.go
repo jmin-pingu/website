@@ -153,7 +153,7 @@ func ParseBooksJson(path string) []BookJson {
 	return books.Books
 }
 
-func InitBooks(dbpool *pgxpool.Pool, clean bool) {
+func InitBooks(dbpool *pgxpool.Pool) {
 	var (
 		stmt string
 		err  error
@@ -169,10 +169,6 @@ func InitBooks(dbpool *pgxpool.Pool, clean bool) {
 	}
 
 	stmt = string(dat)
-
-	if clean {
-		_, err = dbpool.Exec(context.Background(), `DROP TABLE books;`)
-	}
 
 	_, err = dbpool.Exec(context.Background(), stmt)
 	if err != nil {

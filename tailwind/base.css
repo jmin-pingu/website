@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@theme {
+  --breakpoint-3xsm: 16rem;
+  --breakpoint-2xsm: 24rem;
+  --breakpoint-xsm: 32rem;
+  --breakpoint-3xl: 112rem;
+  --breakpoint-4xl: 124rem;
+  --breakpoint-5xl: 136rem;
+  --breakpoint-6xl: 1048rem;
+}
+
 @font-face {
     font-family: "comic-sans";
     src: url("/assets/fonts/Comic Sans MS.ttf");
@@ -11,6 +21,13 @@
 	font-family: "adobe-garamond-pro", serif !important;
 }
 
+.font-inter {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+ 
 /* formatting daisyui components */
 .navbar {
 	@apply p-0;
@@ -67,13 +84,13 @@
 }
 
 .prose p { 
-	@apply font-thin;
-	@apply text-xl;
+	/* @apply font-thin; */
+	@apply lg:text-xl;
 }
 
 .prose dd, ul, dl, ol, li{
-	@apply font-thin;
-	@apply text-xl;
+	/* @apply font-thin; */
+	@apply lg:text-xl;
 	@apply my-0;
 }
 

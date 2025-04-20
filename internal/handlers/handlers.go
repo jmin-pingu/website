@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -115,6 +116,14 @@ func (h *creativeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 type readingListHandler struct{}
 
 func (h *readingListHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	// NOTE: add cache-ing
+	dbpool, err := db.GetConnection(os.Getenv("POSTGRES_DB"))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to connect to website: %v\n", err)
+		os.Exit(1)
+	}
+	defer dbpool.Close()
+	BOOKS = db.GetBooks(dbpool)
 	pages.ReadingListPage(&PAGES_METADATA, &BOOKS).Render(context.Background(), w)
 }
 
@@ -130,16 +139,16 @@ func SetUpRoutes() {
 	http.Handle("/links/", new(linksHandler))
 
 }
+
 func RenderStaticPosts() {
 	dbpool, err := db.GetConnection("websitedb")
-	defer dbpool.Close()
 	if err != nil {
 		log.Printf("db: %v", err)
 		os.Exit(1)
 	}
+	defer dbpool.Close()
 
 	posts := db.GetPosts(dbpool)
-
 	for _, post := range posts {
 		tags := make(ds.Set[string], 0)
 		for _, tag := range post.Tags {

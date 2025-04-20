@@ -16,10 +16,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	handlers.BOOKS = db.GetBooks(dbpool)
+	db.InitBooks(dbpool)
+	db.InitPosts(dbpool)
 	dbpool.Close()
+
 	handlers.RenderStaticPosts()
-	dbpool.Close()
 	handlers.SetUpRoutes()
 
 	port := "8080"

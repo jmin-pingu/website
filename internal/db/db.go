@@ -10,6 +10,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+// TODO: full conn_id or infer from environment variables
 func GetConnection(db_name string) (*pgxpool.Pool, error) {
 	var (
 		err error
@@ -23,7 +24,8 @@ func GetConnection(db_name string) (*pgxpool.Pool, error) {
 	f, err := os.Open(os.Getenv("POSTGRES_PASSWORD_FILE"))
 	defer f.Close()
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("`GetConnection`: %v\n", err)
+		os.Exit(1)
 	}
 
 	// Scan a line
