@@ -2509,11 +2509,6 @@ html {
   font-family: "adobe-garamond-pro", serif !important;
 }
 
-.text-2xl {
-  font-size: 1.5rem !important;
-  line-height: 2rem !important;
-}
-
 .text-3xl {
   font-size: 1.875rem !important;
   line-height: 2.25rem !important;
@@ -2545,14 +2540,6 @@ html {
 
 .font-thin {
   font-weight: 100 !important;
-}
-
-.font-extrabold {
-  font-weight: 800 !important;
-}
-
-.font-black {
-  font-weight: 900 !important;
 }
 
 .not-italic {
