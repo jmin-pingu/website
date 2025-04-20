@@ -7,15 +7,15 @@ import (
 
 templ Nav(pages_metadata ds.PagesMetadata, current_page string) {
 	<header id="page-nav" class="bg-base-100 sticky top-0 z-50 mx-16">
-		<div class="flex h-16 items-center">
+		<div class="flex h-16 items-center !text-3xl">
  			<div class="flex-1">
 				if current_page == "Home" {
-					<a href="/" class="!font-extrabold strikethrough italic lg:text-2xl text-black hover:strikethrough-gray hover:text-gray-500">민영웅</a>
+					<a href="/" class="!font-extrabold strikethrough italic text-black hover:strikethrough-gray hover:text-gray-500">민영웅</a>
 				} else {
-					<a href="/" class="!font-extrabold lg:text-2xl text-black hover:text-gray-500">JONATHAN MIN</a>
+					<a href="/" class="!font-extrabold text-black hover:text-gray-500">JONATHAN MIN</a>
 				}
 			</div>
-			<div class="!font-extrabold flex-none lg:text-lg">
+			<div class="!font-extrabold flex-none">
 				<ul class="menu-horizontal px-1">
 					for _, pm := range pages_metadata { 
 						if pm.Name != "Home" {
@@ -31,11 +31,11 @@ templ Nav(pages_metadata ds.PagesMetadata, current_page string) {
 templ NavItems(page string, current_page string, link templ.SafeURL) {
 	if page == current_page {
 		<li class="ml-6"> 
-			<a href={ link } class="strikethrough italic text-black hover:text-gray-500 hover:strikethrough-gray"> { strings.ToUpper(page) } </a>
+			<a href={ link } class="!text-3xl strikethrough italic text-black hover:text-gray-500 hover:strikethrough-gray"> { strings.ToUpper(page) } </a>
 		</li>
 	} else {
 		<li class="ml-6"> 
-			<a href={ link } class="text-black hover:text-gray-500"> { strings.ToUpper(page) } </a>
+			<a href={ link } class="text-black !text-3xl hover:text-gray-500"> { strings.ToUpper(page) } </a>
 		</li>
 	}
 }
