@@ -19,6 +19,7 @@ templ BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadat
 
 		@partials.Search("/blog/search", "#blog-posts")
 
+		<br>
 		@BlogPosts(posts_metadata, filter_tags, "")
 		</div>
 	}
@@ -43,7 +44,7 @@ templ TagsNavigation(tags *ds.OrderedList[string]) {
 }
 
 templ BlogPosts(posts_metadata *ds.PostsMetadata, selected_tags ds.Set[string], search string) {
-	<dl id="blog-posts">
+	<dl id="blog-posts" class="">
 		for _, post := range *posts_metadata {
 			{{ 
 			search_match := strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) 

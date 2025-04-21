@@ -19,13 +19,11 @@
   --breakpoint-6xl: 1048rem;
 }
 
-@layer utilities{
-	.strikethrough{
-	  text-decoration: none;
-	    position: relative;
-	}
+@utility strikethrough{
+	text-decoration: none;
+	position: relative;
 	
-	.strikethrough::before{
+	&::before{
 	    content: '';
 	    width: 100%;
 	    position: absolute;
@@ -33,13 +31,13 @@
 	    top: calc( 50% - 3px );
 	    border-bottom: 6px solid rgba(0,0,0,1);
 	}
+}
 	
-	.strikethrough-gray{
-	  	text-decoration: none;
-	    position: relative;
-	}
+@utility strikethrough-gray{
+	text-decoration: none;
+	position: relative;
 	
-	.strikethrough-gray::before{
+	&::before{
 	    content: '';
 	    width: 100%;
 	    position: absolute;

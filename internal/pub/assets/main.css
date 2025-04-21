@@ -639,6 +639,30 @@
       }
     }
   }
+  .strikethrough {
+    text-decoration: none;
+    position: relative;
+    &::before {
+      content: '';
+      width: 100%;
+      position: absolute;
+      right: 0;
+      top: calc( 50% - 3px );
+      border-bottom: 6px solid rgba(0,0,0,1);
+    }
+  }
+  .strikethrough-gray {
+    text-decoration: none;
+    position: relative;
+    &::before {
+      content: '';
+      width: 100%;
+      position: absolute;
+      right: 0;
+      top: calc( 50% - 3px );
+      border-bottom: 6px solid rgba(107, 114, 128, 1);
+    }
+  }
   .range {
     appearance: none;
     webkit-appearance: none;
@@ -1029,9 +1053,6 @@
   }
   .\!m-0 {
     margin: calc(var(--spacing) * 0) !important;
-  }
-  .mx-0 {
-    margin-inline: calc(var(--spacing) * 0);
   }
   .mx-1 {
     margin-inline: calc(var(--spacing) * 1);
@@ -1722,9 +1743,6 @@
   .w-full {
     width: 100%;
   }
-  .\!max-w-0 {
-    max-width: calc(var(--spacing) * 0) !important;
-  }
   .\!max-w-none {
     max-width: none !important;
   }
@@ -1986,6 +2004,38 @@
   .underline {
     text-decoration-line: underline;
   }
+  .selection\:bg-black {
+    & *::selection {
+      background-color: var(--color-black);
+    }
+    &::selection {
+      background-color: var(--color-black);
+    }
+  }
+  .selection\:text-white {
+    & *::selection {
+      color: var(--color-white);
+    }
+    &::selection {
+      color: var(--color-white);
+    }
+  }
+  .hover\:strikethrough-gray {
+    &:hover {
+      @media (hover: hover) {
+        text-decoration: none;
+        position: relative;
+        &::before {
+          content: '';
+          width: 100%;
+          position: absolute;
+          right: 0;
+          top: calc( 50% - 3px );
+          border-bottom: 6px solid rgba(107, 114, 128, 1);
+        }
+      }
+    }
+  }
   .hover\:border-gray-500 {
     &:hover {
       @media (hover: hover) {
@@ -2129,32 +2179,6 @@
     & a:hover {
       color: var(--color-gray-500);
     }
-  }
-}
-@layer utilities {
-  .strikethrough {
-    text-decoration: none;
-    position: relative;
-  }
-  .strikethrough::before {
-    content: '';
-    width: 100%;
-    position: absolute;
-    right: 0;
-    top: calc( 50% - 3px );
-    border-bottom: 6px solid rgba(0,0,0,1);
-  }
-  .strikethrough-gray {
-    text-decoration: none;
-    position: relative;
-  }
-  .strikethrough-gray::before {
-    content: '';
-    width: 100%;
-    position: absolute;
-    right: 0;
-    top: calc( 50% - 3px );
-    border-bottom: 6px solid rgba(107, 114, 128, 1);
   }
 }
 @font-face {

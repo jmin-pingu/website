@@ -39,7 +39,7 @@ func Nav(pages_metadata ds.PagesMetadata, current_page string) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if current_page == "Home" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<a href=\"/\" class=\"!font-extrabold strikethrough italic text-black hover:strikethrough-gray hover:text-gray-500\">민영웅</a>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<a href=\"/\" class=\"!font-extrabold italic text-black strikethrough hover:strikethrough-gray hover:text-gray-500\">민영웅</a>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
