@@ -38,8 +38,8 @@ services:
   server:
     image: ghcr.io/jmin-pingu/website/server:latest
     labels:
-      # for debugging, use `localhost` 
-      - "traefik.http.routers.server.rule=Host(`jminpingu.com`)"
+      # for debugging, use `localhost` jminpingu.com
+      - "traefik.http.routers.server.rule=Host(`localhost`)"
       - "traefik.enable=true"
       - "traefik.http.routers.server.entrypoints=websecure"
       - "traefik.http.routers.server.tls.certresolver=le"
