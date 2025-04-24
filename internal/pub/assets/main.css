@@ -54,13 +54,6 @@
     --leading-tight: 1.25;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
-    --breakpoint-3xsm: 16rem;
-    --breakpoint-2xsm: 24rem;
-    --breakpoint-xsm: 32rem;
-    --breakpoint-3xl: 112rem;
-    --breakpoint-4xl: 124rem;
-    --breakpoint-5xl: 136rem;
-    --breakpoint-6xl: 1048rem;
   }
 }
 @layer base {
@@ -649,18 +642,6 @@
       right: 0;
       top: calc( 50% - 3px );
       border-bottom: 6px solid rgba(0,0,0,1);
-    }
-  }
-  .strikethrough-gray {
-    text-decoration: none;
-    position: relative;
-    &::before {
-      content: '';
-      width: 100%;
-      position: absolute;
-      right: 0;
-      top: calc( 50% - 3px );
-      border-bottom: 6px solid rgba(107, 114, 128, 1);
     }
   }
   .range {
@@ -1550,13 +1531,6 @@
   .ml-auto {
     margin-left: auto;
   }
-  .navbar {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding: 0.5rem;
-    min-height: 4rem;
-  }
   .join {
     display: inline-flex;
     align-items: stretch;
@@ -2257,6 +2231,12 @@
 .prose a.footnote-backref {
   color: var(--color-blue-600);
   text-decoration-line: none;
+}
+.prose #text {
+  @media (width >= 64rem) {
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
+  }
 }
 .prose p {
   @media (width >= 64rem) {

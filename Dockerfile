@@ -56,7 +56,7 @@ USER appuser
 # Copy the executable from the "build" stage.
 COPY --from=build /bin/server /bin/
 COPY ./internal/pub ./internal/pub
-# COPY ./internal/db ./internal/db 
+COPY ./internal/db ./internal/db 
 
 # NOTE: does it make sense to include environment variables in my Dockerfile
  

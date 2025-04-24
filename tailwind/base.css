@@ -124,6 +124,10 @@
 	@apply no-underline;
 }
 
+.prose #text { 
+	@apply lg:text-xl;
+}
+
 .prose p { 
 	/* @apply font-thin; */
 	@apply lg:text-xl;
