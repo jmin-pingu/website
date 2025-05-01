@@ -16,3 +16,7 @@ build:
 
 watch:
 	npm run tailwind
+
+push-image: build
+	docker push ghcr.io/jmin-pingu/website/server:latest
+
