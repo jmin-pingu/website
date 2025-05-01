@@ -4,5 +4,6 @@ node_modules
 *.gif
 *.jpg
 *.png
+internal/pub/**/*.go
 bin
 secrets

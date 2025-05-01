@@ -12,6 +12,7 @@ build:
 	go build -o ./bin/run ./cmd/run 
 	go build -o ./bin/upload ./cmd/upload 
 	docker build -t ghcr.io/jmin-pingu/website/server:latest .
+	docker push ghcr.io/jmin-pingu/website/server:latest .
 
 watch:
 	npm run tailwind
