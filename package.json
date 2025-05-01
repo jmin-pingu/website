@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.21",
+    "daisyui": "^5.0.27",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.4"
+  },
+  "scripts": {
+    "tailwind": "npx tailwindcss -i tailwind/base.css -o internal/pub/assets/main.css --watch",
+    "tailwind-build": "npx tailwindcss -i tailwind/base.css -o internal/pub/assets/main.css",
+    "watch": "nodemon --watch './**/*.go' --signal SIGTERM --exec 'go' run cmd/run/main.go",
+    "templ": "templ generate --watch"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.4",
+    "nodemon": "^3.1.9"
+  }
+}

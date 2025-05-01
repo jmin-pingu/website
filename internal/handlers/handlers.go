@@ -91,6 +91,7 @@ func (h *blogHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		pages.BlogPosts(&POSTS_METADATA, DISPLAY_TAGS, "").Render(context.Background(), w)
 	} else {
+		RenderPosts()
 		pages.BlogPage(&PAGES_METADATA, &POSTS_METADATA, &POSTS_TAGS, DISPLAY_TAGS).Render(context.Background(), w)
 	}
 }
@@ -140,7 +141,7 @@ func SetUpRoutes() {
 
 }
 
-func RenderStaticPosts() {
+func RenderPosts() {
 	dbpool, err := db.GetConnection("websitedb")
 	if err != nil {
 		log.Printf("db: %v", err)
@@ -157,12 +158,14 @@ func RenderStaticPosts() {
 			tags.Add(t)       // Per post tag set: ds.Set
 		}
 
-		url := "/blog/" + post.Link
-		POSTS_METADATA.AddPostMetadata(post.Title, post.Date, post.PostID, url, tags)
-		http.HandleFunc(
-			url,
-			func(w http.ResponseWriter, _ *http.Request) {
-				pages.BlogEntryPage(post.Title, post.Content, &PAGES_METADATA, &POSTS_METADATA).Render(context.Background(), w)
-			})
+		if !POSTS_METADATA.ContainsPost(post.PostID) {
+			url := "/blog/" + post.Link
+			POSTS_METADATA.AddPostMetadata(post.Title, post.Date, post.PostID, url, tags)
+			http.HandleFunc(
+				url,
+				func(w http.ResponseWriter, _ *http.Request) {
+					pages.BlogEntryPage(post.Title, post.Content, &PAGES_METADATA, &POSTS_METADATA).Render(context.Background(), w)
+				})
+		}
 	}
 }

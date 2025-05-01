@@ -20,7 +20,7 @@ func main() {
 	db.InitPosts(dbpool)
 	dbpool.Close()
 
-	handlers.RenderStaticPosts()
+	handlers.RenderPosts()
 	handlers.SetUpRoutes()
 
 	port := "8080"

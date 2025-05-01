@@ -42,3 +42,12 @@ func (pm *PostsMetadata) GetPostMetadata(path string) *PostMetadata {
 	}
 	return nil
 }
+
+func (pm *PostsMetadata) ContainsPost(id int) bool {
+	for _, post := range *pm {
+		if post.PostID == id {
+			return true
+		}
+	}
+	return false
+}

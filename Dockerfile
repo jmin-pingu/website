@@ -58,8 +58,6 @@ COPY --from=build /bin/server /bin/
 COPY ./internal/pub ./internal/pub
 COPY ./internal/db ./internal/db 
 
-# NOTE: does it make sense to include environment variables in my Dockerfile
- 
 # Expose the port that the application listens on.
 EXPOSE 8080
 

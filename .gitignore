@@ -1,7 +1,6 @@
 .DS_Store
 data
 node_modules
-*.json
 *.gif
 *.jpg
 *.png
