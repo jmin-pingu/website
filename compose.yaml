@@ -11,18 +11,20 @@ services:
     # Look into A/B testing with rollouts
     command: "--label-enable --interval 30 --rolling-restart"
   reverse-proxy: 
-    image: traefik:v3.1
+    image: traefik:v3.5.0-rc1
     command: 
-
+      # providers
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
+
+      # entrypoints
       - "--entryPoints.web.address=:80"
       - "--entryPoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.myresolver.acme.email=jonathanheromin@gmail.com"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+
+      # http to https redirect
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+
       # observability
       - "--accesslog=true"
       - "--log.level=DEBUG"
@@ -35,7 +37,6 @@ services:
       - '--certificatesresolvers.myresolver.acme.email=jonathanheromin@gmail.com'
       - '--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json'
       - '--certificatesresolvers.myresolver.acme.tlschallenge=true'
-      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
     ports:
       - "80:80"
       - "443:443"
