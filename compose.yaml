@@ -13,34 +13,45 @@ services:
   reverse-proxy: 
     image: traefik:v3.1
     command: 
-      - "--accesslog=true"
-      # - "--api.insecure=false"
-      # - "--api.dashboard=true"
-      # - "--api.debug=true"
+
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      # - "--log.level=DEBUG"
-      - '--entrypoints.web.http.redirections.entryPoint.to=websecure'
-      - '--entrypoints.web.http.redirections.entryPoint.scheme=https'
-      - '--entrypoints.websecure.address=:443'
-      - '--certificatesresolvers.le.acme.email=jonathanheromin@gmail.com'
-      - '--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json'
-      - '--certificatesresolvers.le.acme.tlschallenge=true'
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=jonathanheromin@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      # observability
+      - "--accesslog=true"
+      - "--log.level=DEBUG"
 
+      # dashboard
+      - "--api.insecure=false"
+      - "--api.dashboard=true"
+
+      # certificates
+      - '--certificatesresolvers.myresolver.acme.email=jonathanheromin@gmail.com'
+      - '--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json'
+      - '--certificatesresolvers.myresolver.acme.tlschallenge=true'
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
     ports:
       - "80:80"
       - "443:443"
+      - "8080:8080"
     volumes: 
-      - /etc/letsencrypt:/letsencrypt
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ./letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
   server:
     image: ghcr.io/jmin-pingu/website/server:latest
     labels:
       # for debugging, use `localhost` jminpingu.com
-      - "traefik.http.routers.server.rule=Host(`jminpingu.com`)"
       - "traefik.enable=true"
+      - "traefik.http.routers.server.rule=Host(`jminpingu.com`)"
       - "traefik.http.routers.server.entrypoints=websecure"
-      - "traefik.http.routers.server.tls.certresolver=le"
+      - "traefik.http.routers.server.tls.certresolver=myresolver"
+
       - "com.centurylinklabs.watchtower.enable=true"
     secrets:
       - db-password
