@@ -8,3 +8,4 @@ internal/pub/**/*.go
 bin
 secrets
 letsencrypt
+.env

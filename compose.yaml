@@ -11,49 +11,28 @@ services:
     # Look into A/B testing with rollouts
     command: "--label-enable --interval 30 --rolling-restart"
   reverse-proxy: 
-    image: traefik:v3.5.0-rc1
-    command: 
-      # providers
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-
-      # entrypoints
-      - "--entryPoints.web.address=:80"
-      - "--entryPoints.websecure.address=:443"
-
-      # http to https redirect
-      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-
-      # observability
-      - "--accesslog=true"
-      - "--log.level=DEBUG"
-
-      # dashboard
-      - "--api.insecure=false"
-      - "--api.dashboard=true"
-
-      # certificates
-      - '--certificatesresolvers.myresolver.acme.email=jonathanheromin@gmail.com'
-      - '--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json'
-      - '--certificatesresolvers.myresolver.acme.tlschallenge=true'
+    image: traefik:v3.1
     ports:
       - "80:80"
       - "443:443"
       - "8080:8080"
+    environment:
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     volumes: 
-      - ./letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yaml:/etc/traefik/traefik.yaml:ro
+      - /etc/certs/:/var/traefik/certs/:rw
   server:
     image: ghcr.io/jmin-pingu/website/server:latest
     labels:
+      # exposes this image since we set `exposedByDefault` to false
+      - traefik.enable=true
       # for debugging, use `localhost` jminpingu.com
-      - "traefik.enable=true"
-      - "traefik.http.routers.server.rule=Host(`jminpingu.com`)"
-      - "traefik.http.routers.server.entrypoints=websecure"
-      - "traefik.http.routers.server.tls.certresolver=myresolver"
-
-      - "com.centurylinklabs.watchtower.enable=true"
+      - traefik.http.routers.server.rule=Host(`jminpingu.com`)
+      - traefik.http.routers.server.entrypoints=websecure
+      - traefik.http.routers.server.tls=true
+      - traefik.http.routers.server.tls.certresolver=cloudflare
+      - com.centurylinklabs.watchtower.enable=true
     secrets:
       - db-password
     environment:
@@ -65,36 +44,13 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_SSLMODE=disable
     # Load balancing + increased availability
-    deploy:
-      mode: replicated
-      replicas: 3 
-    # NOTE: reasona about whether it makes sense to containerize a db
-    # depends_on:
-    #   db:
-    #     condition: service_healthy
+    # deploy:
+    #   mode: replicated
+    #   replicas: 3 
     # need to include `extra_hosts` for Linux systems
     # - reference: https://stackoverflow.com/questions/31324981/how-to-access-host-port-from-docker-container#4354173 
     extra_hosts:
       - "host.docker.internal:host-gateway"
-  # db:
-  #   image: postgres:latest
-  #   restart: always
-  #   user: postgres
-  #   secrets:
-  #     - db-password
-  #   volumes:
-  #     - db-data:/var/lib/postgresql/data
-  #   environment:
-  #     - POSTGRES_DB=websitedb
-  #     - POSTGRES_USER=jonathanmin
-  #     - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-  #   ports:
-  #     - :5432
-  #   healthcheck:
-  #     test: [ "CMD", "pg_isready"]
-  #     interval: 10s
-  #     timeout: 5s
-  #     retries: 5
 volumes:
   db-data:
   letsencrypt:
