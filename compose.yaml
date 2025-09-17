@@ -13,8 +13,12 @@ services:
   reverse-proxy:
     image: traefik:v3.1
     command:
-      - "--providers.docker"
       - "--api.insecure=true"
+      - "--providers.docker"
+      - "--providers.docker.exposedbydefault=false"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=jonathanheromin@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
       - "8080:8080"  # The Traefik dashboard
