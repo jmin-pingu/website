@@ -10,18 +10,18 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     # Look into A/B testing with rollouts
     command: "--label-enable --interval 30 --rolling-restart"
-  reverse-proxy: 
-    image: traefik:v3.4
-    ports:
-      - "80:80"
-      # - "443:443"
-      - "8080:8080"
-        # environment:
-      # - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
-    volumes: 
-      - /var/run/docker.sock:/var/run/docker.sock
-      #- ./traefik.yaml:/etc/traefik/traefik.yaml:ro
-      #- /etc/certs/:/var/traefik/certs/:rw
+  services:
+    reverse-proxy:
+      image: traefik:v3.1
+      command:
+        - "--providers.docker=true"
+        - "--providers.docker.exposedbydefault=false"
+        - "--entrypoints.web.address=:80"
+      ports:
+        - "80:80"
+        - "8080:8080"  # The Traefik dashboard
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock:ro
   server:
     image: ghcr.io/jmin-pingu/website/server:latest
     labels:
