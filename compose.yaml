@@ -6,31 +6,38 @@
 services:
   watchtower: 
     image: containrrr/watchtower
-    volumes: 
-      - /var/run/docker.sock:/var/run/docker.sock
     # Look into A/B testing with rollouts
     command: "--label-enable --interval 30 --rolling-restart"
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
   reverse-proxy:
     image: traefik:v3.1
     command:
       - "--api.insecure=true"
       - "--providers.docker"
       - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.websecure.address=:443"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.email=jonathanheromin@gmail.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entryPoints.web.http.redirections.entrypoint.scheme=https"
     ports:
       - "80:80"
-      - "8080:8080"  # The Traefik dashboard
+      - "443:443"
+      # - "8080:8080"  # The Traefik dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - letsencrypt:/letsencrypt
   server:
     image: ghcr.io/jmin-pingu/website/server:latest
     labels:
+      - traefik.enable=true
       # for debugging, use `localhost` 
       - traefik.http.routers.server.rule=Host(`jminpingu.com`)
-  #     - traefik.http.routers.server.entrypoints=websecure
-  #     - traefik.http.routers.server.tls=true
+      - traefik.http.routers.server.entrypoints=websecure
+      - traefik.http.routers.server.tls.certresolver=myresolver
       - com.centurylinklabs.watchtower.enable=true
     secrets:
       - db-password
