@@ -7,17 +7,25 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file")
+		return
+	}
+
 	dbpool, err := db.GetConnection(os.Getenv("POSTGRES_DB"))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to connect to website: %v\n", err)
 		os.Exit(1)
 	}
 
-	db.InitBooks(dbpool)
-	db.InitPosts(dbpool)
+	// db.InitBooks(dbpool)
+	// db.InitPosts(dbpool)
 	dbpool.Close()
 
 	handlers.RenderPosts()
