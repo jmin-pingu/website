@@ -11,27 +11,24 @@ services:
     # Look into A/B testing with rollouts
     command: "--label-enable --interval 30 --rolling-restart"
   reverse-proxy: 
-    image: traefik:v3.1
+    image: traefik:v3.4
     ports:
       - "80:80"
-      - "443:443"
+      # - "443:443"
       - "8080:8080"
-    environment:
-      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+        # environment:
+      # - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     volumes: 
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./traefik.yaml:/etc/traefik/traefik.yaml:ro
-      - /etc/certs/:/var/traefik/certs/:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+      #- ./traefik.yaml:/etc/traefik/traefik.yaml:ro
+      #- /etc/certs/:/var/traefik/certs/:rw
   server:
     image: ghcr.io/jmin-pingu/website/server:latest
     labels:
-      # exposes this image since we set `exposedByDefault` to false
-      - traefik.enable=true
       # for debugging, use `localhost` jminpingu.com
       - traefik.http.routers.server.rule=Host(`jminpingu.com`)
-      - traefik.http.routers.server.entrypoints=websecure
-      - traefik.http.routers.server.tls=true
-      - traefik.http.routers.server.tls.certresolver=cloudflare
+  #     - traefik.http.routers.server.entrypoints=websecure
+  #     - traefik.http.routers.server.tls=true
       - com.centurylinklabs.watchtower.enable=true
     secrets:
       - db-password
@@ -43,10 +40,10 @@ services:
       - POSTGRES_DB=websitedb
       - POSTGRES_PORT=5432
       - POSTGRES_SSLMODE=disable
-    # Load balancing + increased availability
-    # deploy:
-    #   mode: replicated
-    #   replicas: 3 
+  #   # Load balancing + increased availability
+  #   # deploy:
+  #   #   mode: replicated
+  #   #   replicas: 3 
     # need to include `extra_hosts` for Linux systems
     # - reference: https://stackoverflow.com/questions/31324981/how-to-access-host-port-from-docker-container#4354173 
     extra_hosts:
