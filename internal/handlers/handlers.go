@@ -142,7 +142,7 @@ func SetUpRoutes() {
 }
 
 func RenderPosts() {
-	dbpool, err := db.GetConnection("websitedb")
+	dbpool, err := db.GetConnection(os.Getenv("POSTGRES_DB"))
 	if err != nil {
 		log.Printf("db: %v", err)
 		os.Exit(1)

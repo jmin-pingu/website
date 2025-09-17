@@ -57,6 +57,7 @@ USER appuser
 COPY --from=build /bin/server /bin/
 COPY ./internal/pub ./internal/pub
 COPY ./internal/db ./internal/db 
+COPY .env .env
 
 # Expose the port that the application listens on.
 EXPOSE 8080

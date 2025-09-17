@@ -24,7 +24,7 @@ func GetConnection(db_name string) (*pgxpool.Pool, error) {
 	f, err := os.Open(os.Getenv("POSTGRES_PASSWORD_FILE"))
 	defer f.Close()
 	if err != nil {
-		log.Printf("`GetConnection`: %v\n", err)
+		log.Printf("`GetConnection` failed: %v\n", err)
 		os.Exit(1)
 	}
 
