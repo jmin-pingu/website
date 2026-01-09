@@ -4,12 +4,16 @@
     "autoprefixer": "^10.4.21",
     "daisyui": "^5.0.27",
     "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.4"
+    "tailwindcss": "^4.1.4",
+    "browser-sync": "^3.0.2",
+    "concurrently": "^8.2.2"
   },
   "scripts": {
     "tailwind": "npx tailwindcss -i tailwind/base.css -o internal/pub/assets/main.css --watch",
     "tailwind-build": "npx tailwindcss -i tailwind/base.css -o internal/pub/assets/main.css",
-    "watch": "nodemon --watch './**/*.css' --watch './**/*.go' --signal SIGTERM --exec 'go' run cmd/run/main.go",
+    "server": "nodemon --watch './**/*.go' --watch './internal/pub/**/*.templ' --signal SIGTERM --exec 'go' run cmd/run/main.go",
+    "browser-sync": "browser-sync start --proxy 'localhost:8080' --files 'internal/pub/assets/**/*.css' 'internal/pub/**/*.templ' --no-open",
+    "dev": "concurrently --kill-others \"npm run tailwind\" \"npm run server\" \"npm run browser-sync\"",
     "templ": "templ generate --watch"
   },
   "dependencies": {

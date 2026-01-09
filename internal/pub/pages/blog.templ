@@ -26,7 +26,7 @@ templ BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadat
 
 templ TagsNavigation(tags *ds.OrderedList[string]) {
 	<div id="tags-navbar" class="flex flex-wrap gap-2 mt-4">
-		<p class="!my-0">Tags: </p>
+		<p class="not-prose !my-0">Tags: </p>
 		for _, v := range *tags {
 			<div> <label> { v } </label> 
 				<input value="1" 

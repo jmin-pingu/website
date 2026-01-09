@@ -17,9 +17,9 @@ var DynamicNames = []string{
 templ HomePage(pages_metadata *ds.PagesMetadata) {
 	@shared.Page("Home", pages_metadata) {
 		<div id="home-layout">
-		<article class={styles.ProseArticle}>
 			@DynamicIntro()
 			@Pictures()
+		<article class={styles.ProseArticle}>
 			@HomeContent()
 		</article>
 		</div>
@@ -28,7 +28,7 @@ templ HomePage(pages_metadata *ds.PagesMetadata) {
 
 templ DynamicIntro() {
 	<div>
-		<h1>HEY, I'M 
+		<h1 class="mb-4 font-extrabold text-5xl subpixel-antialiased mb-0">HEY, I'M 
 		<typewriter pause="8" typing-speed="100" untyping-speed="100" loop="true">
 		for _, item := range DynamicNames {
 			<span>{ item }</span>

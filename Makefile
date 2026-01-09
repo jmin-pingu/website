@@ -1,16 +1,18 @@
 MAKEFLAGS += --silent
 
 run:
-	templ generate 
+	templ generate
 	npm run tailwind-build
-	# open http://localhost:1323
 	go run cmd/run/main.go
 
+dev:
+	npm run dev
+
 build:
-	templ generate 
+	templ generate
 	npm run tailwind-build
-	go build -o ./bin/run ./cmd/run 
-	go build -o ./bin/upload ./cmd/upload 
+	go build -o ./bin/run ./cmd/run
+	go build -o ./bin/upload ./cmd/upload
 	docker build -t ghcr.io/jmin-pingu/website/server:latest .
 	docker push ghcr.io/jmin-pingu/website/server:latest
 
