@@ -70,3 +70,7 @@ Services:
 - **server:** Go application (3 replicas)
 - **traefik:** Reverse proxy with Let's Encrypt TLS
 - **watchtower:** Automatic container updates
+
+## TODO
+- [ ] Implement [codemirror](https://codemirror.net/) in blog posts.
+- [ ] Implement visualizations with [pyodide](https://pyodide.org/en/stable/index.html).
