@@ -6,7 +6,7 @@ node_modules
 *.jpg
 *.png
 *.swp
-internal/pub/**/*.go
+internal/pub/**/*templ.go
 bin
 secrets
 letsencrypt
