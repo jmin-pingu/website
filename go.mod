@@ -1,6 +1,6 @@
 module website
 
-go 1.23
+go 1.23.0
 
 require (
 	github.com/joho/godotenv v1.5.1
@@ -10,8 +10,9 @@ require (
 replace internal => ./internal
 
 require (
-	github.com/a-h/templ v0.3.833 // indirect
+	github.com/a-h/templ v0.3.977 // indirect
 	github.com/georgysavva/scany/v2 v2.1.3 // indirect
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
@@ -23,7 +24,7 @@ require (
 	github.com/yuin/goldmark v1.7.13 // indirect
 	github.com/yuin/goldmark-meta v1.1.0 // indirect
 	golang.org/x/crypto v0.32.0 // indirect
-	golang.org/x/sync v0.11.0 // indirect
+	golang.org/x/sync v0.16.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS books (
- 	book_id 			SERIAL PRIMARY KEY,
+ 	book_id 			VARCHAR(36) PRIMARY KEY,
 	tags   				VARCHAR(255)[] NOT NULL,
     author 				VARCHAR(100)[] NOT NULL,
 	title 				VARCHAR(100) NOT NULL,

@@ -2,41 +2,36 @@ package pages
 
 import (
 	"internal/pub/shared"
+	"internal/pub/styles"
 	"internal/ds"
 	"internal/db"
     "golang.org/x/text/cases"
     "golang.org/x/text/language"
-	"strconv"
 	"fmt"
 	"strings"
 )
 
 templ ReadingListPage(pages_metadata *ds.PagesMetadata, categorized_books *ds.StrictDict[string, db.Book]) {
 	@shared.Page("Reading List", pages_metadata) {
-		<div class="prose">
+		<div>
+		<article class={styles.ProseArticle}>
  			@ReadingListContents()
 			@ReadingListBooks(categorized_books)
+		</article>
 		</div>
 	}
 }
 
 templ ReadingListContents() {
-	<h1 class="mb-2 text-left underline italic text-8xl font-extrabold">READING LIST</h1>
+	<h1>READING LIST</h1>
 
-	<p>One of my goals in the fall of 2024 was to read/finish a book a week. One may ask why I began this endeavor.</p><p>Was it for self-growth? Partially.</p><p>Was it a sudden burst of passion? A little bit. </p><p>Or was it wrought by pure guilt? Spot on.</p>
+	<p>One of my goals in the fall of 2024 was to read more. One may ask why I began this endeavor.</p>
 
-	<p> As I was doomscrolling, I ended up watching a Youtube video by <a href="https://www.youtube.com/@_jared/videos">Jared Henderson</a>, a philosophy Youtuber. 
-	The video, titled <a href="https://www.youtube.com/watch?v=A3wJcF0t0bQ&t=364s&ab_channel=JaredHenderson">Why Everyone Stopped Reading</a>, brought up some damning arguments about the current state of reading. 
-	While I often read textbooks and nonfiction, I couldn't remember the last time that I set aside distraction-free time to solely absorb a good book. 
-	Thus, here I am, doing my part in rebuilding and maintaining my reading stamina. 
-	Specifically, I plan on expanding the types of books that I read. 
-	As I mentioned before, I typically read nonfiction and textbooks. 
-	However, it's been an embarrassingly long time since I last read fiction. 
-	I believe that fiction (at least good fiction) forces the reader to grapple with certain ideas and emotions which may not be easily conveyed through other mediums. 
-	Of course, I am casting an extremely wide-net when I say "I want to read more fiction". 
-	In general, my larger goal is to read books where the author is trying to transfer an experience to the reader rather than knowledge or information in a strict sense.</p>
+	<p>Was it for self-growth? Partially.</p>
 
-	<p>So that explains the start of my reading list. I still am thinking about what to do with this list but this is a concern for future me. Here is my list!</p>
+	<p>Was it a sudden burst of passion? A little bit. </p><p>Or was it wrought by pure guilt? Spot on.</p>
+
+	<p> Largely motivated by <a href="https://www.youtube.com/watch?v=A3wJcF0t0bQ&t=364s&ab_channel=JaredHenderson">Why Everyone Stopped Reading</a> by <a href="https://www.youtube.com/@_jared/videos">Jared Henderson</a>, I wanted to take actionable steps to rebuild and maintain my reading stamina. So here are some books I've read.</p>
 }
 
 templ ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) {
@@ -45,8 +40,7 @@ templ ReadingListBooks(sorted_books *ds.StrictDict[string, db.Book]) {
 		<h2 class="mb-4">{ strings.Title(k) }</h2>
 		for _, book := range sorted_books.Values[i] {
 			<dl id={ "reading-list-" + k } class="my-0">
-				// TODO: add documentation
-				<dt> <a id={ strconv.Itoa(book.BookID) } href={ templ.URL(book.URL) }> { book.Title } </a> </dt>
+				<dt> <a id={ book.BookID } href={ templ.URL(book.URL) }> { book.Title } </a> </dt>
 				if len(book.Author) == 1 {
 					{{ author = "Author" }}
 				} else {

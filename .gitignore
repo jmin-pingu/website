@@ -5,6 +5,7 @@ node_modules
 *.gif
 *.jpg
 *.png
+*.swp
 internal/pub/**/*.go
 bin
 secrets

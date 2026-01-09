@@ -23,8 +23,27 @@ import (
 	"github.com/yuin/goldmark/parser"
 )
 
+const POST_UPDATE_TEMPLATE = `
+	UPDATE posts 
+	SET tags=%s, title='%s', link='%s', date='%s', display='%s', content=$html$%s$html$
+	WHERE link = '%s';
+`
+
+const POST_INSERT_TEMPLATE = `
+	INSERT INTO posts (post_id, tags, title, link, date, display, content)
+	VALUES (
+		'%s',
+		%s,
+		'%s',
+		'%s',
+		'%s',
+		'%s',
+		$html$%s$html$
+	);
+`
+
 type Post struct {
-	PostID  int
+	PostID  string
 	Tags    []string
 	Title   string
 	Link    string
@@ -75,23 +94,6 @@ func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, l
 		script string
 		err    error
 	)
-	UPDATE_TEMPLATE := `
-		UPDATE posts 
-		SET tags=%s, title='%s', link='%s', date='%s', display='%s', content=$html$%s$html$
-		WHERE link = '%s';
-	`
-
-	INSERT_TEMPLATE := `
-		INSERT INTO posts (tags, title, link, date, display, content)
-		VALUES (
-			%s,
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			$html$%s$html$
-		);
-	`
 
 	// Parse date and tags to make sure inputs work with SQL
 	parsed_date := strings.Split(date.String(), " ")[0] // Change date to proper formatting for SQL
@@ -104,12 +106,12 @@ func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, l
 
 	switch cmd {
 	case "update":
-		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, title, link, parsed_date,
+		script = fmt.Sprintf(POST_UPDATE_TEMPLATE, parsed_tags, title, link, parsed_date,
 			strconv.FormatBool(display), content, link)
 
 		fmt.Printf("\tupdated: %v\n", link)
 	case "insert":
-		script = fmt.Sprintf(INSERT_TEMPLATE, parsed_tags, title, link, parsed_date,
+		script = fmt.Sprintf(POST_INSERT_TEMPLATE, Hash(link), parsed_tags, title, link, parsed_date,
 			strconv.FormatBool(display), content)
 		fmt.Printf("\tinserted: %v\n", link)
 	default:

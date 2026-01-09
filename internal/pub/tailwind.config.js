@@ -3,7 +3,7 @@
 //
 
 module.exports = {
-	content: ["internal/pub/**/*.{templ,go}"],
+	content: ["./internal/pub/**/*.{templ,go}"],
 	important: true,
 	theme: {
 		extend: {

@@ -34,12 +34,6 @@ func (h *homeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	pages.HomePage(&PAGES_METADATA).Render(context.Background(), w)
 }
 
-type linksHandler struct{}
-
-func (h *linksHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	pages.LinksPage(&PAGES_METADATA).Render(context.Background(), w)
-}
-
 type blogSearchHandler struct{}
 
 func (h *blogSearchHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -137,8 +131,6 @@ func SetUpRoutes() {
 	http.Handle("/projects/", new(projectsHandler))
 	http.Handle("/creative/", new(creativeHandler))
 	http.Handle("/reading_list/", new(readingListHandler))
-	http.Handle("/links/", new(linksHandler))
-
 }
 
 func RenderPosts() {
@@ -158,9 +150,10 @@ func RenderPosts() {
 			tags.Add(t)       // Per post tag set: ds.Set
 		}
 
-		if !POSTS_METADATA.ContainsPost(post.PostID) {
+		post_id := db.Hash(post.PostID).String()
+		if !POSTS_METADATA.ContainsPost(post_id) {
 			url := "/blog/" + post.Link
-			POSTS_METADATA.AddPostMetadata(post.Title, post.Date, post.PostID, url, tags)
+			POSTS_METADATA.AddPostMetadata(post.Title, post.Date, post_id, url, tags)
 			http.HandleFunc(
 				url,
 				func(w http.ResponseWriter, _ *http.Request) {

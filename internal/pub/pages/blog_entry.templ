@@ -1,6 +1,7 @@
 package pages
 
 import (
+	"internal/pub/styles"
 	"internal/pub/shared"
 	"internal/ds"
 
@@ -17,7 +18,7 @@ func Unsafe(html string) templ.Component {
 
 templ BlogEntryPage(title, html string, pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata) {
 	@shared.Page(title, pages_metadata) {
-		<article class="prose prose-h1:text-xl">
+		<article class={styles.ProseArticle}>
 		// Render md to HTML	
 		@Unsafe(html)
 		</article>

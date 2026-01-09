@@ -11,14 +11,14 @@ type PostsMetadata []*PostMetadata
 type PostMetadata struct {
 	Title     string
 	Date      time.Time
-	PostID    int
+	PostID    string
 	Path      templ.SafeURL
 	Tags      Set[string]
 	TagsFixed []string
 	Display   bool
 }
 
-func NewPostMetadata(title string, date time.Time, path string, id int, tags Set[string]) *PostMetadata {
+func NewPostMetadata(title string, date time.Time, path string, id string, tags Set[string]) *PostMetadata {
 	return &PostMetadata{
 		Title:     title,
 		Date:      date,
@@ -30,7 +30,7 @@ func NewPostMetadata(title string, date time.Time, path string, id int, tags Set
 	}
 }
 
-func (pm *PostsMetadata) AddPostMetadata(title string, date time.Time, id int, path string, tags Set[string]) {
+func (pm *PostsMetadata) AddPostMetadata(title string, date time.Time, id string, path string, tags Set[string]) {
 	*pm = append(*pm, NewPostMetadata(title, date, path, id, tags))
 }
 
@@ -43,7 +43,7 @@ func (pm *PostsMetadata) GetPostMetadata(path string) *PostMetadata {
 	return nil
 }
 
-func (pm *PostsMetadata) ContainsPost(id int) bool {
+func (pm *PostsMetadata) ContainsPost(id string) bool {
 	for _, post := range *pm {
 		if post.PostID == id {
 			return true

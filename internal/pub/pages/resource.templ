@@ -2,6 +2,7 @@ package pages
 
 import (
 	"internal/pub/shared"
+	"internal/pub/styles"
 	"internal/ds"
 )
 
@@ -12,15 +13,27 @@ templ ResourcesPage(pages_metadata *ds.PagesMetadata) {
 }
 
 templ ResourcesContent() {
-	<article class="prose prose-ul:mt-0 prose-li:my-0 !max-w-none">
-	<h1 class="mb-2 text-left underline italic text-8xl font-extrabold">RESOURCES</h1>
-
-	<div class="text-left">
+	<article class={styles.ProseArticle}>
+	<h1 class="">RESOURCES</h1>
 	<p>
-	In my life, I have made many transitions across a variety of fields: going from music to law to the humanities to economics to statistics and mathematics to now computer science. Whenever I began a new interest, I would have benefitted from having some guidance with respect to how to navigate these fields. This page is my attempt at providing some guidance for readers who may be interested in learning more about certain topics.
+	I've flip-flopped a lot in life, exploring fields like music to law to the humanities to economics to statistics and mathematics to now computer science. Given that the past is the best predictor of the future, that probably means I'll explore even more things as I grow older. However, when I started learning something for the first time, I would've benefitted from having some guidance as for how to navigate these fields. I've benefitted deeply from bloggers, YouTube videos, online resources, and online forums. This page is my attempt at providing some guidance for readers who may be interested in learning more about certain topics and also things I find particularly interesting!
 	</p>
 
-	<h2 class="mb-2">Statistics</h2>
+	<h2>Interesting Links</h2>
+	<div class="">
+		<dl class="">
+			<dt><a href="https://www.youtube.com/watch?v=rX0ItVEVjHc&ab_channel=CppCon">Data Oriented Design and C++ - Mike Acton</a></dt>
+			<dd>When programming, it's often easy to forget the trivial fact that programs exist to transform data. This video was a great reminder of how to actually take advantage of the compiler and hardware (via the <a href="https://en.wikipedia.org/wiki/Memory_hierarchy">memory hierarchy</a>) to improve performance.</dd>
+
+			<dt><a href="https://www.youtube.com/watch?v=IroPQ150F6c&ab_channel=ChimiChanga">Practical Data Oriented Design - Andrew Kelley</a></dt>
+			<dd>Similar to the Acton's 2014 CppCon talk, except it actually goes through best-practices to help achieve DOD.</dd>
+		</dl>
+	</div>
+
+
+	<div class="">
+
+	<h2 class="">Statistics</h2>
 	<ul>
 		<li>
 		<p>
@@ -74,18 +87,18 @@ templ ResourcesContent() {
 		</li>
 	</ul>
 
-	<h2 class="mb-2">Mathematics</h2>
+	<h2 class="">Mathematics</h2>
 	<ul>
  		<li>
 		Analysis: in my opinion the best texts is the <a href="https://en.wikipedia.org/wiki/Princeton_Lectures_in_Analysis">Stein tetralogy</a>, four books that encompass the Princeton Lectures in Analysis. If you go through all four books (even skipping sections you don't care about), you will be well-versed in undergraduate mathematical analysis. On the more "optimization" end, I would highly recommend <a href="https://web.stanford.edu/~boyd/cvxbook/">Convex Optimization</a> by Boyd and Vandenberghe, which is an essential for any machine learning/deep learning. I believe that online lectures should also be provided by Stanford University.
 		</li>
 	</ul>
 
-	<h2 class="mb-2">Computer Science</h2>
+	<h2 class="">Computer Science</h2>
 	<ul>
 	<li>For general computer science, I would recommend blogs (like some listed below), my post on <a href="/blog/tmcs">teaching myself computer science</a>, or Oz Nova's <a href="https://teachyourselfcs.com/">teachyourselfcs</a>.</li>
 	</ul>
-	<h2 class="mb-2">My Favorite Blogs/Channels</h2>
+	<h2 class="">My Favorite Blogs/Channels</h2>
 	<p>This is a non-exhausting list of some of my favorite blogs and Youtube channels. This will likely grow as I keep developing my blog!</p>
 	<ul>
 		<li><a href="https://statmodeling.stat.columbia.edu/">Statistical Modeling, Causal Inference,

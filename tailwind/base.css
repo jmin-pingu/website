@@ -1,9 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-	themes: [
-	"lofi"
-	]
+	themes: wireframe
 }
 @tailwind base;
 @tailwind components;
@@ -52,6 +50,36 @@
     src: url("/assets/fonts/Comic Sans MS.ttf");
 }
 
+#diagonal {
+	position: fixed;
+  	stroke: #ccc;
+  	stroke-width: 1px;
+  	width: 100vw;
+  	height: 100vh;
+}
+
+#circle {
+	border-radius: 100%;
+	position: fixed;
+	border: 1px solid #ccc;
+	border-color: rgba(204,204,204,0.5);
+	width: 100vmin;
+	height: 100vmin;
+	left: calc(50vw - 50vmin);
+	top: calc(50vh - 50vmin);
+}
+
+#outer_circle {
+	border-radius: 100%;
+	position: fixed;
+	border: 1px solid #ccc;
+	border-color: rgba(204,204,204,0.5);
+	width: 150vmin;
+	height: 150vmin;
+	left: calc(50vw - 75vmin);
+	top: calc(50vh - 75vmin);
+}
+
 .font-garamond {
 	font-family: "adobe-garamond-pro", serif !important;
 }
@@ -71,12 +99,17 @@
 }
 
 /* formatting for tailwind/typography */
-.prose {
-	/* set a break point when we change alignment */
-	@apply sm:max-w-none;
-	@apply md:max-w-none;
-	@apply lg:mx-40;
-	@apply lg:mx-40;
+.prose p {
+	/* mobile config */
+}
+
+.prose dd {
+	@apply mt-0;
+	@apply px-0;
+}
+
+.prose dt {
+	@apply mt-0;
 }
 
 .prose pre { 
@@ -102,7 +135,9 @@
 .prose h1 { 
 	@apply text-left;
 	@apply font-extrabold;
-	@apply text-7xl;
+	@apply text-5xl;
+	@apply subpixel-antialiased;
+	@apply mb-0;
 }
 
 .prose h2, h3, h4 { 
@@ -111,7 +146,7 @@
 }
 
 .prose a { 
-	@apply hover:text-gray-500;
+	@apply hover:text-gray-600;
 }
 
 .prose a.footnote-ref { 
@@ -122,25 +157,6 @@
 .prose a.footnote-backref { 
 	@apply text-blue-600;
 	@apply no-underline;
-}
-
-.prose #text { 
-	@apply lg:text-xl;
-}
-
-.prose p { 
-	/* @apply font-thin; */
-	@apply lg:text-xl;
-}
-
-.prose dd, ul, dl, ol, li{
-	/* @apply font-thin; */
-	@apply lg:text-xl;
-	@apply my-0;
-}
-
-.prose dt {
-	@apply mt-0;
 }
 
 /* formatting for util */

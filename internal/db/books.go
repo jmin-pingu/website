@@ -23,8 +23,31 @@ const (
 	ToRead     = "To-Read"
 )
 
+const UPDATE_TEMPLATE = `
+	UPDATE books 
+	SET tags=%v, author=%v, title='%v', url='%v', in_progress='%v', completed='%v', rating=%v, date_published='%v', date_completed=%v, date_started=%v
+	WHERE book_id='%v';
+`
+
+const INSERT_TEMPLATE = `
+	INSERT INTO books (book_id, tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started)
+	VALUES (
+		'%v',
+		%v,
+		%v,
+		'%v',
+		'%v',
+		'%v',
+		'%v',
+		%v,
+		'%v',
+		%v,
+		%v
+	);
+`
+
 type Book struct {
-	BookID        int
+	BookID        string
 	Tags          []string
 	Author        []string
 	Title         string
@@ -219,28 +242,6 @@ func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string
 		err    error
 	)
 
-	UPDATE_TEMPLATE := `
-		UPDATE books 
-		SET tags=%v, author=%v, title='%v', url='%v', in_progress='%v', completed='%v', rating=%v, date_published='%v', date_completed=%v, date_started=%v
-		WHERE title = '%v';
-	`
-
-	INSERT_TEMPLATE := `
-		INSERT INTO books (tags, author, title, url, in_progress, completed, rating, date_published, date_completed, date_started)
-		VALUES (
-			%v,
-			%v,
-			'%v',
-			'%v',
-			'%v',
-			'%v',
-			%v,
-			'%v',
-			%v,
-			%v
-		);
-	`
-
 	// Parse date and tags to make sure inputs work with SQL
 	parsed_date_published := strings.Split(date_published.String(), " ")[0]             // Change date to proper formatting for SQL
 	parsed_date_completed := "'" + strings.Split(date_completed.String(), " ")[0] + "'" // Change date to proper formatting for SQL
@@ -273,15 +274,14 @@ func UploadBook(dbpool *pgxpool.Pool, cmd string, tags []string, author []string
 	if !in_progress {
 		parsed_date_started = "NULL"
 	}
-
+	book_id := Hash(title)
 	switch cmd {
 	case "update":
-		// INSERT INTO books (tags, author, title, url, in_progress, completed, rating, date_published, date_completed)
-		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed, parsed_date_started, title)
-		log.Printf("updated: %v", title)
+		script = fmt.Sprintf(UPDATE_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed, parsed_date_started, book_id)
+		log.Printf("\tUPDATE %v", title)
 	case "insert":
-		script = fmt.Sprintf(INSERT_TEMPLATE, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed, parsed_date_started)
-		log.Printf("inserted: %v", title)
+		script = fmt.Sprintf(INSERT_TEMPLATE, book_id, parsed_tags, parsed_authors, title, url, in_progress, completed, parsed_rating, parsed_date_published, parsed_date_completed, parsed_date_started)
+		log.Printf("\tINSERT %v", title)
 
 	default:
 		panic("`UploadPost`: `cmd` should either be `update` or `insert`")

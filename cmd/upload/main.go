@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 	"slices"
+
+	"github.com/joho/godotenv"
 )
 
 var VALID_RELATION = []string{"books", "posts"}
@@ -28,6 +30,12 @@ func main() {
 	if !slices.Contains(VALID_RELATION, target) {
 		fmt.Printf("Usage: upload [VALID_RELATION] [PATH_TO_DATA]\n\tvalid relations: %v\n", VALID_RELATION)
 		panic(fmt.Sprintf("Did not provide a valid relation."))
+	}
+
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file")
+		return
 	}
 
 	dbpool, err := db.GetConnection(os.Getenv("POSTGRES_DB"))

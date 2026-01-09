@@ -9,7 +9,7 @@
   "scripts": {
     "tailwind": "npx tailwindcss -i tailwind/base.css -o internal/pub/assets/main.css --watch",
     "tailwind-build": "npx tailwindcss -i tailwind/base.css -o internal/pub/assets/main.css",
-    "watch": "nodemon --watch './**/*.go' --signal SIGTERM --exec 'go' run cmd/run/main.go",
+    "watch": "nodemon --watch './**/*.css' --watch './**/*.go' --signal SIGTERM --exec 'go' run cmd/run/main.go",
     "templ": "templ generate --watch"
   },
   "dependencies": {

@@ -2,35 +2,33 @@ package pages
 
 import (
 	"internal/pub/shared"
+	"internal/pub/styles"
 	"internal/pub/partials"
 	"internal/ds"
 	"strings"
-	"strconv"
 )
 
 templ BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata, tags *ds.OrderedList[string], filter_tags ds.Set[string]) {
 	@shared.Page("Blog", pages_metadata) {
-		// Page specific features
-		<div class="prose !max-w-none !m-0">
-		<h1 class="mb-2 text-left underline italic text-8xl md:font-extrabold">BLOG POSTS</h1>
-		// Content
+		<div>
+		<article class={styles.ProseArticle}>
+		<h1>BLOG POSTS</h1>
 
 		@TagsNavigation(tags) // Filter for blog post tags 
 
 		@partials.Search("/blog/search", "#blog-posts")
 
-		<br>
 		@BlogPosts(posts_metadata, filter_tags, "")
+		</article>
 		</div>
 	}
 }
 
 templ TagsNavigation(tags *ds.OrderedList[string]) {
-	<div id="tags-navbar" class="flex flex-row items-center mt-6 h-6">
-		<p class="font-semibold">Tags: </p>
-
+	<div id="tags-navbar" class="flex flex-wrap gap-2 mt-4">
+		<p class="!my-0">Tags: </p>
 		for _, v := range *tags {
-			<div class="mx-2"> <label> { v } </label> 
+			<div> <label> { v } </label> 
 				<input value="1" 
 					type="checkbox" 
 					hx-post="/blog/" 
@@ -44,7 +42,7 @@ templ TagsNavigation(tags *ds.OrderedList[string]) {
 }
 
 templ BlogPosts(posts_metadata *ds.PostsMetadata, selected_tags ds.Set[string], search string) {
-	<dl id="blog-posts" class="">
+	<dl id="blog-posts">
 		for _, post := range *posts_metadata {
 			{{ 
 			search_match := strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) 
@@ -52,8 +50,8 @@ templ BlogPosts(posts_metadata *ds.PostsMetadata, selected_tags ds.Set[string], 
 			}}
 
 			if search_match && tags_match {
-				<dt class="flex flex-col"> 
-				<div><a class="text-3xl font-extrabold" id={ strconv.Itoa(post.PostID) } href={ post.Path }> { strings.ToUpper(post.Title) } </a> 
+				<dt> 
+				<div><a class="text-3xl font-extrabold" id={ post.PostID } href={ post.Path }> { strings.ToUpper(post.Title) } </a> 
 				{{ builder_string := "" }}
 				for _, tag := range post.TagsFixed {
 					if builder_string == "" {
@@ -62,7 +60,7 @@ templ BlogPosts(posts_metadata *ds.PostsMetadata, selected_tags ds.Set[string], 
 						{{ builder_string = builder_string + ", " + tag }}
 					}
 				}
-				<p class="mb-4 mt-1">{ post.Date.Format("01-02-2006") + " | "  + "" + builder_string }</p>
+				<p class="!mt-0">{ post.Date.Format("01-02-2006") + " | "  + "" + builder_string }</p>
 				</div>
 				</dt>
 			}

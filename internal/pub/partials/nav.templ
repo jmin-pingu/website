@@ -1,41 +1,38 @@
 package partials
 
 import (
+	"internal/pub/styles"
 	"internal/ds"
 	"strings"
 )
 
 templ Nav(pages_metadata ds.PagesMetadata, current_page string) {
-	<header id="page-nav" class="bg-white sticky top-0 z-50 mx-16">
-		<div class="flex h-16 items-center !text-3xl">
- 			<div class="flex-1">
-				if current_page == "Home" {
-					<a href="/" class="!font-extrabold italic text-black strikethrough hover:strikethrough-gray hover:text-gray-500">민영웅</a>
-				} else {
-					<a href="/" class="!font-extrabold text-black hover:text-gray-500">JONATHAN MIN</a>
+	<header id="page-nav" class={styles.HeaderStyle}>
+		<ul class={styles.Nav}>
+			<li>
+			if current_page == "Home" {
+				<a href="/" class={styles.PageSelected}>JMIN</a>
+			} else {
+				<a href="/">JMIN</a>
+			}
+			</li>
+			for _, pm := range pages_metadata { 
+				if pm.Name != "Home" {
+					@NavItems(pm.Name, current_page, pm.Path)
 				}
-			</div>
-			<div class="!font-extrabold flex-none">
-				<ul class="menu-horizontal px-1">
-					for _, pm := range pages_metadata { 
-						if pm.Name != "Home" {
-							@NavItems(pm.Name, current_page, pm.Path)
-						}
-					}
-				</ul>
-			</div>
-		</div>
+			}
+		</ul>
 	</header>
 }
 
 templ NavItems(page string, current_page string, link templ.SafeURL) {
 	if page == current_page {
-		<li class="ml-6"> 
-			<a href={ link } class="!text-3xl strikethrough italic text-black hover:text-gray-500 hover:strikethrough-gray"> { strings.ToUpper(page) } </a>
+		<li> 
+			<a href={link} class={styles.PageSelected}> { strings.ToUpper(page) } </a>
 		</li>
 	} else {
-		<li class="ml-6"> 
-			<a href={ link } class="text-black !text-3xl hover:text-gray-500"> { strings.ToUpper(page) } </a>
+		<li> 
+			<a href={link}> { strings.ToUpper(page) } </a>
 		</li>
 	}
 }
