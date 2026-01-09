@@ -73,4 +73,4 @@ Services:
 
 ## TODO
 - [ ] Implement [codemirror](https://codemirror.net/) in blog posts.
-- [ ] Implement visualizations with [pyodide](https://pyodide.org/en/stable/index.html).
+- [ ] Implement visualizations with [pyodide](https://pyodide.org/en/stable/index.html) and [d3.js](https://d3js.org/).
