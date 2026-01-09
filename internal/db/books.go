@@ -212,7 +212,7 @@ func GetBooks(dbpool *pgxpool.Pool) ds.StrictDict[string, Book] {
 		os.Exit(1)
 	}
 
-	ordered_books, _ := ds.NewStrictDict[string, Book]([]string{"2025", "2024", InProgress, ToRead})
+	ordered_books, _ := ds.NewStrictDict[string, Book]([]string{"2026", "2025", "2024", InProgress, ToRead})
 
 	for _, book := range books {
 		if book.DateCompleted.Status == pgtype.Null {
@@ -229,7 +229,7 @@ func GetBooks(dbpool *pgxpool.Pool) ds.StrictDict[string, Book] {
 
 		err = ordered_books.Append(key, *book)
 		if err != nil {
-			err_msg := fmt.Sprintf("failed to append to StrictDict of ordered books: \nkey: %v \nbook: %v", key, *book)
+			err_msg := fmt.Sprintf("failed to append to StrictDict of ordered books: \nkey: %v \nbook: %v.\nError: %s", key, *book, err)
 			panic(err_msg)
 		}
 	}

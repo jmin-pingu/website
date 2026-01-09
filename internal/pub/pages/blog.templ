@@ -19,9 +19,15 @@ templ BlogPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadat
 		@partials.Search("/blog/search", "#blog-posts")
 
 		@BlogPosts(posts_metadata, filter_tags, "")
+
+		@Filler()
 		</article>
 		</div>
 	}
+}
+
+templ Filler() {
+	<p>Posts are on the way! Motivated by <a href="https://www.youtube.com/watch?v=DO5MflX_eik">I'm Begging You to Write Mini-Essays</a>, I want this to document my journey of learning. Expect some posts of dynamic dispatch, Ladner's theorem, and Bayesian analysis.</p>
 }
 
 templ TagsNavigation(tags *ds.OrderedList[string]) {
@@ -51,7 +57,7 @@ templ BlogPosts(posts_metadata *ds.PostsMetadata, selected_tags ds.Set[string], 
 
 			if search_match && tags_match {
 				<dt> 
-				<div><a class="text-3xl font-extrabold" id={ post.PostID } href={ post.Path }> { strings.ToUpper(post.Title) } </a> 
+				<div><a class={styles.PostTitleStyling} id={ post.PostID } href={ post.Path }> { strings.ToUpper(post.Title) } </a> 
 				{{ builder_string := "" }}
 				for _, tag := range post.TagsFixed {
 					if builder_string == "" {
