@@ -12,14 +12,18 @@ templ Page(title string, pages_metadata *ds.PagesMetadata) {
 	<html lang="en">
 	<head>
 		<title>{ title }</title>
-		<link></link>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-		<script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/gh/DoctorDemon/Typewriter.js/typewriter.js"></script>
+
+		<!-- Add Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		
+		<!-- CSS - Twilight theme -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-twilight.min.css" rel="stylesheet" />
+		
+		<!-- Toolbar CSS (required for copy button) -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
 		<style>  
 			@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 			@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Doto:wght@100..900&display=swap');
@@ -29,6 +33,25 @@ templ Page(title string, pages_metadata *ds.PagesMetadata) {
  		<link rel="icon" href="/assets/headshot.ico"/>
 	</head>
 
+		
+	<!-- Core JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+	<!-- Language support -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-zig.min.js"></script>
+
+	<!-- Toolbar plugin (must come before copy-to-clipboard) -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+
+	<!-- Copy to clipboard plugin -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+
+	<!-- Language support -->
+	<script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/gh/DoctorDemon/Typewriter.js/typewriter.js"></script>
 	<body style="overflow-hidden font-family:Arial" class="bg-white items-stretch box-sizing w-screen h-screen overflow-y-scroll scrollwheel selection:bg-black selection:text-white">
 	<div id="content-wrapper" class={styles.PageWrapper}>
 	@partials.Nav(*pages_metadata, title)
