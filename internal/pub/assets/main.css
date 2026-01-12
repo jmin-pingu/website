@@ -43,13 +43,6 @@
     --tracking-tight: -0.025em;
     --leading-tight: 1.25;
     --default-font-family: var(--font-sans);
-    --breakpoint-3xsm: 16rem;
-    --breakpoint-2xsm: 24rem;
-    --breakpoint-xsm: 32rem;
-    --breakpoint-3xl: 112rem;
-    --breakpoint-4xl: 124rem;
-    --breakpoint-5xl: 136rem;
-    --breakpoint-6xl: 1048rem;
   }
 }
 @layer base {
@@ -585,30 +578,6 @@
       @supports (color: color-mix(in lab, red, red)) {
         border-bottom: var(--border) solid color-mix(in oklch, var(--color-base-content) 5%, #0000) !important;
       }
-    }
-  }
-  .strikethrough {
-    text-decoration: none !important;
-    position: relative !important;
-    &::before {
-      content: '' !important;
-      width: 100% !important;
-      position: absolute !important;
-      right: 0 !important;
-      top: calc( 50% - 3px ) !important;
-      border-bottom: 6px solid rgba(0,0,0,1) !important;
-    }
-  }
-  .strikethrough-gray {
-    text-decoration: none !important;
-    position: relative !important;
-    &::before {
-      content: '' !important;
-      width: 100% !important;
-      position: absolute !important;
-      right: 0 !important;
-      top: calc( 50% - 3px ) !important;
-      border-bottom: 6px solid rgba(107, 114, 128, 1) !important;
     }
   }
   .steps {
@@ -1913,13 +1882,6 @@
   .ml-auto {
     margin-left: auto !important;
   }
-  .navbar {
-    display: flex !important;
-    width: 100% !important;
-    align-items: center !important;
-    padding: 0.5rem !important;
-    min-height: 4rem !important;
-  }
   .prose {
     :root & {
       --tw-prose-body: var(--color-base-content) !important;
@@ -2235,9 +2197,6 @@
   }
   .align-middle {
     vertical-align: middle !important;
-  }
-  .font-garamond {
-    font-family: "adobe-garamond-pro", serif !important;
   }
   .text-3xl {
     font-size: var(--text-3xl) !important;
