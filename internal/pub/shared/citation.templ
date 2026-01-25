@@ -1,0 +1,40 @@
+package shared
+
+import (
+	"internal/pub/styles"
+)
+
+type AsideType uint8
+
+const (
+    AsideLeft AsideType = iota
+    AsideRight
+)
+
+func FormatAsideId(id string) templ.SafeURL {
+    // NOTE: add safety checks eventually
+    return templ.SafeURL("#" + id)
+}
+
+templ Aside(position AsideType, id string, content templ.Component, offset string) {
+    {{
+        var dir string
+        if offset[0] == '-' {
+            dir = " -top-" + offset[1:] 
+        } else {
+            dir = " top-" + offset[0:] 
+        }
+    }}
+    <div class="relative" id={id}>
+    if position == AsideLeft {
+	    <aside class={styles.AsideLeft + dir}>
+            @content
+	    </aside>
+    } else {
+	    <aside class={styles.AsideRight}>
+            @content
+	    </aside>
+    }
+    </div>
+}
+

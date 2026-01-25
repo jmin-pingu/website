@@ -4,6 +4,7 @@ import (
 	"internal/pub/shared"
 	"internal/pub/styles"
 	"internal/ds"
+    "log"
 )
 
 var DynamicNames = []string{
@@ -26,6 +27,8 @@ templ HomePage(pages_metadata *ds.PagesMetadata) {
 	}
 }
 
+const aside1_id = "description"
+
 templ DynamicIntro() {
 	<div>
 		<h1 class="mb-4 font-extrabold text-5xl subpixel-antialiased mb-0">HEY, I'M 
@@ -47,6 +50,7 @@ templ HomeContent() {
 	<p>
  I believe that meaningful data science is done by a very slim percentage of individuals who have mastered three roles: 1) computer scientist, 2) statistician, and 3) domain expert; in my career, I hope to master these three trades. I love to learn and derive pleasure from deeply understanding first-principles and finding how far they can take me in application. 
 	</p>
+    
 	<p>
 	Thus, this website serves two purposes: 
 	<ol>
@@ -55,11 +59,22 @@ templ HomeContent() {
 	learning.</li>
 	</ol>
 	</p>
+    <div>
+    <p>
+    During my free time, you'll probably see me doing one of the following: tinkering with Raspberry Pis, muay thai, producing music, lifting, running (very slowly), studying, programming, making pour overs, or reading. I'm sure I will pick up (and drop) many hobbies throughout the lifecycle of this website and will document those as well. Here's to more life and learning!
+    </p>
+    
+
+    </div>
+
 	<p>
-	During my free time, you'll probably see me doing one of the following: tinkering with Raspberry Pis, muay thai, producing music, lifting, running (very slowly), studying, programming, making pour overs, or reading. I'm sure I will pick up (and drop) many hobbies throughout the lifecycle of this website and will document those as well. Here's to more life and learning!
-	</p>
-	<p>If you would like to contact me about anything, the best way is by <a href="jonathanheromin@gmail.com">email</a>.</p> 
+    If you would like to contact me about anything, the best way is by <a href="jonathanheromin@gmail.com">email</a>.
+    </p> 
+
 	<p><em>I'm very open to finding any mentors who would help me along this path!</em></p>
+    {{
+        log.Print(shared.Python)
+    }}
 	</div>
 }
 

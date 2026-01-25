@@ -1,11 +1,9 @@
 package db
 
 import (
-	"bytes"
 	"context"
 	"fmt"
 	"internal/ds"
-	"io"
 	"log"
 	"os"
 	"regexp"
@@ -13,14 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/a-h/templ"
 	"github.com/georgysavva/scany/v2/pgxscan"
 	"github.com/jackc/pgx/v5/pgxpool"
-	mathjax "github.com/litao91/goldmark-mathjax"
-	"github.com/yuin/goldmark"
-	meta "github.com/yuin/goldmark-meta"
-	"github.com/yuin/goldmark/extension"
-	"github.com/yuin/goldmark/parser"
 )
 
 const POST_UPDATE_TEMPLATE = `
@@ -78,7 +70,7 @@ func InitPosts(dbpool *pgxpool.Pool) {
 }
 
 func GetPosts(dbpool *pgxpool.Pool) []*Post {
-	query := `SELECT * FROM posts ORDER BY date DESC;`
+	query := `SELECT * FROM posts WHERE display = 'true' ORDER BY date DESC;`
 
 	var posts []*Post
 	err := pgxscan.Select(context.Background(), dbpool, &posts, query)
@@ -181,45 +173,4 @@ func parse_md_metadata(md []byte) ([]string, string, string, bool, time.Time) {
 		tags = append(tags, k)
 	}
 	return tags, metadata["title"].(string), metadata["link"].(string), metadata["display"].(bool), date
-}
-
-// ----- Markdown-to-HTML Functions  -----
-func Unsafe(html string) templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
-		_, err = io.WriteString(w, html)
-		return
-	})
-}
-
-func mdToHTML(md []byte) string {
-	var buf bytes.Buffer
-	custom_parser := goldmark.New(
-		goldmark.WithExtensions(
-			extension.Footnote,
-			meta.Meta,
-			extension.Strikethrough,
-			extension.Table,
-			mathjax.MathJax,
-		),
-	)
-	if err := custom_parser.Convert([]byte(md), &buf); err != nil {
-		log.Fatalf("failed to convert markdown to HTML: %v", err)
-	}
-	return buf.String()
-}
-
-func getMetadata(md []byte) map[string]interface{} {
-	var buf bytes.Buffer
-	markdown := goldmark.New(
-		goldmark.WithExtensions(
-			meta.Meta,
-		),
-	)
-
-	context := parser.NewContext()
-	if err := markdown.Convert([]byte(md), &buf, parser.WithContext(context)); err != nil {
-		log.Fatalf("failed to extract metadata: %v", err)
-	}
-	metadata := meta.Get(context)
-	return metadata
 }

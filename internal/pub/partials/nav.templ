@@ -13,7 +13,7 @@ templ Nav(pages_metadata ds.PagesMetadata, current_page string) {
 			if current_page == "Home" {
 				<a href="/" class={styles.PageSelected}>JMIN</a>
 			} else {
-				<a href="/">JMIN</a>
+				<a href="/" class={styles.NavLink}>JMIN</a>
 			}
 			</li>
 			for _, pm := range pages_metadata { 
@@ -32,7 +32,7 @@ templ NavItems(page string, current_page string, link templ.SafeURL) {
 		</li>
 	} else {
 		<li> 
-			<a href={link}> { strings.ToUpper(page) } </a>
+			<a href={link} class={styles.NavLink}> { strings.ToUpper(page) } </a>
 		</li>
 	}
 }

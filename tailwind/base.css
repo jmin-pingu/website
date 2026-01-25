@@ -91,6 +91,11 @@
 }
  
 @layer components {
+    .prose aside > * {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
 	/* Copy button styling */
 	div.code-toolbar > .toolbar button {
 	    background: transparent !important;
@@ -120,15 +125,19 @@
 
 	.prose pre[class*="language-"],
 	.prose code[class*="language-"] {
+        white-space: pre !important;
 	    background-color: #141414 !important;
 	    border-color: #141414 !important;
 		border-radius: 5px !important;
     	color: #f8f8f2 ! important; 
+        text-wrap: preserve !important;
 	}
 	
 	.prose pre[class*="language-"] code {
 	    background-color: #141414 !important;
 	    color: inherit !important;
+        white-space: pre !important;
+        text-wrap: preserve !important;
 	}
 
 	.prose .token {
@@ -152,10 +161,17 @@
 		margin-top: 0;
 	}
 	
-	.prose pre { 
-		@apply bg-black;
-		@apply leading-tight;
-	}
+    .prose pre { 
+        @apply bg-black;
+        @apply leading-tight;
+        white-space: pre !important;
+        overflow-x: auto !important;
+        tab-size: 4 !important;
+    }
+    
+    .prose pre code {
+        white-space: pre !important;
+    }
 	
 	.prose h1 { 
 		@apply text-left;
@@ -171,17 +187,18 @@
 	}
 	
 	.prose a { 
-		@apply hover:text-gray-600;
+		@apply hover:text-gray-500;
+		@apply underline;
 	}
 	
 	.prose a.footnote-ref { 
-		@apply text-blue-600;
 		@apply no-underline;
+		@apply hover:underline;
 	}
 	
 	.prose a.footnote-backref { 
-		@apply text-blue-600;
 		@apply no-underline;
+		@apply hover:underline;
 	}
 }
 

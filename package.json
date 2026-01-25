@@ -13,7 +13,6 @@
     "tailwind-build": "npx tailwindcss -i tailwind/base.css -o internal/pub/assets/main.css",
     "server": "nodemon --watch './**/*.go' --watch './internal/pub/**/*.templ' --signal SIGTERM --exec 'go' run cmd/run/main.go",
     "browser-sync": "browser-sync start --proxy 'localhost:8080' --files 'internal/pub/assets/**/*.css' 'internal/pub/**/*.templ' --no-open",
-    "dev": "concurrently --kill-others \"npm run tailwind\" \"npm run server\" \"npm run browser-sync\"",
     "templ": "templ generate --watch"
   },
   "dependencies": {

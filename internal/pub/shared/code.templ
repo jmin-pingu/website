@@ -1,0 +1,16 @@
+package shared
+
+type Language string
+
+const (
+    Python Language = "language-python"
+    Rust   Language = "language-rust"
+    Zig    Language = "language-zig"
+    C      Language = "language-c"
+)
+
+templ Code(language Language, code string) {
+    <pre>
+    <code class={ string(language) }>{ code }</code>
+    </pre>
+}

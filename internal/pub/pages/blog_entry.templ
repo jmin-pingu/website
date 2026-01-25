@@ -4,9 +4,11 @@ import (
 	"internal/pub/styles"
 	"internal/pub/shared"
 	"internal/ds"
-
 	"context"
 	"io"
+	"strings"
+	"fmt"
+	"log"
 )
 
 func Unsafe(html string) templ.Component {
@@ -16,11 +18,132 @@ func Unsafe(html string) templ.Component {
 	})
 }
 
+// Refactored - uses component rendering
 templ BlogEntryPage(title, html string, pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata) {
 	@shared.Page(title, pages_metadata) {
 		<article class={styles.ProseArticle}>
-		// Render md to HTML	
-		@Unsafe(html)
+			@RenderHTMLWithComponents(html)
 		</article>
 	}
+}
+
+// Component renderer
+templ RenderHTMLWithComponents(html string) {
+	{{
+		// Parse HTML to find data-component divs
+		parts := strings.Split(html, `<div data-component="`)
+	}}
+	
+	for i, part := range parts {
+		if i == 0 {
+			// Content before first component
+			@templ.Raw(part)
+		} else {
+			{{
+                log.Println("Found component", part)
+				// Extract component name
+				nameEnd := strings.Index(part, `"`)
+				componentName := part[:nameEnd]
+                log.Println("componentName", componentName)
+				
+				// Extract all properties for this component
+				props := extractComponentProps(componentName, part)
+				
+				// Extract content between opening and closing div
+				contentStart := strings.Index(part, `>`) + 1
+				contentEnd := findClosingDiv(part, contentStart)
+				innerContent := part[contentStart:contentEnd]
+				
+				// Get rest after closing div
+				rest := ""
+				if contentEnd+6 < len(part) {
+					rest = part[contentEnd+6:]
+				}
+				
+				// Render component from registry
+				var component templ.Component
+				if factory, ok := ComponentRegistry[componentName]; ok {
+					component = factory(props, templ.Raw(innerContent))
+				} else {
+					// Fallback: render content as-is if component not found
+					component = templ.Raw(innerContent)
+				}
+			}}
+			
+			@component
+			@templ.Raw(rest)
+		}
+	}
+}
+
+// Helper function to extract component properties
+func extractComponentProps(componentName, part string) map[string]string {
+	props := make(map[string]string)
+	prefix := fmt.Sprintf(`data-%s-`, componentName) // Fixed: added parenthesis
+	remaining := part
+	
+	for {
+		propStart := strings.Index(remaining, prefix)
+		if propStart == -1 {
+			break
+		}
+		
+		propStart += len(prefix)
+		propEnd := strings.Index(remaining[propStart:], `="`)
+		if propEnd == -1 {
+			break
+		}
+		
+		propName := remaining[propStart : propStart+propEnd]
+		
+		valStart := propStart + propEnd + 2
+		valEnd := strings.Index(remaining[valStart:], `"`)
+		if valEnd == -1 {
+			break
+		}
+		
+		propValue := remaining[valStart : valStart+valEnd]
+		props[propName] = propValue
+		
+		remaining = remaining[valStart+valEnd+1:]
+	}
+	
+	return props
+}
+
+// Helper function to find matching closing div
+func findClosingDiv(html string, startPos int) int {
+	depth := 1
+	pos := startPos
+	
+	for pos < len(html) && depth > 0 {
+		if strings.HasPrefix(html[pos:], "<div") {
+			depth++
+			pos += 4
+		} else if strings.HasPrefix(html[pos:], "</div>") {
+			depth--
+			if depth == 0 {
+				return pos
+			}
+			pos += 6
+		} else {
+			pos++
+		}
+	}
+	
+	return len(html) // Return end if no matching closing tag found
+}
+
+type ComponentFactory func(props map[string]string, content templ.Component) templ.Component
+
+var ComponentRegistry = map[string]ComponentFactory{
+	"aside": func(props map[string]string, content templ.Component) templ.Component {
+		position := shared.AsideRight
+		if props["position"] == "left" {
+			position = shared.AsideLeft
+		}
+		id := props["id"]
+		offset := props["offset"]
+		return shared.Aside(position, id, content, offset)
+	},
 }

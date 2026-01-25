@@ -72,5 +72,13 @@ Services:
 - **watchtower:** Automatic container updates
 
 ## TODO
+- [ ] Implement goldmark extension to parse templ components. The syntax will be
+```
+:::myaside{position:left,id:_}
+:::
+
+:::<name>{<property>:<value>,...}
+:::
+```
 - [ ] Implement [codemirror](https://codemirror.net/) in blog posts.
 - [ ] Implement visualizations with [pyodide](https://pyodide.org/en/stable/index.html) and [d3.js](https://d3js.org/).
