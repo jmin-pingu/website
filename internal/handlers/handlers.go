@@ -131,33 +131,6 @@ func SetUpRoutes() {
 	http.Handle("/projects/", new(projectsHandler))
 	http.Handle("/creative/", new(creativeHandler))
 	http.Handle("/reading_list/", new(readingListHandler))
-	http.Handle("/admin/reload-posts/", new(reloadPostsHandler))
-}
-
-type reloadPostsHandler struct{}
-
-func (h *reloadPostsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	authHeader := r.Header.Get("X-Admin-Token")
-	expectedToken := os.Getenv("WEBSITE_TOKEN")
-	if expectedToken != "" && authHeader != expectedToken {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
-
-	log.Println("Reloading posts...")
-
-	RenderPosts()
-
-	log.Println("Posts reloaded successfully")
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, `{"status":"success","message":"Posts reloaded"}`)
 }
 
 func RenderPosts() {
