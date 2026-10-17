@@ -51,8 +51,8 @@ templ Page(title string, pages_metadata *ds.PagesMetadata) {
 
 	<!-- Language support -->
 	<script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/gh/DoctorDemon/Typewriter.js/typewriter.js"></script>
-	<body style="overflow-hidden font-family:Arial" class="bg-white items-stretch box-sizing w-screen h-screen overflow-y-scroll scrollwheel selection:bg-black selection:text-white">
+	<script src="/assets/typewriter.js"></script>
+	<body style="overflow-hidden font-family:Arial" class="bg-white items-stretch box-sizing h-screen overflow-y-scroll scrollwheel selection:bg-black selection:text-white">
 	<div id="content-wrapper" class={styles.PageWrapper}>
     <div class={styles.PageContentWrapper}>
 	@partials.Nav(*pages_metadata, title)
