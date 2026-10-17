@@ -11,3 +11,4 @@ bin
 secrets
 letsencrypt
 .env
+.claude
