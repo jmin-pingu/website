@@ -7,7 +7,6 @@ import (
 	"log"
 	"os"
 	"regexp"
-	"strconv"
 	"strings"
 	"time"
 
@@ -15,23 +14,15 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-const POST_UPDATE_TEMPLATE = `
-	UPDATE posts 
-	SET tags=%s, title='%s', link='%s', date='%s', display='%s', content=$html$%s$html$
-	WHERE link = '%s';
+const POST_UPDATE = `
+	UPDATE posts
+	SET tags=$1, title=$2, date=$3, display=$4, content=$5
+	WHERE link = $6;
 `
 
-const POST_INSERT_TEMPLATE = `
+const POST_INSERT = `
 	INSERT INTO posts (post_id, tags, title, link, date, display, content)
-	VALUES (
-		'%s',
-		%s,
-		'%s',
-		'%s',
-		'%s',
-		'%s',
-		$html$%s$html$
-	);
+	VALUES ($1, $2, $3, $4, $5, $6, $7);
 `
 
 type Post struct {
@@ -93,38 +84,32 @@ func GetPostByLink(dbpool *pgxpool.Pool, link string) (*Post, error) {
 }
 
 func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, link string, date time.Time, display bool, content string) {
-	var (
-		script string
-		err    error
-	)
+	var err error
 
-	// Parse date and tags to make sure inputs work with SQL
-	parsed_date := strings.Split(date.String(), " ")[0] // Change date to proper formatting for SQL
-
-	parsed_tags := "ARRAY["
-	for _, v := range tags {
-		parsed_tags = parsed_tags + "'" + strings.ToLower(v) + "',"
+	lower_tags := make([]string, len(tags))
+	for i, v := range tags {
+		lower_tags[i] = strings.ToLower(v)
 	}
-	parsed_tags = parsed_tags[:len(parsed_tags)-1] + "]"
 
+	// Values are passed as query parameters, so quotes in them can't break the SQL
 	switch cmd {
 	case "update":
-		script = fmt.Sprintf(POST_UPDATE_TEMPLATE, parsed_tags, title, link, parsed_date,
-			strconv.FormatBool(display), content, link)
-
-		fmt.Printf("\tupdated: %v\n", link)
+		_, err = dbpool.Exec(context.Background(), POST_UPDATE,
+			lower_tags, title, date, display, content, link)
 	case "insert":
-		script = fmt.Sprintf(POST_INSERT_TEMPLATE, Hash(link), parsed_tags, title, link, parsed_date,
-			strconv.FormatBool(display), content)
-		fmt.Printf("\tinserted: %v\n", link)
+		_, err = dbpool.Exec(context.Background(), POST_INSERT,
+			Hash(link).String(), lower_tags, title, link, date, display, content)
 	default:
 		panic("`UploadPost`: `cmd` should either be `update` or `insert`")
 	}
-	// Execute script
-	_, err = dbpool.Exec(context.Background(), script)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "`UploadPost` failed: %v\n", err)
 		os.Exit(1)
+	}
+	if cmd == "update" {
+		fmt.Printf("\tupdated: %v\n", link)
+	} else {
+		fmt.Printf("\tinserted: %v\n", link)
 	}
 }
 
