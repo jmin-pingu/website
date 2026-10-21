@@ -1,0 +1,198 @@
+{
+	"books": [
+		{
+			"tags":["nonfiction", "practical", "self-help"],
+			"author":["Mortimer J. Adler", "Charles Van Doven"],
+			"title":"How to Read a Book",
+			"url":"https://www.amazon.com/How-Read-Book-Classic-Intelligent/dp/0671212095",
+			"in_progress":true,
+			"completed":true,
+			"rating":7,
+			"date_published":"1972-08-12", 
+			"date_started":"2024-10-28", 
+			"date_completed":"2024-11-03"
+ 		},
+		{
+			"tags":["fiction"],
+			"author":["Richard Powers"],
+			"title":"Bewilderment",
+			"url":"https://www.amazon.com/Bewilderment-Novel-Richard-Powers/dp/1324036141/ref=sr_1_1?crid=33UYDUV74LD7J&dib=eyJ2IjoiMSJ9.bpvt7CTw5uQ5J3zYwYQ9rOfaPngaWWRM65y6kxQ2hAmWk4Ma3GV_mVaEZicNPJjiB3nxICuI_7qY2NnB0TH6ZC4WzLoMt93auiqWi6hGuZO0l5jeyKjGnhek6iZfmUh9PV0oz9cseWPVrsQq-rhQtfNpq8qEzofCUly2EStfVJp6qDsRT5-xaANbWktKyPEVmyUKKQG2CsZKcv9Vqz9UrAU1xGNZ76Df1FCrKDroaIc.4yQ0iuadYu5roYEZmD0-M_1sBAHwFKZZysGjscOwEjk&dib_tag=se&keywords=bewilderment&qid=1730587101&s=books&sprefix=bewildermen%2Cstripbooks%2C118&sr=1-1",
+			"in_progress": true,
+			"completed": true,
+			"date_published":"2022-11-01",
+			"date_started":"2024-11-03",
+			"date_completed":"2024-11-07" ,
+			"rating": 8
+ 		},
+		{
+			"tags":["nonfiction", "journalism"],
+			"author":["Barbara Ehrenreich"],
+			"title":"Nickel and Dimed: On (Not) Getting By in America",
+			"url":"https://www.amazon.com/Nickel-Dimed-Anniversary-Barbara-Ehrenreich/dp/1250808316/ref=sr_1_1?dib=eyJ2IjoiMSJ9.nr73HktLYgnrARt-EkrwtVpKZMFswxUGzjjVC9ED-bvgwnGTRrr2lSpF6NyqcIpYhpRJCp31EfhTAZoFZceDkvlZXla8djwdUBK4BnZkOhiAu2b5B1RXeR97fa08N_0jSx5UQUKe9Kizm-0kmRA-DMPx5wghU7xH7mF_v-EMxYoozoBfOxMcnOjwJJnW7LS6kEgPBNSciGQrpuMCO2mI7zSqal1TTv2cFQLJ_bfF8yQ.ZgPDpsiCyZm_Csexg0-OtENTwT7gyZCC13nOuV47gPg&dib_tag=se&keywords=nickel+and+dimed&qid=1731189475&sr=8-1",
+			"in_progress": true,
+			"completed": true,
+			"date_published":"2021-06-01",
+			"date_started":"2024-11-09",
+			"date_completed":"2024-11-18",
+			"rating": 7
+ 		},
+		{
+			"tags":["fiction"],
+			"author":["Barbara Kingsolver"],
+			"title":"Demon Copperhead",
+			"url":"https://www.amazon.com/Demon-Copperhead-Novel-Barbara-Kingsolver/dp/0063251981/ref=sims_dp_d_dex_ai_speed_loc_mtl_v5_t1_d_sccl_3_12/142-9718449-3690637?pd_rd_w=l6hav&content-id=amzn1.sym.526d27b3-2efe-4f81-8a09-4d61e1515e3b&pf_rd_p=526d27b3-2efe-4f81-8a09-4d61e1515e3b&pf_rd_r=S93YZ7JMFKKQ2MRE0AYQ&pd_rd_wg=Sw50S&pd_rd_r=52a1628d-a46c-4f39-9b5e-06040c30878a&pd_rd_i=0063251981&psc=1",
+			"in_progress": true,
+			"completed": true,
+			"date_published":"2024-08-27",
+			"date_started":"2024-11-19",
+			"date_completed":"2024-11-21",
+			"rating": 9
+ 		},
+		{
+			"tags":["nonfiction", "sociology"],
+			"author":["Matthew Desmond"],
+			"title":"Evicted: Poverty and Profit in the American City",
+			"url":"https://www.amazon.com/Evicted-Poverty-Profit-American-City/dp/0553447459/ref=sr_1_1?crid=1BAMUWLWTB9QU&dib=eyJ2IjoiMSJ9.btEYi7X_TfTyL9vtv1zx3zHBoDRwCrbZGiwcx9hAxoZ7cYnwmkw5itKnGposFVQya5yJYd2s4cDrMMjIto1gmgVajGd1nCGlCdx0aMST1gQXIK1DT3p7Z-w8U2IuGCImYOVsx5LyCNzHaQ2E0TJUbnxBqNstoCG8ruNBUlnurAWWDEnQGrLJCzdevWHI31tTwZO-4EQlPGO0C4BN22tNvLTEX02Lbs75prRhf8q1Ur8.MAfxdEkG8NpDCjydrVjHY9M9U696uamshEbAtdKY3aw&dib_tag=se&keywords=evicted&qid=1733005117&s=books&sprefix=evicted%2Cstripbooks%2C142&sr=1-1",
+			"in_progress": true,
+			"completed": true,
+			"date_published":"2017-02-28",
+			"date_started":"2024-11-26",
+			"date_completed":"2024-11-30",
+			"rating": 8
+ 		},
+		{
+			"tags":["nonfiction", "philosophy"],
+			"author":["Samir Chopra"],
+			"title":"Anxiety: A Philosophical Guide",
+			"url":"https://www.amazon.com/Anxiety-Philosophical-Guide-Samir-Chopra/dp/0691210675/ref=sr_1_1?crid=1U4LR284AON14&dib=eyJ2IjoiMSJ9.eoeaCD2lykmI2cROC6faVznAqA9TXwGd4lEfEkVtolpz2sTnVPbwF06c9Y53XsunOJxOFWVzVzTEwvjTbdmS82dlMn0XhUAkUMAwseSdRZZFbfAYSELzgmdq3YGTmU1W7sqcAbsnijKSZb17xJLqPi_oHLeZcSyejBn1oKGIVxevRsfF5nx02xTPwgULjq940dcVOq_vZllxMqbUOS4WWSor_Npa2g3to_N4Ac80liE.PifrgQM83MNW9-yLcLDAMVJmH9oHhF-v5D6KgEO2xYU&dib_tag=se&keywords=anxiety+a+philosophical+guide&qid=1734299603&sprefix=anxiety%3A+a+ph%2Caps%2C155&sr=8-1",
+			"in_progress": true,
+			"completed": true,
+			"date_published":"2024-03-19",
+			"date_started":"2024-12-09",
+			"date_completed":"2024-12-15",
+			"rating": 10
+ 		},
+		{
+			"tags":["philosophy"],
+			"author":["Friedrich Nietzsche"],
+			"title":"The Gay Science",
+			"url":"https://www.amazon.com/Nietzsche-Science-Appendix-Cambridge-Philosophy/dp/0521636450/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=&sr=",
+			"in_progress": false,
+			"date_published":"2001-09-17"
+ 		},
+		{
+			"tags":["nonfiction", "philosophy"],
+			"author":["Elizabeth Anderson"],
+			"title":"Hijacked: How Neoliberalism Turned the Work Ethic against Workers and How Workers Can Take It Back",
+			"url":"https://www.amazon.com/Hijacked-Neoliberalism-against-Workers-Lectures/dp/1009275437/ref=sr_1_1?crid=3IKQU3P67HJHM&dib=eyJ2IjoiMSJ9.46CRfq0PgTtQYSw-BrS3uazssYn5NjglJeDaQt9g_PqfpMVytqyrkgAIypotetighjYbHWOkPf9EL9oAVJB7aRloTos9_cycDlPS4-1eijxsFrVUNDLnDlk_d7CSD71vVJaOhsAIUBOWVK0frvf5AB-indlzAEEh6mG-niDj574GYT3jY6dIPCVfOOGOG9OD2vlt-faeRYWw4xhZ0Xc7B_zHsfgxlwp_cCr001g_mTA.NHf6pm5J3coVIP-yCWMa3REtsVn8IVwTIfVZZQrcgFI&dib_tag=se&keywords=hijacked&qid=1734299637&sprefix=hijacked%2Caps%2C169&sr=8-1",
+			"in_progress": true,
+			"date_published":"2023-09-21",
+			"date_started":"2024-12-15",
+			"completed": true,
+			"date_completed":"2025-10-19",
+			"rating": 9 
+ 		},
+		{
+			"tags":["nonfiction"],
+			"author":["Ezra Klein", "Derek Thompson"],
+			"title":"Abundance",
+			"url":"https://www.amazon.com/Abundance-Progress-Takes-Ezra-Klein/dp/1668023482",
+			"in_progress":true,
+			"completed":true,
+			"rating":7,
+			"date_published":"2025-03-18", 
+			"date_started":"2025-12-31", 
+			"date_completed":"2026-01-07"
+ 		},
+		{
+			"tags":["nonfiction", "philosophy"],
+			"author":["Michael Patrick Lynch"],
+			"title":"The Internet of Us",
+			"url":"https://www.amazon.com/Internet-Us-Knowing-More-Understanding/dp/1631492772",
+			"in_progress": true,
+			"date_published":"2017-05-09",
+			"date_started":"2025-10-19"
+ 		},
+		{
+			"tags":["nonfiction", "economics"],
+			"author":["Wolfgang Munchau"],
+			"title":"Kaput",
+			"url":"https://www.amazon.com/dp/B0DLWZBZST/?bestFormat=true&k=kaput%20the%20end%20of%20the%20german%20miracle%20wolfgang%20m%C3%BCnchau",
+			"in_progress": false,
+			"date_published":"2024-11-07"
+ 		},
+		{
+			"tags":["fiction"],
+			"author":["Han Kang"],
+			"title":"Human Acts",
+			"url":"https://www.amazon.com/Human-Acts-Novel-Han-Kang/dp/110190674X?hvadid=80745502739821&hvnetw=s&hvqmt=e&hvbmt=be&hvdev=c&hvlocint&hvlocphy=102057&hvtargid=pla-4584345029738107&psc=1",
+			"in_progress": false,
+			"date_published":"2017-10-17"
+ 		},
+		{
+			"tags":["fiction"],
+			"author":["Milan Kundera"],
+			"title":"The Book of Laughter and Forgetting",
+			"url":"https://www.amazon.com/Book-Laughter-Forgetting-Milan-Kundera/dp/0060932147?s=books",
+			"in_progress": true,
+			"date_published":"2025-04-07",
+			"date_started":"2025-10-19"
+ 		},
+		{
+			"tags":["fiction"],
+			"author":["Fyodor Dostoevsky"],
+			"title":"Crime and Punishment",
+			"url":"https://www.amazon.com/Punishment-Penguin-Classics-Fyodor-Dostoyevsky-ebook/dp/B002RI936U/ref=sr_1_2?crid=ENVDOTXH1TY9&dib=eyJ2IjoiMSJ9.tPff-ABAZj7H8Ck1FXc2XKXUAtcVUwUE4Xsxi4QgtcJjTmf4bBP5GLIt2K9UmMvd3dfmJy8M2nCDHAJ7n-3Y407xCKZ1JdvgOAShzRPonFPK23rPfYp_UlY13tDfrM1UMO2zgxLjx6B5OY6-rUssEJWqljn-XkItJVnU0878NHfrAGKNTNiBwWUwV8pFo7-RIGfdwynkNFOimno5SO1AryZQU4HH8tnVHuFCCCRkuKM.avGHy4oXrus6cxYYDhK9Qur20iwqNISKfEMKK6qyZ04&dib_tag=se&keywords=crime+and+punishment&qid=1730651985&s=digital-text&sprefix=crime+and+punishmen%2Cdigital-text%2C106&sr=1-2",
+			"in_progress": false,
+			"date_published":"2003-01-30"
+ 		},
+		{
+			"tags":["nonfiction", "history", "law"],
+			"author":["Akhil Reed Amar"],
+			"title":"America''s Constitution",
+			"url":"https://www.amazon.com/Americas-Constitution-Akhil-Reed-Amar/dp/0812972724/ref=sr_1_1?crid=1H10JLGX21AGF&dib=eyJ2IjoiMSJ9.KMrK_zYnBDGeMdI657iCgo0okmRG0jWXDjAmEDH0hGRGknrboaBqiRXKi31tBDDkaBQJ6thRkqbTklFiv9zHMtPVV3HYrM1w6okCcQ21lSygD2NnmfbEiD81Uh9ejLjnsvJ1k8H1PjSxtwx_QrQRj1GxEBQ6R_Ref6Ef-GeqyjGscbT8bScGfq6iVC_EIEGcQEtSVrjNtq8ZiTDXFatCP7rFv5noCHViEc3a-C0DL78.7g2LOikxDMUSGCEnSdsvcFDYgTQzWtGLS9xedm2eo6A&dib_tag=se&keywords=america%27s+constitution&qid=1732234719&sprefix=america%27s+constitution%2Caps%2C212&sr=8-1",
+			"in_progress": false,
+			"date_published":"2006-09-12"
+ 		},
+		{
+			"tags":["computer-science", "nonfiction"],
+			"author":["David D. Clark"],
+			"title":"Designing an Internet",
+			"url":"https://www.amazon.com/Designing-Internet-Information-Policy-David-ebook/dp/B08BT5CV4R/ref=sr_1_1?crid=1Z7ULO9C0SCWF&dib=eyJ2IjoiMSJ9.5CVyXDNkeS2uzorm66nQEvjlJeCHWdcL_UNfvjKAkv5RW4bZ0OTJqIG_bC_GHHf03re20ov9hwNsm8OXP01q8JYwrGjoKtDHfFA8W6R3xWpCLknIRxYd6WnbbFYARPLAFWJnIMBWGeCQY_2puRocHnLAkKV3APOpYdbJldFQ2pCUkjr6Dsk0rdrIaUolpnBRjCD4ywkPB4T8xQ7JuFWGcUTkiq--Z9Wg7uYQpkVkCM0.qcAa3cj-pe-p1xtDzsdZk69ON19dFCe5kiSZfoit_Cw&dib_tag=se&keywords=designing+an+internet&qid=1730651802&s=digital-text&sprefix=designing+an+internet%2Cdigital-text%2C120&sr=1-1",
+			"in_progress": false,
+			"date_published":"2018-10-30"
+ 		},
+		{
+			"tags":["fiction"],
+			"author":["Donna Tartt"],
+			"title":"The Goldfinch",
+			"url":"https://www.amazon.com/Goldfinch-Novel-Pulitzer-Prize-Fiction/dp/0316055433",
+			"in_progress": false,
+			"date_published":"2013-10-22"
+ 		},
+		{
+			"tags":["fiction"],
+			"author":["Min Jin Lee"],
+			"title":"Pachinko",
+			"url":"https://www.amazon.com/Pachinko-National-Book-Award-Finalist/dp/1455563935/ref=tmm_hrd_swatch_0?_encoding=UTF8&qid=&sr=",
+			"in_progress": false,
+			"date_published":"2017-02-07"
+ 		},
+		{
+			"tags":["fiction"],
+			"author":["Gabriel Garcia Marquez"],
+			"title":"One Hundred Years of Solitude",
+			"url":"https://www.amazon.com/Hundred-Solitude-Harper-Perennial-Classics/dp/0060883286/ref=sr_1_1?crid=2OR5P986X7CPU&dib=eyJ2IjoiMSJ9.AgB5wfcL-x-W0qfQoYce2HyMiPL_vmBImSPwtxTMugyrWZuOA-DU3weY8U_pXHiCOeOqdtIalPf0Xo46cF1rBkbayda-paWBJSQi1nXYpiGJrL8z-51KNLVHN0B7xfFvWBNkusWSBuQGxGXzcQoqOwYPWgGUzrHD4H2HNwvw_3mse49FUXxm9YTNNZOIP7N5YUsKuA394YcIuzLAf6fAUNNaqCPTi_77UQ0cjf5pE6U.WwWWfhpZNmXaYJw2VnWtY6Pkt6N5Y90cV7zYBtdLSiM&dib_tag=se&keywords=one+hundred+years+of+solitude&qid=1731035936&s=books&sprefix=one+hund%2Cstripbooks%2C174&sr=1-1",
+			"in_progress": false,
+			"date_published":"2006-02-21"
+ 		},
+		{
+			"tags":["fiction"],
+			"author":["Roberto Bolano"],
+			"title":"2666",
+			"url":"https://www.amazon.com/dp/0312429215?ref=ppx_yo2ov_dt_b_fed_asin_title",
+			"in_progress": false,
+			"date_published":"2009-09-01"
+ 		}
+	]
+}

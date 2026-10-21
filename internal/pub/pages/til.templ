@@ -1,0 +1,76 @@
+package pages
+
+import (
+	"internal/pub/shared"
+	"internal/pub/styles"
+	"internal/pub/partials"
+	"internal/ds"
+	"strings"
+)
+
+templ TILPage(pages_metadata *ds.PagesMetadata, posts_metadata *ds.PostsMetadata, tags *ds.OrderedList[string], filter_tags ds.Set[string]) {
+	@shared.Page("TIL", pages_metadata) {
+		<div>
+		<article class={styles.ProseArticle}>
+		<h1>TODAY I LEARNED</h1>
+
+		@TILFiller()
+
+		@TILTagsNavigation(tags) // Filter for til post tags 
+
+		@partials.Search("/til/search", "#til-posts")
+
+		@TILPosts(posts_metadata, filter_tags, "")
+
+		</article>
+		</div>
+	}
+}
+
+templ TILFiller() {
+	<p>Short notes on things I picked up along the way. For longer write-ups, see the <a href="/blog/">blog</a>.</p>
+}
+
+templ TILTagsNavigation(tags *ds.OrderedList[string]) {
+	<div id="tags-navbar" class="flex flex-wrap gap-2 mt-4">
+		<p class="not-prose !my-0">Tags: </p>
+		for _, v := range *tags {
+			<div> <label> { v } </label> 
+				<input value="1" 
+					type="checkbox" 
+					hx-post="/til/" 
+					hx-target="#til-posts"
+					hx-swap="outerHTML"name={ v } 
+					hx-include="next input"/> 
+				<input type="hidden" name={ v } value="0"/> 
+			</div>
+		}
+	</div>
+}
+
+templ TILPosts(posts_metadata *ds.PostsMetadata, selected_tags ds.Set[string], search string) {
+	<dl id="til-posts">
+		for _, post := range *posts_metadata {
+			{{ 
+			search_match := strings.HasPrefix(strings.ToLower(post.Title), strings.ToLower(search)) 
+			tags_match := selected_tags.SubsetOf(post.Tags)
+			}}
+
+			if search_match && tags_match {
+				<dt class="!mt-2">
+				{{ builder_string := "" }}
+				for _, tag := range post.TagsFixed {
+					if builder_string == "" {
+						{{ builder_string = tag }}
+					} else {
+						{{ builder_string = builder_string + ", " + tag }}
+					}
+				}
+				<span class="font-mono">{ post.Date.Format("01-02-2006") }</span>
+				<a class="font-bold" id={ post.PostID } href={ post.Path }> { post.Title } </a>
+				<span class="text-gray-500">{ "(" + builder_string + ")" }</span>
+				</dt>
+			}
+		}
+	</dl>
+}

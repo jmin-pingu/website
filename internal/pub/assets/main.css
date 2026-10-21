@@ -1841,6 +1841,9 @@
   .\!mt-0 {
     margin-top: calc(var(--spacing) * 0) !important;
   }
+  .\!mt-2 {
+    margin-top: calc(var(--spacing) * 2) !important;
+  }
   .\!mt-4 {
     margin-top: calc(var(--spacing) * 4) !important;
   }
@@ -2218,6 +2221,9 @@
   .align-middle {
     vertical-align: middle !important;
   }
+  .font-mono {
+    font-family: monospace !important;
+  }
   .text-3xl {
     font-size: var(--text-3xl) !important;
     line-height: var(--tw-leading, var(--text-3xl--line-height)) !important;
@@ -2266,6 +2272,9 @@
   }
   .text-blue-700 {
     color: var(--color-blue-700) !important;
+  }
+  .text-gray-500 {
+    color: var(--color-gray-500) !important;
   }
   .text-green-500 {
     color: var(--color-green-500) !important;

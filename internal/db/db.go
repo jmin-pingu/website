@@ -12,14 +12,6 @@ import (
 
 // TODO: full conn_id or infer from environment variables
 func GetConnection(db_name string) (*pgxpool.Pool, error) {
-	var (
-		err error
-		db  *pgxpool.Pool
-	)
-
-	if db != nil {
-		return db, nil
-	}
 	// Init connection to PostgreSQL db
 	f, err := os.Open(os.Getenv("POSTGRES_PASSWORD_FILE"))
 	defer f.Close()

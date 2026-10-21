@@ -1,0 +1,93 @@
+{
+	"books": [
+		{
+			"tags":["textbook", "computer-science"],
+			"author":["Ian Miell"],
+			"title":"Learn Bash the Hard Way",
+			"url":"https://www.amazon.com/Learn-Bash-Hard-Way-Master-ebook/dp/B078R24QPS",
+			"in_progress": true,
+			"completed": true,
+			"date_published":"2017-12-31",
+			"date_started":"2025-01-09",
+			"date_completed":"2025-01-13",
+			"rating": 7
+ 		},
+		{
+			"tags":["textbook", "computer-science"],
+			"author":["Robert Nystrom"],
+			"title":"Crafting Interpreters",
+			"url":"https://www.amazon.com/Crafting-Interpreters-Robert-Nystrom/dp/0990582930/ref=sr_1_1?crid=3CW1K0MUIGZ2W&dib=eyJ2IjoiMSJ9.ZO7Jscf8AVSGgaY0lk3GoQpVF1ioDfvIjneDaTIWFsrXF26xdY-vBAGk1SVh2F1i5QWnt7vqx-NgljQdJxBbo3DOFNwseCuZHEkhlUIWUZIHebLMNM2_zKvdFVS9-eN2SamDMECykW0IIJ18B5jkXtWqDT2edqGc_1Hq-54XrmMUzgD-Oa8aH0T2RhkLTEQlgbmd-aFrplQWcHnL7jOtCeA4NSQx2dOn9DEXYkZn79U.17zCJ3HAuLw1AZQwtUGTJZ0W3SDdkOWPbP7P-pDkl1A&dib_tag=se&keywords=crafting+interpreters&qid=1732038592&sprefix=crafting+interpreters%2Caps%2C164&sr=8-1",
+			"in_progress": true,
+			"date_published":"2021-07-28",
+			"date_started":"2024-12-14"
+ 		},
+		{
+			"tags":["textbook", "computer-science"],
+			"author":["Brendan Gregg"],
+			"title":"Systems Performance",
+			"url":"https://www.amazon.com/Systems-Performance-Brendan-Gregg/dp/0136820158",
+			"in_progress": true,
+			"date_published":"2020-12-16",
+			"date_started":"2024-11-22"
+ 		},
+		{
+			"tags":["textbook", "computer-science"],
+			"author":["Michael Kerrisk"],
+			"title":"The Linux Programming Interface",
+			"url":"https://www.amazon.com/Linux-Programming-Interface-System-Handbook/dp/1593272200/ref=sr_1_1?crid=24CZ2JDO01C7W&dib=eyJ2IjoiMSJ9.quscXErgFbime2B8MqvKjNKdpBB7NWUlVmFg_7D-7KRq4Hmv6OOg5t8zmnMA2A4u7eQorRuOgeLpM9mJDua321vt0g_kDNvMftFfG5gLc2W026A72PS75lTK7nFhO6dytBoRjtQuXtTI1Q_uwZ8ojNg27Y1pwt2tBGWIDc5MWg1XE_Oi1w-xpoaXU6dfjFM6a-cbKuLSwrK_xcl6jUAybV4hT1U2xLzrnAw3S9HzfHc.ppRPVwXd12nBq_tu10Usv1xxtDsoDnuRP54Xlf8KZQM&dib_tag=se&keywords=linux+programming+interface&qid=1732038506&sprefix=linux+pro%2Caps%2C170&sr=8-1",
+			"in_progress": true,
+			"date_published":"2010-10-28",
+			"date_started":"2024-11-19"
+ 		},
+		{
+			"tags":["textbook", "statistics"],
+			"author":["E.L. Lehmann", "George Casella"],
+			"title":"Theory of Point Estimation",
+			"url":"https://www.amazon.com/Theory-Point-Estimation-Springer-Statistics/dp/0387985026/ref=sr_1_1?crid=1O5YJEQ0R8EMV&dib=eyJ2IjoiMSJ9.tKU-0bnwcA0K3D6lqq0yfgNyDqm2Pcc-jOKVTsRr6g6_7g_uxsAlbnAUNu-i2hYRUHC9K-fkR0obosSwzp12QsXdbCs7mpuwUCqcyp6Q6Igz73_9iFs9fAdbB6LSbe1GJp-CAQHBn8LsqmNTAFni-leiGF5NmrcjkhZHH75xXe6PTbUTvbjNKYhY9QnHeYvc7N13r5kE6oS57f0CAevoaO1gjVbXFnyZPxCAHLkHNwc.XjV3QU909JCt4_PDtH11eXaly1-WGFQ99QDdnpBaSIk&dib_tag=se&keywords=theory+of+point+estimation&qid=1730587234&s=books&sprefix=theory+of+point+estimation%2Cstripbooks%2C127&sr=1-1",
+			"in_progress":false,
+			"date_published":"1998-08-03"
+ 		},
+		{
+			"tags":["textbook", "statistics"],
+			"author":["Michael Sipser"],
+			"title":"Introduction to the Thoery of Computation",
+			"url":"https://www.amazon.com/Introduction-Theory-Computation/dp/0357670582/ref=sr_1_4?crid=2G0K0V4SOTULN&dib=eyJ2IjoiMSJ9.SbWGml-eaqKf4Xkhh1BHWixAWN40pB5A0JP35NDCNuHpxKcOMhQm3-2UtrAgRQNSYtjU3-UXuG09y5XuEw3XyuK7JpJjiEHCvGNhbFiLnjYyF-mJ7yVwNwNL4SmTiQbQUmip728KTKBRZu7S65oYU37ndOftrhKK0FXv6EQ4Fwu53pNpfnx-2rCX2RK3TRo6cEql3IsTcyVJnPq3gskMv0yHTrABCooKEJFBIpaECVo.264kPIlLQ1Q4nOmAJH7QT1EsazxRPQZ6gwhZn39NRFs&dib_tag=se&keywords=introduction+to+theory+of+computation&qid=1730587701&s=books&sprefix=introduction+to+theory+of+computation%2Cstripbooks%2C118&sr=1-4",
+			"in_progress":false, 
+			"date_published":"2021-01-29"
+ 		},
+		{
+			"tags":["textbook", "statistics"],
+			"author":["Trevor Hastie", "Robert Tibshirani", "Jerome Friedman"],
+			"title":"The Elements of Statistical Learning: Data Mining, Inference, and Prediction",
+			"url":"https://www.amazon.com/Elements-Statistical-Learning-Prediction-Statistics/dp/0387848576/ref=sr_1_1?crid=3RZRD6N5JSKJO&dib=eyJ2IjoiMSJ9.C_nJgD_mHjCmLc16t3zPBfr9_-Tw8Ob7vT1CU3tZ6JdLW88PF_IzfSmM6kdgrM5AwGJy3Vve0Ifsy0E6j5B9TKgb4I6i1Z61qmnpKWKFTtazqFpzf5H4IWeJRDcNjzfi6aB2J_GiMiobviOSD5Un7E8jbdIhOe3lNDZXECWZU3xpHko3ovywDuq_n9OnC7hJiP9ohGr6J_cniyXb0xq9sdqfWkO1-UM2LDdBV7qu0Lk.RAMGPKm-eKIQcJCXN2wWX2SISFMwR0-1DKcdtdX0kj8&dib_tag=se&keywords=elements+of+statistical+learning&qid=1730587394&s=books&sprefix=elements+of+statistical+learning%2Cstripbooks%2C117&sr=1-1",
+			"in_progress":false, 
+			"date_published":"2009-02-01"
+ 		},
+		{
+			"tags":["textbook", "physics"],
+			"author":["Hugh D. Young"],
+			"title":"University Physics with Modern Physics",
+			"url":"https://www.amazon.com/UNIVERSITY-PHYSICS-MODERN-HUGH-YOUNG/dp/9353949297/ref=sr_1_1?crid=1AI3OGFC4F6EB&dib=eyJ2IjoiMSJ9.S9DupELO72g7-qSxjzOzRJCUCkL5MXSsWMMZ-nE_uAf-oiMQ62HXvC91c1Z_8MfHLPmyPtHcDgGa9Cp97CBjJ7aU6n3whh0X6G3IMMFJqpo3N8hDCLRhmNzRsziM2u7CkVoz1wpGica3YCk9jNXavpV6AdwnXOBUKJgEAEHQZHu1Hw8tD2H_KongJ0p9PEH9nuRHROBF4L6QnbWwkOox9hr6F5LRfCn_tljUUxXPOEQ.ASYhF_vCbedgWLUk8sTrzQJgSuuZAckhVsbNK58QrVE&dib_tag=se&keywords=university+physics+with+modern+physics&qid=1730587512&s=books&sprefix=university+physics+with+modern+physics%2Cstripbooks%2C114&sr=1-1",
+			"in_progress":false, 
+			"date_published":"2021-01-01"
+ 		},
+		{
+			"tags":["textbook", "computer-science"],
+			"author":["John L. Hennessy", "David A. Patterson"],
+			"title":"Computer Architecture: A Quantitative Approach",
+			"url":"https://www.amazon.com/Computer-Architecture-Quantitative-Approach-Kaufmann/dp/0128119055/ref=sr_1_1?crid=1BJJHIW04J7EI&dib=eyJ2IjoiMSJ9.IpTln5I0mMCzf5uRoNbUDB3Xq5je81crZE9SiCUyTh8oxZSUeVfV4VmIZ_UMZL32op7z2nm_dOTGtkmql0ouarBlrKFXiohPC93nsQZ48ATwpqploXcrLWQjO72XaFEDtX_1QU_Cgey82T6e-9LbES6qwr2QCXaCGJ4Xq-WCZ_W4kMm6c74LVJTSOnY9QOCG3CyKJNYGdbGyJAfU-uYYLZhq7Cr-Co7aNKRY_k6okHk.xbryousvZ_uV2VR7ww4zLoBq6U1zVctFWVy-BVQeCuE&dib_tag=se&keywords=computer+architecture+a+quantitative+approach&qid=1730587560&s=books&sprefix=computer+architecture+a+quantitative+approac%2Cstripbooks%2C117&sr=1-1",
+			"in_progress":true, 
+			"date_started":"2024-11-03",
+			"date_published":"2017-12-07"
+ 		},
+		{
+			"tags":["textbook", "mathematics"],
+			"author":["J.A. Bondy", "U.S.R. Murty"],
+			"title":"Graph Theory",
+			"url":"https://www.amazon.com/Graph-Theory-Graduate-Texts-Mathematics/dp/1846289696/ref=sr_1_8?crid=2A8NYWDM4O6JE&dib=eyJ2IjoiMSJ9.s82DGKXqIgP4pPmZh4lGZqTYSS_OwJxyLShaBxta1LTy5kEX03nwW7M_zNSoxgGdMCrR-bR0iP0aJBpCHam2r1rxHHIwn7qSavxR8nFcBN_gxhBLxJZiKnDt088tDelzMmpnYT_FK8MnkStj1pbIF1YOiGtYBvQd2998GXq52l3qVRDxhikib22G5R0ccPS04XAUtEgOv_yY8ZB7sB_obuxDPBNVHh_UhKQC2Tfb4Lrl-FZfxsCo1Xtu_2O7ERG7Q1JxQ1cCrrxjm8QsWtjmE3UCHzLdCemzEbFGTJz2QA4.o01cAom43Q5rBKc7dPl4L0brHW8iYd2zta-bZ9FwayM&dib_tag=se&keywords=graph+theory&qid=1730587602&s=books&sprefix=graph+theor%2Cstripbooks%2C148&sr=1-8",
+			"in_progress":true, 
+			"date_started":"2024-11-03",
+			"date_published":"2008-01-10"
+ 		}
+	]
+}

@@ -24,11 +24,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	// db.InitBooks(dbpool)
-	// db.InitPosts(dbpool)
-	dbpool.Close()
+	defer dbpool.Close()
+	handlers.DBPOOL = dbpool
 
-	handlers.RenderPosts()
+	db.InitTIL(dbpool) // Create the table on first run so GetTIL doesn't fail
 	handlers.SetUpRoutes()
 
 	port := "8080"

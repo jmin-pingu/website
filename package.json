@@ -14,7 +14,7 @@
     "server": "nodemon --watch './**/*.go' --watch './internal/pub/**/*.templ' --signal SIGTERM --exec 'go' run cmd/run/main.go",
     "browser-sync": "browser-sync start --proxy 'localhost:8080' --files 'internal/pub/assets/**/*.css' 'internal/pub/**/*.templ' --no-open",
     "templ": "templ generate --watch",
-    "server:dev": "nodemon -e go,templ,md --watch './**/*.go' --watch './internal/pub/**/*.templ' --watch 'data/blog_posts' --signal SIGTERM --exec 'make db-load-posts && go run cmd/run/main.go'",
+    "server:dev": "nodemon -e go,templ,md --watch './**/*.go' --watch './internal/pub/**/*.templ' --watch 'data/posts' --watch 'data/til' --signal SIGTERM --exec 'make db-sync && go run cmd/run/main.go'",
     "dev": "concurrently -k -n templ,css,server,sync \"npm run templ\" \"npm run tailwind\" \"npm run server:dev\" \"npm run browser-sync\""
   },
   "dependencies": {

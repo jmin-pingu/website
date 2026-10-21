@@ -10,7 +10,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var VALID_RELATION = []string{"books", "posts"}
+var VALID_RELATION = []string{"books", "posts", "til", "sync"}
 
 func main() {
 	if len(os.Args) <= 2 {
@@ -44,6 +44,7 @@ func main() {
 	// NOTE: consider if InitPosts/InitBooks API is worth it
 	db.InitPosts(dbpool)
 	db.InitBooks(dbpool)
+	db.InitTIL(dbpool)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to connect to %v: %v\n", os.Getenv("POSTGRES_DB"), err)
@@ -55,6 +56,14 @@ func main() {
 		db.UploadToBooks(dbpool, paths)
 	case "posts":
 		db.UploadToPosts(dbpool, paths)
+	case "til":
+		db.UploadToTIL(dbpool, paths)
+	case "sync":
+		if len(paths) != 1 {
+			fmt.Println("Usage: upload sync [PATH_TO_DATA_FOLDER]")
+			os.Exit(1)
+		}
+		db.SyncContent(dbpool, paths[0])
 	}
 	log.Println("upload success")
 }

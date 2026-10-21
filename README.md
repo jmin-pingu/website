@@ -26,7 +26,8 @@ internal/
     └── assets/   # Static files (CSS, images, fonts)
 
 data/
-├── blog_posts/   # Markdown blog post files
+├── posts/        # Markdown blog post files
+├── til/          # Markdown TIL files
 ├── books.json    # Reading list data
 └── resources.md  # Resources page content
 ```

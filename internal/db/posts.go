@@ -69,16 +69,27 @@ func InitPosts(dbpool *pgxpool.Pool) {
 	}
 }
 
-func GetPosts(dbpool *pgxpool.Pool) []*Post {
+func GetPosts(dbpool *pgxpool.Pool) ([]*Post, error) {
 	query := `SELECT * FROM posts WHERE display = 'true' ORDER BY date DESC;`
 
 	var posts []*Post
 	err := pgxscan.Select(context.Background(), dbpool, &posts, query)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "`GetPosts` failed: %v\n", err)
-		os.Exit(1)
+	return posts, err
+}
+
+// GetPostByLink returns nil if no displayed post has that link
+func GetPostByLink(dbpool *pgxpool.Pool, link string) (*Post, error) {
+	query := `SELECT * FROM posts WHERE link = $1 AND display = 'true';`
+
+	var post Post
+	err := pgxscan.Get(context.Background(), dbpool, &post, query, link)
+	if pgxscan.NotFound(err) {
+		return nil, nil
 	}
-	return posts
+	if err != nil {
+		return nil, err
+	}
+	return &post, nil
 }
 
 func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, link string, date time.Time, display bool, content string) {
@@ -117,7 +128,9 @@ func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, l
 	}
 }
 
-func UploadToPosts(dbpool *pgxpool.Pool, paths []string) {
+// UploadToPosts returns the links it uploaded
+func UploadToPosts(dbpool *pgxpool.Pool, paths []string) []string {
+	links := make([]string, 0)
 	// NOTE: check for appropriate thing to upload
 	log.Println("--------- Uploading Paths to `posts` table ---------")
 	log.Println("paths: %v", paths)
@@ -148,7 +161,9 @@ func UploadToPosts(dbpool *pgxpool.Pool, paths []string) {
 		} else {
 			UploadPost(dbpool, "insert", tags, title, link, date, display, content)
 		}
+		links = append(links, link)
 	}
+	return links
 }
 
 func parse_md_metadata(md []byte) ([]string, string, string, bool, time.Time) {
