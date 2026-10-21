@@ -11,7 +11,7 @@ var PAGES_METADATA ds.PagesMetadata = []ds.PageMetadata{
 	ds.NewPageMetadata("TIL", "/til/"),
 	ds.NewPageMetadata("Resources", "/resources/"),
 	ds.NewPageMetadata("Projects", "/projects/"),
-	ds.NewPageMetadata("Reading List", "/reading_list/"),
+	ds.NewPageMetadata("Reading", "/reading_list/"),
 	ds.NewPageMetadata("Creative", "/creative/"),
 }
 
