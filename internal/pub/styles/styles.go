@@ -10,7 +10,7 @@ const AsideLeft = Aside + " lg:right-full lg:mr-8"
 const AsideRight = Aside + " lg:left-full lg:ml-8"
 
 const HeaderStyle = "mt-4 mb-8"
-const Nav = "flex items-center lg:text-xl gap-4"
+const Nav = "flex flex-wrap items-center lg:text-xl gap-x-4 gap-y-1"
 const PageSelected = "underline font-bold " + NavLink
-const NavLink = "hover:text-gray-500"
+const NavLink = "whitespace-nowrap hover:text-gray-500"
 const PostTitleStyling = "text-3xl font-extrabold"

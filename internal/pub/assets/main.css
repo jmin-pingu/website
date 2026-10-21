@@ -2086,11 +2086,14 @@
   .gap-2 {
     gap: calc(var(--spacing) * 2) !important;
   }
-  .gap-4 {
-    gap: calc(var(--spacing) * 4) !important;
-  }
   .gap-11 {
     gap: calc(var(--spacing) * 11) !important;
+  }
+  .gap-x-4 {
+    column-gap: calc(var(--spacing) * 4) !important;
+  }
+  .gap-y-1 {
+    row-gap: calc(var(--spacing) * 1) !important;
   }
   .self-auto {
     align-self: auto !important;
@@ -2263,6 +2266,9 @@
   .tracking-tight {
     --tw-tracking: var(--tracking-tight) !important;
     letter-spacing: var(--tracking-tight) !important;
+  }
+  .whitespace-nowrap {
+    white-space: nowrap !important;
   }
   .text-black {
     color: var(--color-black) !important;
