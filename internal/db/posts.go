@@ -25,6 +25,14 @@ const POST_INSERT = `
 	VALUES ($1, $2, $3, $4, $5, $6, $7);
 `
 
+type Operation string
+
+// Operations enum
+const (
+	Update Operation = "update"
+	Insert Operation = "insert"
+)
+
 type Post struct {
 	PostID  string
 	Tags    []string
@@ -83,7 +91,7 @@ func GetPostByLink(dbpool *pgxpool.Pool, link string) (*Post, error) {
 	return &post, nil
 }
 
-func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, link string, date time.Time, display bool, content string) {
+func UploadPost(dbpool *pgxpool.Pool, cmd Operation, tags []string, title string, link string, date time.Time, display bool, content string) {
 	var err error
 
 	lower_tags := make([]string, len(tags))
@@ -93,12 +101,29 @@ func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, l
 
 	// Values are passed as query parameters, so quotes in them can't break the SQL
 	switch cmd {
-	case "update":
-		_, err = dbpool.Exec(context.Background(), POST_UPDATE,
-			lower_tags, title, date, display, content, link)
-	case "insert":
-		_, err = dbpool.Exec(context.Background(), POST_INSERT,
-			Hash(link).String(), lower_tags, title, link, date, display, content)
+	case Update:
+		_, err = dbpool.Exec(
+			context.Background(),
+			POST_UPDATE,
+			lower_tags,
+			title,
+			date,
+			display,
+			content,
+			link,
+		)
+	case Insert:
+		_, err = dbpool.Exec(
+			context.Background(),
+			POST_INSERT,
+			Hash(link).String(),
+			lower_tags,
+			title,
+			link,
+			date,
+			display,
+			content,
+		)
 	default:
 		panic("`UploadPost`: `cmd` should either be `update` or `insert`")
 	}
@@ -106,11 +131,7 @@ func UploadPost(dbpool *pgxpool.Pool, cmd string, tags []string, title string, l
 		fmt.Fprintf(os.Stderr, "`UploadPost` failed: %v\n", err)
 		os.Exit(1)
 	}
-	if cmd == "update" {
-		fmt.Printf("\tupdated: %v\n", link)
-	} else {
-		fmt.Printf("\tinserted: %v\n", link)
-	}
+	fmt.Printf("\t%s: %v\n", cmd, link)
 }
 
 // UploadToPosts returns the links it uploaded
@@ -142,9 +163,9 @@ func UploadToPosts(dbpool *pgxpool.Pool, paths []string) []string {
 
 		// Based on contents of md file, upload or insert
 		if Exists(dbpool, "posts", "link", link) {
-			UploadPost(dbpool, "update", tags, title, link, date, display, content)
+			UploadPost(dbpool, Update, tags, title, link, date, display, content)
 		} else {
-			UploadPost(dbpool, "insert", tags, title, link, date, display, content)
+			UploadPost(dbpool, Insert, tags, title, link, date, display, content)
 		}
 		links = append(links, link)
 	}
