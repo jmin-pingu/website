@@ -1,9 +1,9 @@
 ---
-title: 'Understanding Singular Value Decomposition'
-date: 2025-04-23
+title: Understanding Singular Value Decomposition
+date: 2026-10-20
 tags: math
 link: svd
-display: true
+display: false
 ---
  
 # WHAT THE FUCK IS SVD?
